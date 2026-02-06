@@ -94,15 +94,19 @@ namespace VFM_VanillaFireModes
             float min = 0.25f,
             float max = 4f)
         {
-            Rect row = ls.GetRect(30f);
+            // Rect row = ls.GetRect(30f);
 
             float labelWidth = 120f;
             float fieldWidth = 60f;
             float gap = 10f;
 
-            Rect labelRect = new Rect(row.x, row.y, labelWidth, row.height);
-            Rect sliderRect = new Rect(labelRect.xMax + gap, row.y, row.width - labelWidth - fieldWidth - gap * 2, row.height);
-            Rect fieldRect = new Rect(sliderRect.xMax + gap, row.y, fieldWidth, row.height);
+            float labelHeight = Text.CalcHeight(label, labelWidth);
+            float rowHeight = Math.Max(labelHeight, 30f);
+            Rect row = ls.GetRect(rowHeight);
+
+            Rect labelRect = new Rect(row.x, row.y, labelWidth, rowHeight);
+            Rect sliderRect = new Rect(labelRect.xMax + gap, row.y, row.width - labelWidth - fieldWidth - gap * 2, rowHeight);
+            Rect fieldRect = new Rect(sliderRect.xMax + gap, row.y, fieldWidth, 30f);
 
             Widgets.Label(labelRect, label);
 

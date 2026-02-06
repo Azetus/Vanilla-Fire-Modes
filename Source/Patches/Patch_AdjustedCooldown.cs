@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using RimWorld;
 using Verse;
 using VFM_VanillaFireModes.Utilities;
 
@@ -10,7 +11,11 @@ namespace VFM_VanillaFireModes.Patches
     {
         static void Postfix(Verb ownerVerb, Pawn attacker, ref float __result)
         {
-            if (ownerVerb == null) return;
+            if (ownerVerb == null || attacker == null) return;
+            // if (!attacker.Drafted) return;
+            if (attacker.CurJobDef == JobDefOf.Hunt) return;
+
+            if (ownerVerb.verbProps == null) return;
             if (!ownerVerb.verbProps.IsMeleeAttack && ownerVerb.EquipmentSource != null)
             {
                 if (ownerVerb.EquipmentSource.def.IsRangedWeapon)
