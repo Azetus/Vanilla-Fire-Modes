@@ -13,9 +13,11 @@ namespace VFM_VanillaFireModes.Patches
         {
             if (ownerVerb == null || attacker == null) return;
             // if (!attacker.Drafted) return;
-            if (attacker.CurJobDef == JobDefOf.Hunt) return;
-
+            if (ownerVerb.CasterPawn is not Pawn pawn) return;
+            if (pawn.CurJobDef == JobDefOf.Hunt) return;
+            // if (attacker.CurJobDef == JobDefOf.Hunt) return;
             if (ownerVerb.verbProps == null) return;
+
             if (!ownerVerb.verbProps.IsMeleeAttack && ownerVerb.EquipmentSource != null)
             {
                 if (ownerVerb.EquipmentSource.def.IsRangedWeapon)

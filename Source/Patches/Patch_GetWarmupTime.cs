@@ -10,12 +10,10 @@ namespace VFM_VanillaFireModes.Patches
     {
         static void Postfix(Verb __instance, ref float __result)
         {
-            Pawn pawn = __instance.CasterPawn;
-            if (pawn == null) return;
-
+            if (__instance.CasterPawn is not Pawn pawn) return;
             if (pawn.CurJobDef == JobDefOf.Hunt) return;
-
             if (__instance.verbProps == null) return;
+
             if (!__instance.verbProps.IsMeleeAttack && __instance.EquipmentSource != null)
             {
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
