@@ -28,10 +28,11 @@ namespace VFM_VanillaFireModes.Patches
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
                 {
                     var mode = pawn.GetFireMode();
-                    var m = FireModeDB.GetBurstCount(mode);
+                    // var m = FireModeDB.GetBurstCount(mode, __instance.verbProps.burstShotCount);
+                    var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount);
 
                     // 锁定数值
-                    lockedBurstCount = Mathf.Max(1, Mathf.RoundToInt(__instance.verbProps.burstShotCount * m));
+                    lockedBurstCount = Mathf.Max(1, m);
                 }
             }
         }
