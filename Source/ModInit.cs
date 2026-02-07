@@ -23,49 +23,87 @@ namespace VFM_VanillaFireModes
             return "Vanilla Fire Modes";
         }
 
+        private enum TacticTab { PrecisionTab, BurstTab, SuppressionTab }
+        private TacticTab currentTab = TacticTab.PrecisionTab;
 
         private Vector2 scrollPos;
         private float lastCalculatedHeight = 1000f;
         public override void DoSettingsWindowContents(Rect inRect)
         {
+            float tabHeight = 30f;
+            float tabWidth = inRect.width / 3f;
+
+            // Precision Tab
+            GUI.color = (currentTab == TacticTab.PrecisionTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "Precision"))
+            {
+                currentTab = TacticTab.PrecisionTab;
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
+
+            // Burst Tab
+            GUI.color = (currentTab == TacticTab.BurstTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth, inRect.y, tabWidth, tabHeight), "Short Burst"))
+            {
+                currentTab = TacticTab.BurstTab;
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
+
+            // Suppression Tab
+            GUI.color = (currentTab == TacticTab.SuppressionTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 2, inRect.y, tabWidth, tabHeight), "Suppression"))
+            {
+                currentTab = TacticTab.SuppressionTab;
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
+            GUI.color = Color.white;
 
             float footerHeight = 45f;
-            Rect scrollOutRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height - footerHeight);
+            Rect scrollOutRect = new Rect(inRect.x, inRect.y + tabHeight + 10f, inRect.width, inRect.height - tabHeight - footerHeight - 15f);
             //Rect viewRect = new Rect(0f, 0f, inRect.width - 24f, lastCalculatedHeight);
             Rect viewRect = new Rect(0f, 0f, inRect.width - 24f, lastCalculatedHeight);
             Widgets.BeginScrollView(scrollOutRect, ref scrollPos, viewRect);
             Listing_Standard ls = new Listing_Standard();
             ls.Begin(viewRect);
 
-            // 精确射击
-            DrawGroup(ls,
-                "Precision",
-                ref settings.precisionAccuracy, ref settings.precisionWarmup, ref settings.precisionCooldown,
-                ref settings.precisionBurstOption,
-                ref settings.precisionBurstLinearMultiplier,
-                ref settings.precisionBurstAdditiveBonus,
-                ref settings.precisionBurstTentMaxMultiplier, ref settings.precisionBurstTentSlopeK, ref settings.precisionBurstTentPeakOffset,
-                ref settings.precisionBurstAdaptiveBonus, ref settings.precisionBurstAdaptivePeakOffset);
-
-            // 短点射
-            DrawGroup(ls,
-                "Short Burst",
-                ref settings.burstAccuracy, ref settings.burstWarmup, ref settings.burstCooldown,
-                ref settings.burstBurstOption,
-                ref settings.burstBurstLinearMultiplier,
-                ref settings.burstBurstAdditiveBonus,
-                ref settings.burstBurstTentMaxMultiplier, ref settings.burstBurstTentSlopeK, ref settings.burstBurstTentPeakOffset,
-                ref settings.burstBurstAdaptiveBonus, ref settings.burstBurstAdaptivePeakOffset);
-
-            // 压制射击
-            DrawGroup(ls, "Suppression",
-                ref settings.suppressionAccuracy, ref settings.suppressionWarmup, ref settings.suppressionCooldown,
-                ref settings.suppressionBurstOption,
-                ref settings.suppressionBurstLinearMultiplier,
-                ref settings.suppressionBurstAdditiveBonus,
-                ref settings.suppressionBurstTentMaxMultiplier, ref settings.suppressionBurstTentSlopeK, ref settings.suppressionBurstTentPeakOffset,
-                ref settings.suppressionBurstAdaptiveBonus, ref settings.suppressionBurstAdaptivePeakOffset);
-
+            switch (currentTab)
+            {
+                case TacticTab.PrecisionTab:
+                    // 精确射击
+                    DrawGroup(ls,
+                        "Precision",
+                        ref settings.precisionAccuracy, ref settings.precisionWarmup, ref settings.precisionCooldown,
+                        ref settings.precisionBurstOption,
+                        ref settings.precisionBurstLinearMultiplier,
+                        ref settings.precisionBurstAdditiveBonus,
+                        ref settings.precisionBurstTentMaxMultiplier, ref settings.precisionBurstTentSlopeK, ref settings.precisionBurstTentPeakOffset,
+                        ref settings.precisionBurstAdaptiveBonus, ref settings.precisionBurstAdaptivePeakOffset);
+                    break;
+                case TacticTab.BurstTab:
+                    // 短点射
+                    DrawGroup(ls,
+                        "Short Burst",
+                        ref settings.burstAccuracy, ref settings.burstWarmup, ref settings.burstCooldown,
+                        ref settings.burstBurstOption,
+                        ref settings.burstBurstLinearMultiplier,
+                        ref settings.burstBurstAdditiveBonus,
+                        ref settings.burstBurstTentMaxMultiplier, ref settings.burstBurstTentSlopeK, ref settings.burstBurstTentPeakOffset,
+                        ref settings.burstBurstAdaptiveBonus, ref settings.burstBurstAdaptivePeakOffset);                   
+                    break;
+                case TacticTab.SuppressionTab:
+                    // 压制射击
+                    DrawGroup(ls, "Suppression",
+                        ref settings.suppressionAccuracy, ref settings.suppressionWarmup, ref settings.suppressionCooldown,
+                        ref settings.suppressionBurstOption,
+                        ref settings.suppressionBurstLinearMultiplier,
+                        ref settings.suppressionBurstAdditiveBonus,
+                        ref settings.suppressionBurstTentMaxMultiplier, ref settings.suppressionBurstTentSlopeK, ref settings.suppressionBurstTentPeakOffset,
+                        ref settings.suppressionBurstAdaptiveBonus, ref settings.suppressionBurstAdaptivePeakOffset);
+                    break;
+            }
+            
+        
+ 
             lastCalculatedHeight = ls.CurHeight + 20f;
             ls.End();
             Widgets.EndScrollView();
@@ -160,17 +198,17 @@ namespace VFM_VanillaFireModes
             switch (option)
             {
                 case BurstShotOption.Linear:
-                    DrawSliderWithInput_Float(ls, "  Linear Mult", ref linearMult, 0.5f, 4f);
+                    DrawSliderWithInput_Float(ls, "Linear Mult", ref linearMult, 0.5f, 4f);
                     break;
 
                 case BurstShotOption.Additive:
-                    DrawSliderWithInput_Int(ls, "  Add Bonus", ref addBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "Add Bonus", ref addBonus, 0, 20);
                     break;
 
                 case BurstShotOption.Tent:
-                    DrawSliderWithInput_Float(ls, "  Max Multiplier (M)", ref tentMaxMult, 1, 4);
-                    DrawSliderWithInput_Float(ls, "  Slope (k)", ref tentSlopeK, 0f, 4f);
-                    DrawSliderWithInput_Int(ls, "  Peak Offset (y)", ref tentPeak, 2, 30);
+                    DrawSliderWithInput_Float(ls, "Max Multiplier ", ref tentMaxMult, 1, 4);
+                    DrawSliderWithInput_Float(ls, "Slope", ref tentSlopeK, 0f, 4f);
+                    DrawSliderWithInput_Int(ls, "Peak Offset", ref tentPeak, 2, 30);
 
                     ls.Gap(4f);
                     Rect tentGraphRect = ls.GetRect(150f).ContractedBy(2f);
@@ -184,8 +222,8 @@ namespace VFM_VanillaFireModes
 
                     break;
                 case BurstShotOption.Adaptive:
-                    DrawSliderWithInput_Int(ls, "  Extra Bonus (x)", ref adaptBonus, 0, 20);
-                    DrawSliderWithInput_Int(ls, "  Peak Offset (y)", ref adaptPeak, 2, 30);
+                    DrawSliderWithInput_Int(ls, "Extra Bonus", ref adaptBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "Peak Offset", ref adaptPeak, 2, 30);
 
                     // 绘制预览图
                     ls.Gap(4f);
@@ -265,7 +303,10 @@ namespace VFM_VanillaFireModes
             Rect sliderRect = new Rect(labelRect.xMax + gap, row.y, row.width - labelWidth - fieldWidth - gap * 2, rowHeight);
             Rect fieldRect = new Rect(sliderRect.xMax + gap, row.y, fieldWidth, 30f);
 
+            Color oldColor = GUI.color;
+            GUI.color = Color.white;
             Widgets.Label(labelRect, label);
+            GUI.color = oldColor;
 
             float tempFloat = (float)value;
             tempFloat = Widgets.HorizontalSlider(
@@ -274,7 +315,6 @@ namespace VFM_VanillaFireModes
                 (float)min,
                 (float)max,
                 true,
-                value.ToString(),
                 value.ToString("0"));
             value = (int)tempFloat;
 
