@@ -62,11 +62,6 @@ namespace VFM_VanillaFireModes.Settings
         public int suppressionBurstAdaptivePeakOffset = 5;
 
 
-
-        // 是否作用于单发武器
-        public bool applyToSingleShotWeapon = false;
-
-
         public override void ExposeData()
         {
             // --- 精确射击 (Precision) ---
@@ -107,9 +102,6 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref suppressionBurstTentPeakOffset, "suppressionBurstTentPeakOffset", 5);
             Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, "suppressionBurstAdaptiveBonus", 10);
             Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, "suppressionBurstAdaptivePeakOffset", 5);
-
-            // 是否作用于单发武器
-            Scribe_Values.Look(ref applyToSingleShotWeapon, "applyToSingleShotWeapon", false);
 
             base.ExposeData();
         }
@@ -172,9 +164,6 @@ namespace VFM_VanillaFireModes.Settings
 
             suppressionBurstAdaptiveBonus = 10;
             suppressionBurstAdaptivePeakOffset = 5;
-
-            // 是否作用于单发武器
-            applyToSingleShotWeapon = false;
         }
     }
 }
