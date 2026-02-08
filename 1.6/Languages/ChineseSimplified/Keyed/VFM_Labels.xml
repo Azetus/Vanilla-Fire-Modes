@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<VFM_Title>原版射击模式</VFM_Title>
+	<VFM_DefaultMode>默认</VFM_DefaultMode>
+	<VFM_PrecisionMode>精准射击</VFM_PrecisionMode>
+	<VFM_BurstShotMode>短点射</VFM_BurstShotMode>
+	<VFM_SuppressionMode>压制射击</VFM_SuppressionMode>
+	<VFM_GizmoLabel>切换射击模式</VFM_GizmoLabel>
+</LanguageData>

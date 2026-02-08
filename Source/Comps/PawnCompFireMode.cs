@@ -2,6 +2,8 @@
 using Verse.Sound;
 using Verse;
 using VFM_VanillaFireModes.Settings;
+using VFM_VanillaFireModes.Utilities;
+using UnityEngine;
 
 namespace VFM_VanillaFireModes.Comps
 {
@@ -26,6 +28,7 @@ namespace VFM_VanillaFireModes.Comps
             {
                 yield return new Command_Action
                 {
+                    icon = GetIconFor(curMode),
                     defaultLabel = GetLabelFor(curMode),
                     defaultDesc = "Switch Fire Mode",
                     action = delegate
@@ -50,6 +53,17 @@ namespace VFM_VanillaFireModes.Comps
                 case FireMode.Burst: return "Burst";
                 case FireMode.Suppression: return "Suppression";
                 default: return "Default";
+            }
+        }
+
+        private Texture2D GetIconFor(FireMode mode)
+        {
+            switch (mode)
+            {
+                case FireMode.Precision: return VFM_IconTexture.VFM_Precision_Icon;
+                case FireMode.Burst: return VFM_IconTexture.VFM_Burst_Icon;
+                case FireMode.Suppression: return VFM_IconTexture.VFM_Suppression_Icon;
+                default: return VFM_IconTexture.VFM_Default_Icon;
             }
         }
     }

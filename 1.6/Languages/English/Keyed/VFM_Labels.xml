@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<VFM_Title>Vanilla Fire Modes</VFM_Title>
+	<VFM_DefaultMode>Default</VFM_DefaultMode>
+	<VFM_PrecisionMode>Precision</VFM_PrecisionMode>
+	<VFM_BurstShotMode>Burst Shot</VFM_BurstShotMode>
+	<VFM_SuppressionMode>Suppression</VFM_SuppressionMode>
+	<VFM_GizmoLabel>Switch Fire Mode</VFM_GizmoLabel>
+</LanguageData>
