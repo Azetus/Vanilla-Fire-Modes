@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+	<VFM_ResetButton_Label>重置设置</VFM_ResetButton_Label>
+	<VFM_Accuracy_Label>精度倍率</VFM_Accuracy_Label>
+	<VFM_Warmup_Label>瞄准时间倍率</VFM_Warmup_Label>
+	<VFM_Cooldown_Label>冷却时间倍率</VFM_Cooldown_Label>
+
+	<VFM_Burst_Calculation_Mode_Label>射击次数计算方式:</VFM_Burst_Calculation_Mode_Label>
+	<VFM_Burst_Linear_Label>线性增长</VFM_Burst_Linear_Label>
+	<VFM_Burst_Additive_Label>额外子弹</VFM_Burst_Additive_Label>
+	<VFM_Burst_Tent_Label>线性分段</VFM_Burst_Tent_Label>
+	<VFM_Burst_Adaptive_Label>自适应曲线</VFM_Burst_Adaptive_Label>
+	<VFM_Burst_Linear_input_Label>倍率</VFM_Burst_Linear_input_Label>
+	<VFM_Burst_Additive_input_Label>额外子弹</VFM_Burst_Additive_input_Label>
+	<VFM_Burst_Tent_MaxMult_input_Label>最大倍率</VFM_Burst_Tent_MaxMult_input_Label>
+	<VFM_Burst_Tent_SlopeK_input_Label>倍率衰减</VFM_Burst_Tent_SlopeK_input_Label>
+	<VFM_Burst_Tent_PeakOffset_input_Label>峰值位置</VFM_Burst_Tent_PeakOffset_input_Label>
+	<VFM_Burst_Tent_Graph_Label>X: 基础连射次数 | Y: 倍率</VFM_Burst_Tent_Graph_Label>
+	<VFM_Burst_Adaptive_ExtraBonus_input_Label>最大额外子弹数</VFM_Burst_Adaptive_ExtraBonus_input_Label>
+	<VFM_Burst_Adaptive_PeakOffset_input_Label>峰值位置</VFM_Burst_Adaptive_PeakOffset_input_Label>
+	<VFM_Burst_Adaptive_Graph_Label>X: 基础连射次数 | Y: 加成效果</VFM_Burst_Adaptive_Graph_Label>
+
 
 </LanguageData>

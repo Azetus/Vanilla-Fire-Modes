@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+	<VFM_ResetButton_Label>Reset To Default</VFM_ResetButton_Label>
+	<VFM_Accuracy_Label>Accuracy Multiplier</VFM_Accuracy_Label>
+	<VFM_Warmup_Label>Warmup Multiplier</VFM_Warmup_Label>
+	<VFM_Cooldown_Label>Cooldown Multiplier</VFM_Cooldown_Label>
+	
+	<VFM_Burst_Calculation_Mode_Label>Burst Count Scaling:</VFM_Burst_Calculation_Mode_Label>
+	<VFM_Burst_Linear_Label>Multiplier</VFM_Burst_Linear_Label>
+	<VFM_Burst_Additive_Label>Flat Bonus</VFM_Burst_Additive_Label>
+	<VFM_Burst_Tent_Label>Tent Curve</VFM_Burst_Tent_Label>
+	<VFM_Burst_Adaptive_Label>Adaptive Curve</VFM_Burst_Adaptive_Label>
 
+	<VFM_Burst_Linear_input_Label>Multiplier</VFM_Burst_Linear_input_Label>
+	<VFM_Burst_Additive_input_Label>Bonus Shots</VFM_Burst_Additive_input_Label>
+	<VFM_Burst_Tent_MaxMult_input_Label>Peak Multiplier</VFM_Burst_Tent_MaxMult_input_Label>
+	<VFM_Burst_Tent_SlopeK_input_Label>Slope</VFM_Burst_Tent_SlopeK_input_Label>
+	<VFM_Burst_Tent_PeakOffset_input_Label>Peak Position</VFM_Burst_Tent_PeakOffset_input_Label>
+	<VFM_Burst_Tent_Graph_Label>X: Base Burst Count | Y: Multiplier</VFM_Burst_Tent_Graph_Label>
+	<VFM_Burst_Adaptive_ExtraBonus_input_Label>Max Bonus</VFM_Burst_Adaptive_ExtraBonus_input_Label>
+	<VFM_Burst_Adaptive_PeakOffset_input_Label>Peak Position</VFM_Burst_Adaptive_PeakOffset_input_Label>
+	
+	<VFM_Burst_Adaptive_Graph_Label>X: Base Burst Count | Y: Bonus Efficiency</VFM_Burst_Adaptive_Graph_Label>
+	
+	
+	
 </LanguageData>

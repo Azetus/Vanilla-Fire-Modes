@@ -30,7 +30,7 @@ namespace VFM_VanillaFireModes.Comps
                 {
                     icon = GetIconFor(curMode),
                     defaultLabel = GetLabelFor(curMode),
-                    defaultDesc = "Switch Fire Mode",
+                    defaultDesc = "VFM_SwitchGizmoDesc".Translate(),
                     action = delegate
                     {
                         curMode = (FireMode)(((int)curMode + 1) % 4);
@@ -49,10 +49,10 @@ namespace VFM_VanillaFireModes.Comps
         {
             switch (mode)
             {
-                case FireMode.Precision: return "Precision";
-                case FireMode.Burst: return "Burst";
-                case FireMode.Suppression: return "Suppression";
-                default: return "Default";
+                case FireMode.Precision: return "VFM_PrecisionMode".Translate();
+                case FireMode.Burst: return "VFM_ShortBurstMode".Translate();
+                case FireMode.Suppression: return "VFM_SuppressionMode".Translate();
+                default: return "VFM_DefaultMode".Translate();
             }
         }
 

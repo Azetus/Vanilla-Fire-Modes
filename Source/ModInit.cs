@@ -20,7 +20,7 @@ namespace VFM_VanillaFireModes
 
         public override string SettingsCategory()
         {
-            return "Vanilla Fire Modes";
+            return "VFM_ModTitle".Translate();
         }
 
         private enum TacticTab { PrecisionTab, BurstTab, SuppressionTab }
@@ -35,7 +35,7 @@ namespace VFM_VanillaFireModes
 
             // Precision Tab
             GUI.color = (currentTab == TacticTab.PrecisionTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "Precision"))
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "VFM_PrecisionMode".Translate()))
             {
                 currentTab = TacticTab.PrecisionTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -43,7 +43,7 @@ namespace VFM_VanillaFireModes
 
             // Burst Tab
             GUI.color = (currentTab == TacticTab.BurstTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth, inRect.y, tabWidth, tabHeight), "Short Burst"))
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth, inRect.y, tabWidth, tabHeight), "VFM_ShortBurstMode".Translate()))
             {
                 currentTab = TacticTab.BurstTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -51,7 +51,7 @@ namespace VFM_VanillaFireModes
 
             // Suppression Tab
             GUI.color = (currentTab == TacticTab.SuppressionTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 2, inRect.y, tabWidth, tabHeight), "Suppression"))
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 2, inRect.y, tabWidth, tabHeight), "VFM_SuppressionMode".Translate()))
             {
                 currentTab = TacticTab.SuppressionTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -71,7 +71,7 @@ namespace VFM_VanillaFireModes
                 case TacticTab.PrecisionTab:
                     // 精确射击
                     DrawGroup(ls,
-                        "Precision",
+                        "VFM_PrecisionMode".Translate(),
                         ref settings.precisionAccuracy, ref settings.precisionWarmup, ref settings.precisionCooldown,
                         ref settings.precisionBurstOption,
                         ref settings.precisionBurstLinearMultiplier,
@@ -82,7 +82,7 @@ namespace VFM_VanillaFireModes
                 case TacticTab.BurstTab:
                     // 短点射
                     DrawGroup(ls,
-                        "Short Burst",
+                        "VFM_ShortBurstMode".Translate(),
                         ref settings.burstAccuracy, ref settings.burstWarmup, ref settings.burstCooldown,
                         ref settings.burstBurstOption,
                         ref settings.burstBurstLinearMultiplier,
@@ -92,7 +92,8 @@ namespace VFM_VanillaFireModes
                     break;
                 case TacticTab.SuppressionTab:
                     // 压制射击
-                    DrawGroup(ls, "Suppression",
+                    DrawGroup(ls,
+                        "VFM_SuppressionMode".Translate(),
                         ref settings.suppressionAccuracy, ref settings.suppressionWarmup, ref settings.suppressionCooldown,
                         ref settings.suppressionBurstOption,
                         ref settings.suppressionBurstLinearMultiplier,
@@ -116,7 +117,7 @@ namespace VFM_VanillaFireModes
             GUI.color = Color.white;
             // Reset button
             Rect resetRect = new Rect(footerRect.xMax - 240f, footerRect.y + 5f, 240f, 30f);;
-            if (Widgets.ButtonText(resetRect, "Reset To Default"))
+            if (Widgets.ButtonText(resetRect, "VFM_ResetButton_Label".Translate()))
             {
                 settings.ResetSetting();
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -154,11 +155,11 @@ namespace VFM_VanillaFireModes
             innerLs.Gap(6f);
 
             // 精度
-            DrawSliderWithInput_Float(innerLs, "Accuracy Multiplier", ref accuracy);
+            DrawSliderWithInput_Float(innerLs, "VFM_Accuracy_Label".Translate(), ref accuracy);
             // 瞄准时间
-            DrawSliderWithInput_Float(innerLs, "Warmup Multiplier", ref warmup);
+            DrawSliderWithInput_Float(innerLs, "VFM_Warmup_Label".Translate(), ref warmup);
             // 冷却时间
-            DrawSliderWithInput_Float(innerLs, "Cooldown Multiplier", ref cooldown);
+            DrawSliderWithInput_Float(innerLs, "VFM_Cooldown_Label".Translate(), ref cooldown);
 
             innerLs.Gap(10f);
 
@@ -184,31 +185,31 @@ namespace VFM_VanillaFireModes
             ref int adaptBonus,
             ref int adaptPeak)
         {
-            ls.Label("Burst Calculation Mode:");
+            ls.Label("VFM_Burst_Calculation_Mode_Label".Translate());
 
             ls.GapLine(6f);
 
-            if (ls.RadioButton("Linear (Multiplier)", option == BurstShotOption.Linear)) option = BurstShotOption.Linear;
-            if (ls.RadioButton("Additive (Flat Bonus)", option == BurstShotOption.Additive)) option = BurstShotOption.Additive;
-            if (ls.RadioButton("Tent (Multiplier)", option == BurstShotOption.Tent)) option = BurstShotOption.Tent;
-            if (ls.RadioButton("Adaptive (Dynamic Curve)", option == BurstShotOption.Adaptive)) option = BurstShotOption.Adaptive;
+            if (ls.RadioButton("VFM_Burst_Linear_Label".Translate(), option == BurstShotOption.Linear)) option = BurstShotOption.Linear;
+            if (ls.RadioButton("VFM_Burst_Additive_Label".Translate(), option == BurstShotOption.Additive)) option = BurstShotOption.Additive;
+            if (ls.RadioButton("VFM_Burst_Tent_Label".Translate(), option == BurstShotOption.Tent)) option = BurstShotOption.Tent;
+            if (ls.RadioButton("VFM_Burst_Adaptive_Label".Translate(), option == BurstShotOption.Adaptive)) option = BurstShotOption.Adaptive;
 
             ls.Gap(6f);
 
             switch (option)
             {
                 case BurstShotOption.Linear:
-                    DrawSliderWithInput_Float(ls, "Linear Mult", ref linearMult, 0.5f, 4f);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Linear_input_Label".Translate(), ref linearMult, 0.5f, 4f);
                     break;
 
                 case BurstShotOption.Additive:
-                    DrawSliderWithInput_Int(ls, "Add Bonus", ref addBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Additive_input_Label".Translate(), ref addBonus, 0, 20);
                     break;
 
                 case BurstShotOption.Tent:
-                    DrawSliderWithInput_Float(ls, "Max Multiplier ", ref tentMaxMult, 1, 4);
-                    DrawSliderWithInput_Float(ls, "Slope", ref tentSlopeK, 0f, 4f);
-                    DrawSliderWithInput_Int(ls, "Peak Offset", ref tentPeak, 2, 30);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_MaxMult_input_Label".Translate(), ref tentMaxMult, 1, 4);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_SlopeK_input_Label".Translate(), ref tentSlopeK, 0f, 4f);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Tent_PeakOffset_input_Label".Translate(), ref tentPeak, 2, 30);
 
                     ls.Gap(4f);
                     Rect tentGraphRect = ls.GetRect(150f).ContractedBy(2f);
@@ -216,14 +217,14 @@ namespace VFM_VanillaFireModes
 
                     Text.Font = GameFont.Tiny;
                     GUI.color = Color.gray;
-                    ls.Label("X: Base Burst Shot Count | Y: Multiplier Efficiency");
+                    ls.Label("VFM_Burst_Tent_Graph_Label".Translate());
                     GUI.color = Color.white;
                     Text.Font = GameFont.Small;
 
                     break;
                 case BurstShotOption.Adaptive:
-                    DrawSliderWithInput_Int(ls, "Extra Bonus", ref adaptBonus, 0, 20);
-                    DrawSliderWithInput_Int(ls, "Peak Offset", ref adaptPeak, 2, 30);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Adaptive_ExtraBonus_input_Label".Translate(), ref adaptBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Adaptive_PeakOffset_input_Label".Translate(), ref adaptPeak, 2, 30);
 
                     // 绘制预览图
                     ls.Gap(4f);
@@ -232,7 +233,7 @@ namespace VFM_VanillaFireModes
 
                     Text.Font = GameFont.Tiny;
                     GUI.color = Color.gray;
-                    ls.Label("X: Base Burst | Y: Applied Bonus Efficiency");
+                    ls.Label("VFM_Burst_Adaptive_Graph_Label".Translate());
                     GUI.color = Color.white;
                     Text.Font = GameFont.Small;
                     break;
