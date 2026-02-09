@@ -110,13 +110,23 @@ namespace VFM_VanillaFireModes.Utilities
         {
             return burstOption switch
             {
-                BurstShotOption.Linear => Mathf.Max(1, Mathf.RoundToInt(baseBurstCount * linearMult)),
-                BurstShotOption.Additive => Mathf.Max(1, baseBurstCount + addBonus),
+                BurstShotOption.Linear => Mathf.Max(1, handleLinear(baseBurstCount, linearMult)),
+                BurstShotOption.Additive => Mathf.Max(1, handleAdditive(baseBurstCount, addBonus)),
                 BurstShotOption.Tent => Mathf.Max(1, handleTentFunc(baseBurstCount, tentMaxMult, tentSlopeK, tentPeak)),
                 BurstShotOption.Adaptive => Mathf.Max(1, handleAdaptFunc(baseBurstCount, adaptBonus, adaptPeak)),
                 _ => baseBurstCount
             };
 
+        }
+
+        private static int handleLinear(int baseBurstCount, float linearMult)
+        {
+            return Utils.GetBurstShotCountByMultiplier(baseBurstCount, linearMult);
+        }
+
+        private static int handleAdditive(int baseBurstCount, int addBonus)
+        {
+            return Utils.GetBurstShotCountByBonus(baseBurstCount, addBonus);
         }
 
         private static int handleTentFunc(int baseBurstCount, float tentMaxMult, float tentSlopeK, int tentPeak)

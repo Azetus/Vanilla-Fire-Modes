@@ -199,16 +199,16 @@ namespace VFM_VanillaFireModes
             switch (option)
             {
                 case BurstShotOption.Linear:
-                    DrawSliderWithInput_Float(ls, "VFM_Burst_Linear_input_Label".Translate(), ref linearMult, 0.5f, 4f);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Linear_input_Label".Translate(), ref linearMult, 0.1f, 5f);
                     break;
 
                 case BurstShotOption.Additive:
-                    DrawSliderWithInput_Int(ls, "VFM_Burst_Additive_input_Label".Translate(), ref addBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Additive_input_Label".Translate(), ref addBonus, 0, 50);
                     break;
 
                 case BurstShotOption.Tent:
-                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_MaxMult_input_Label".Translate(), ref tentMaxMult, 1, 4);
-                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_SlopeK_input_Label".Translate(), ref tentSlopeK, 0f, 4f);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_MaxMult_input_Label".Translate(), ref tentMaxMult, 1, 5);
+                    DrawSliderWithInput_Float(ls, "VFM_Burst_Tent_SlopeK_input_Label".Translate(), ref tentSlopeK, 0f, 5f);
                     DrawSliderWithInput_Int(ls, "VFM_Burst_Tent_PeakOffset_input_Label".Translate(), ref tentPeak, 2, 30);
 
                     ls.Gap(4f);
@@ -223,7 +223,7 @@ namespace VFM_VanillaFireModes
 
                     break;
                 case BurstShotOption.Adaptive:
-                    DrawSliderWithInput_Int(ls, "VFM_Burst_Adaptive_ExtraBonus_input_Label".Translate(), ref adaptBonus, 0, 20);
+                    DrawSliderWithInput_Int(ls, "VFM_Burst_Adaptive_ExtraBonus_input_Label".Translate(), ref adaptBonus, 0, 50);
                     DrawSliderWithInput_Int(ls, "VFM_Burst_Adaptive_PeakOffset_input_Label".Translate(), ref adaptPeak, 2, 30);
 
                     // 绘制预览图
@@ -246,7 +246,7 @@ namespace VFM_VanillaFireModes
             string label,
             ref float value,
             float min = 0.1f,
-            float max = 4f)
+            float max = 3f)
         {
             // Rect row = ls.GetRect(30f);
 
@@ -442,20 +442,22 @@ namespace VFM_VanillaFireModes
             Text.Font = GameFont.Tiny;
             GUI.color = Color.gray;
 
+            float maxX = 30f;
+            float maxY = 5.1f;
+
             // Y 轴标签
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                float yLine = chartArea.yMax - (i / 4.1f) * chartArea.height;
+                float yLine = chartArea.yMax - (i / maxY) * chartArea.height;
                 Widgets.Label(new Rect(rect.x + 2f, yLine - 7f, 25f, 15f), i.ToString());
                 Widgets.DrawLine(new Vector2(chartArea.x, yLine), new Vector2(chartArea.xMax, yLine), new Color(1, 1, 1, 0.1f), 1f);
             }
 
-            float yPointFive = chartArea.yMax - (0.5f / 4.1f) * chartArea.height;
+            float yPointFive = chartArea.yMax - (0.5f / maxY) * chartArea.height;
             Widgets.Label(new Rect(rect.x + 2f, yPointFive - 7f, 25f, 15f), "0.5");
             Widgets.DrawLine(new Vector2(chartArea.x, yPointFive), new Vector2(chartArea.xMax, yPointFive), new Color(1, 1, 1, 0.1f), 1f);
 
-            float maxX = 30f;
-            float maxY = 4.1f;
+            
 
             // X 轴标签
             for (int i = 0; i <= 30; i += 5)
