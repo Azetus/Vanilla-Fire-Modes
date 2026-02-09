@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace VFM_VanillaFireModes.Comps
 {
-    public class PawnCompFireMode : ThingComp
+    public class VFM_PawnCompFireMode : ThingComp
     {
         private FireMode mode = FireMode.Default;
 
@@ -19,7 +19,7 @@ namespace VFM_VanillaFireModes.Comps
 
         public override void PostExposeData()
         {
-            Scribe_Values.Look(ref mode, "VFC_fireMode", FireMode.Default);
+            Scribe_Values.Look(ref mode, "VFM_fireMode", FireMode.Default);
         }
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()

@@ -11,7 +11,7 @@ namespace VFM_VanillaFireModes.Utilities
             if (pawn == null)
                 return FireMode.Default;
 
-            var comp = pawn.TryGetComp<PawnCompFireMode>();
+            var comp = pawn.TryGetComp<VFM_PawnCompFireMode>();
 
             return comp?.curMode ?? FireMode.Default;
         }
