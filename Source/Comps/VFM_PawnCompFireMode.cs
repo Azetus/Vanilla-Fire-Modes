@@ -24,7 +24,10 @@ namespace VFM_VanillaFireModes.Comps
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            if (parent is Pawn pawn && pawn.IsColonistPlayerControlled && pawn.Drafted && HasRemoteWeapon(pawn))
+            if (parent is Pawn pawn && 
+                (pawn.IsColonistPlayerControlled || pawn.IsColonyMechPlayerControlled) &&
+                pawn.Drafted &&
+                HasRemoteWeapon(pawn))
             {
                 yield return new Command_Action
                 {
