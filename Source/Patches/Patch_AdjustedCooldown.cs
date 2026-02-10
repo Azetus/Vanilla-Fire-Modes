@@ -22,7 +22,7 @@ namespace VFM_VanillaFireModes.Patches
             {
                 if (ownerVerb.EquipmentSource.def.IsRangedWeapon)
                 {
-                    var mode = attacker.GetFireMode();
+                    var mode = attacker.VFM_GetFireMode();
                     var m = FireModeDB.GetCooldown(mode);
 
                     __result *= m;

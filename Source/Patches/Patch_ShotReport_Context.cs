@@ -34,7 +34,7 @@ namespace VFM_VanillaFireModes.Patches
             {
                 if (_activeVerb.EquipmentSource.def.IsRangedWeapon)
                 {
-                    var mode = pawn.GetFireMode();
+                    var mode = pawn.VFM_GetFireMode();
                     var m = FireModeDB.GetAccuracy(mode);
 
                     __result *= m;

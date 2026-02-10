@@ -27,7 +27,7 @@ namespace VFM_VanillaFireModes.Patches
             {
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
                 {
-                    var mode = pawn.GetFireMode();
+                    var mode = pawn.VFM_GetFireMode();
                     // var m = FireModeDB.GetBurstCount(mode, __instance.verbProps.burstShotCount);
                     var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount);
 

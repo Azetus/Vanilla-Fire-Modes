@@ -6,7 +6,7 @@ namespace VFM_VanillaFireModes.Utilities
 {
     public static class PawnFireModeExtension
     {
-        public static FireMode GetFireMode(this Pawn pawn)
+        public static FireMode VFM_GetFireMode(this Pawn pawn)
         {
             if (pawn == null)
                 return FireMode.Default;

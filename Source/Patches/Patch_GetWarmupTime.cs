@@ -18,7 +18,7 @@ namespace VFM_VanillaFireModes.Patches
             {
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
                 {
-                    var mode = pawn.GetFireMode();
+                    var mode = pawn.VFM_GetFireMode();
                     var m = FireModeDB.GetWarmup(mode);
 
                     __result *= m;
