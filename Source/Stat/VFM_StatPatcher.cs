@@ -12,12 +12,12 @@ public static class VFM_StatPatcher
         InjectPart(StatDefOf.AimingDelayFactor, new VFM_FireMode_AimingDelayFactorPart());
     }
 
-    private static void InjectPart(StatDef stat, StatPart part)
+    private static void InjectPart<T>(StatDef stat, T part) where T : VFM_FireMode_StatPart, new()
     {
         if (stat.parts == null)
             stat.parts = new List<StatPart>();
 
-        if (!stat.parts.Contains(part))
+        if (!stat.parts.Any(p => p is T))
             stat.parts.Add(part);
     }
 }
