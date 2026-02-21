@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Verse;
+using VFM_VanillaFireModes.Settings;
 
 namespace VFM_VanillaFireModes.Utilities
 {
@@ -65,5 +67,20 @@ namespace VFM_VanillaFireModes.Utilities
             return Mathf.Max(1, (int)Math.Round(burstShotCount * multiplier));
         }
 
+        public static string GetFireModeLabelFor(FireMode mode)
+        {
+            switch (mode)
+            {
+                case FireMode.Precision: return "VFM_PrecisionMode".Translate();
+                case FireMode.Burst: return "VFM_ShortBurstMode".Translate();
+                case FireMode.Suppression: return "VFM_SuppressionMode".Translate();
+                default: return "VFM_DefaultMode".Translate();
+            }
+        }
+
+        public static string ToPercentString(float value)
+        {
+            return $"{value * 100f}%";
+        }
     }
 }

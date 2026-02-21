@@ -32,7 +32,7 @@ namespace VFM_VanillaFireModes.Comps
                 yield return new Command_Action
                 {
                     icon = GetIconFor(curMode),
-                    defaultLabel = GetLabelFor(curMode),
+                    defaultLabel = Utils.GetFireModeLabelFor(curMode),
                     defaultDesc = "VFM_SwitchGizmoDesc".Translate(),
                     action = delegate
                     {
@@ -46,17 +46,6 @@ namespace VFM_VanillaFireModes.Comps
         private bool HasRemoteWeapon(Pawn pawn)
         {
             return pawn.equipment?.Primary?.def.IsRangedWeapon ?? false;
-        }
-
-        private string GetLabelFor(FireMode mode)
-        {
-            switch (mode)
-            {
-                case FireMode.Precision: return "VFM_PrecisionMode".Translate();
-                case FireMode.Burst: return "VFM_ShortBurstMode".Translate();
-                case FireMode.Suppression: return "VFM_SuppressionMode".Translate();
-                default: return "VFM_DefaultMode".Translate();
-            }
         }
 
         private Texture2D GetIconFor(FireMode mode)

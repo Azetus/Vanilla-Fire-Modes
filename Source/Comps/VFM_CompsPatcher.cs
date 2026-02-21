@@ -1,7 +1,6 @@
 ﻿using Verse;
-using VFM_VanillaFireModes.Comps;
 
-namespace VFM_VanillaFireModes.Utilities
+namespace VFM_VanillaFireModes.Comps
 {
     [StaticConstructorOnStartup]
     public static class VFM_CompsPatcher

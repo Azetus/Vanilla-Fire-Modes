@@ -19,7 +19,7 @@ namespace VFM_VanillaFireModes.Patches
         public static void LockCount(Verb __instance)
         {
             if (__instance.CasterPawn is not Pawn pawn) return;
-            if (pawn.CurJobDef == JobDefOf.Hunt) return;
+            // if (pawn.CurJobDef == JobDefOf.Hunt) return;
             if (__instance.verbProps == null) return;
             if (__instance is Verb_ShootOneUse) return;
 
