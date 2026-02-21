@@ -61,6 +61,14 @@ namespace VFM_VanillaFireModes.Settings
         public int suppressionBurstAdaptiveBonus = 10;
         public int suppressionBurstAdaptivePeakOffset = 5;
 
+        // ------ 自动选择模式 (Auto Selection) ------
+        public bool enableAutoSelectionForPlayer = true;
+        public float burstMinDistance = 12f;
+        public float precisionMinDistance = 25f;
+
+
+        // ------ NPC单位是否启用开火模式 ------
+        public bool enableFireModeForNPC = true;
 
         public override void ExposeData()
         {
@@ -103,6 +111,13 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, "suppressionBurstAdaptiveBonus", 10);
             Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, "suppressionBurstAdaptivePeakOffset", 5);
 
+            // ------ 自动选择模式 (Auto Selection) ------
+            Scribe_Values.Look(ref enableAutoSelectionForPlayer, "enableAutoSelectionForPlayer", true);
+            Scribe_Values.Look(ref burstMinDistance, "burstMinDistance", 12f);
+            Scribe_Values.Look(ref precisionMinDistance, "precisionMinDistance", 25f);
+
+            // ------ NPC单位是否启用开火模式 ------
+            Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
             base.ExposeData();
         }
 
@@ -164,6 +179,16 @@ namespace VFM_VanillaFireModes.Settings
 
             suppressionBurstAdaptiveBonus = 10;
             suppressionBurstAdaptivePeakOffset = 5;
+
+
+            // ------ 自动选择模式 (Auto Selection) ------
+            enableAutoSelectionForPlayer = true;
+            burstMinDistance = 12f;
+            precisionMinDistance = 25f;
+
+
+            // ------ NPC单位是否启用开火模式 ------
+            enableFireModeForNPC = true;
         }
     }
 }

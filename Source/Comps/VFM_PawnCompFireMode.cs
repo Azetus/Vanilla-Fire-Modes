@@ -10,36 +10,63 @@ namespace VFM_VanillaFireModes.Comps
     public class VFM_PawnCompFireMode : ThingComp
     {
         private FireMode mode = FireMode.Default;
-
+        private bool enableAutoSelection = false;
         public FireMode curMode
         {
             get => mode;
             set => mode = value;
         }
 
+        public bool curEnableAutoSelection
+        {
+            get => enableAutoSelection;
+            set => enableAutoSelection = value;
+        }
+
+
         public override void PostExposeData()
         {
             Scribe_Values.Look(ref mode, "VFM_fireMode", FireMode.Default);
+            Scribe_Values.Look(ref enableAutoSelection, "VFM_autoSelection", false);
         }
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            if (parent is Pawn pawn && 
+            if (parent is Pawn pawn &&
                 (pawn.IsColonistPlayerControlled || pawn.IsColonyMechPlayerControlled) &&
                 pawn.Drafted &&
                 HasRemoteWeapon(pawn))
             {
-                yield return new Command_Action
+                if (!curEnableAutoSelection || !FireModeDB.Settings.enableAutoSelectionForPlayer)
                 {
-                    icon = GetIconFor(curMode),
-                    defaultLabel = Utils.GetFireModeLabelFor(curMode),
-                    defaultDesc = "VFM_SwitchGizmoDesc".Translate(),
-                    action = delegate
+                    yield return new Command_Action
                     {
-                        curMode = (FireMode)(((int)curMode + 1) % 4);
-                        SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                    }
-                };
+                        icon = GetIconFor(curMode),
+                        defaultLabel = Utils.GetFireModeLabelFor(curMode),
+                        defaultDesc = "VFM_SwitchGizmoDesc".Translate(),
+                        action = () =>
+                        {
+                            curMode = (FireMode)(((int)curMode + 1) % 4);
+                            SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                        }
+                    };
+                }
+                
+                if (FireModeDB.Settings.enableAutoSelectionForPlayer)
+                {
+                    yield return new Command_Toggle
+                    {
+                        defaultLabel = "VFM_AutoSelection".Translate(),
+                        defaultDesc = "VFM_AutoSelection_Desc".Translate(),
+                        isActive = () => curEnableAutoSelection,
+                        toggleAction = () =>
+                        {
+                            curEnableAutoSelection = !curEnableAutoSelection;
+                            curMode = FireMode.Default;
+                            SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                        }
+                    };
+                }
             }
         }
 

@@ -15,5 +15,24 @@ namespace VFM_VanillaFireModes.Utilities
 
             return comp?.curMode ?? FireMode.Default;
         }
+
+        public static void VFM_SetFireMode(this Pawn pawn, FireMode fireMode) {
+            if (pawn == null)
+                return;
+            var comp = pawn.TryGetComp<VFM_PawnCompFireMode>();
+
+            if (comp is VFM_PawnCompFireMode VFM_comp) {
+                VFM_comp.curMode = fireMode;
+            }
+        }
+
+        public static bool VFM_enableAutoSelection(this Pawn pawn) {
+            if(pawn == null)
+                return false;
+
+            var comp = pawn.TryGetComp<VFM_PawnCompFireMode>();
+
+            return comp?.curEnableAutoSelection ?? false;
+        }
     }
 }

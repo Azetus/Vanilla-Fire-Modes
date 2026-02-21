@@ -21,7 +21,18 @@
 	<VFM_Burst_Adaptive_PeakOffset_input_Label>Peak Position</VFM_Burst_Adaptive_PeakOffset_input_Label>
 	
 	<VFM_Burst_Adaptive_Graph_Label>X: Base Burst Count | Y: Bonus Efficiency</VFM_Burst_Adaptive_Graph_Label>
-	
-	
+
+
+
+	<VFM_AutoSelection_Label>Auto Mode Selection</VFM_AutoSelection_Label>
+	<VFM_EnableAutoSelection_Player_Label>Enable automatic fire mode selection for player-controlled pawns</VFM_EnableAutoSelection_Player_Label>
+	<VFM_EnableAutoSelection_Player_Desc>When enabled, an automatic fire mode selection button will be available.
+If you do not need this feature and prefer to keep the command bar less cluttered, you can disable it.</VFM_EnableAutoSelection_Player_Desc>
+	<VFM_EnableAutoSelection_NPC_Label>Enable automatic fire mode selection for NPCs</VFM_EnableAutoSelection_NPC_Label>
+	<VFM_EnableAutoSelection_NPC_Desc>When enabled, NPCs will automatically select fire modes based on target distance.</VFM_EnableAutoSelection_NPC_Desc>
+	<VFM_AutoSelectionThresholds_Label>Automatic Fire Mode Selection Distance Thresholds</VFM_AutoSelectionThresholds_Label>
+	<VFM_Burst_Min_Distance>Minimum Distance for Short Burst Mode</VFM_Burst_Min_Distance>
+	<VFM_Precision_Min_Distance>Minimum Distance for Precision Mode</VFM_Precision_Min_Distance>
+	<VFM_AutoSelection_Range_Preview>Current Fire Mode Distance Range</VFM_AutoSelection_Range_Preview>
 	
 </LanguageData>

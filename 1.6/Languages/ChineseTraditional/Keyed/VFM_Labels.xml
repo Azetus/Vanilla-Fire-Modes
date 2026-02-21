@@ -6,4 +6,6 @@
 	<VFM_ShortBurstMode>短點射</VFM_ShortBurstMode>
 	<VFM_SuppressionMode>壓制射擊</VFM_SuppressionMode>
 	<VFM_SwitchGizmoDesc>切換射擊模式</VFM_SwitchGizmoDesc>
+	<VFM_AutoSelection>自動切換</VFM_AutoSelection>
+	<VFM_AutoSelection_Desc>根據目標距離自動切換射擊模式</VFM_AutoSelection_Desc>
 </LanguageData>

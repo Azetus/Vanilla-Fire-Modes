@@ -9,8 +9,8 @@ namespace VFM_VanillaFireModes.ModSettingUI
 {
     internal static class VFM_SettingsWindowContents
     {
-        private enum TacticTab { PrecisionTab, BurstTab, SuppressionTab }
-        private static TacticTab currentTab = TacticTab.PrecisionTab;
+        private enum TacticTab { AutoSelectionTab, PrecisionTab, BurstTab, SuppressionTab }
+        private static TacticTab currentTab = TacticTab.AutoSelectionTab;
 
         private static Vector2 scrollPos;
         private static float lastCalculatedHeight = 1000f;
@@ -18,11 +18,19 @@ namespace VFM_VanillaFireModes.ModSettingUI
         {
 
             float tabHeight = 30f;
-            float tabWidth = inRect.width / 3f;
+            float tabWidth = inRect.width / 4f;
+
+            // Auto Selection Tab
+            GUI.color = (currentTab == TacticTab.AutoSelectionTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "VFM_AutoSelection_Label".Translate()))
+            {
+                currentTab = TacticTab.AutoSelectionTab;
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
 
             // Precision Tab
             GUI.color = (currentTab == TacticTab.PrecisionTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "VFM_PrecisionMode".Translate()))
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth, inRect.y, tabWidth, tabHeight), "VFM_PrecisionMode".Translate()))
             {
                 currentTab = TacticTab.PrecisionTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -30,7 +38,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
 
             // Burst Tab
             GUI.color = (currentTab == TacticTab.BurstTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth, inRect.y, tabWidth, tabHeight), "VFM_ShortBurstMode".Translate()))
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 2, inRect.y, tabWidth, tabHeight), "VFM_ShortBurstMode".Translate()))
             {
                 currentTab = TacticTab.BurstTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -38,7 +46,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
 
             // Suppression Tab
             GUI.color = (currentTab == TacticTab.SuppressionTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 2, inRect.y, tabWidth, tabHeight), "VFM_SuppressionMode".Translate()))
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 3, inRect.y, tabWidth, tabHeight), "VFM_SuppressionMode".Translate()))
             {
                 currentTab = TacticTab.SuppressionTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -55,6 +63,16 @@ namespace VFM_VanillaFireModes.ModSettingUI
 
             switch (currentTab)
             {
+                case TacticTab.AutoSelectionTab:
+                    // 自动切换
+                    DrawGeneralGroup(ls,
+                        "VFM_AutoSelection_Label".Translate(),
+                        ref settings.enableAutoSelectionForPlayer,
+                        ref settings.burstMinDistance,
+                        ref settings.precisionMinDistance,
+                        ref settings.enableFireModeForNPC
+                        );
+                    break;
                 case TacticTab.PrecisionTab:
                     // 精确射击
                     DrawGroup(ls,

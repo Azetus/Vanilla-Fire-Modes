@@ -6,4 +6,6 @@
 	<VFM_ShortBurstMode>Short Burst</VFM_ShortBurstMode>
 	<VFM_SuppressionMode>Suppression</VFM_SuppressionMode>
 	<VFM_SwitchGizmoDesc>Switch Fire Mode</VFM_SwitchGizmoDesc>
+	<VFM_AutoSelection>Auto Selection</VFM_AutoSelection>
+	<VFM_AutoSelection_Desc>Automatically switch firing modes based on target distance.</VFM_AutoSelection_Desc>
 </LanguageData>

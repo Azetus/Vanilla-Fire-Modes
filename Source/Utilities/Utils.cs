@@ -41,7 +41,7 @@ namespace VFM_VanillaFireModes.Utilities
             // f(x, p) = u * e^(1 - u)
             float fB = u * Mathf.Exp(1.0f - u);
 
-            // 是少多 1 发
+            // 至少多 1 发
             int bonus = Mathf.Max(1, (int)Mathf.Round(extraShot * fB));
 
             return Mathf.Max(1, burstShotCount + bonus);
@@ -81,6 +81,19 @@ namespace VFM_VanillaFireModes.Utilities
         public static string ToPercentString(float value)
         {
             return $"{value * 100f}%";
+        }
+
+        public static FireMode EvaluateByDistance(
+            float distance,
+            VanillaFireModesModSetting settings)
+        {
+            if (distance >= settings.precisionMinDistance)
+                return FireMode.Precision;
+
+            if (distance >= settings.burstMinDistance)
+                return FireMode.Burst;
+
+            return FireMode.Suppression;
         }
     }
 }
