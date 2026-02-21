@@ -5,28 +5,11 @@ using VFM_VanillaFireModes.Utilities;
 
 namespace VFM_VanillaFireModes.Patches
 {
+    [HarmonyPatch(typeof(Verb))]
+    [HarmonyPatch(nameof(Verb.TryStartCastOn), new Type[] { typeof(LocalTargetInfo), typeof(LocalTargetInfo), typeof(bool), typeof(bool), typeof(bool), typeof(bool) })]
     public static class Patch_TryStartCastOn
     {
-        [HarmonyPatch(typeof(Verb))]
-        [HarmonyPatch(nameof(Verb.TryStartCastOn), new Type[] { typeof(LocalTargetInfo), typeof(bool), typeof(bool), typeof(bool), typeof(bool) })]
-        public static class Patch_TryStartCastOn_1
-        {
-            static void Prefix(Verb __instance, LocalTargetInfo castTarg)
-            {
-                PrefixHelper(__instance, castTarg);
-            }
-        }
-
-        [HarmonyPatch(typeof(Verb))]
-        [HarmonyPatch(nameof(Verb.TryStartCastOn), new Type[] { typeof(LocalTargetInfo), typeof(LocalTargetInfo), typeof(bool), typeof(bool), typeof(bool), typeof(bool) })]
-        public static class Patch_TryStartCastOn_2
-        {
-            static void Prefix(Verb __instance, LocalTargetInfo castTarg, LocalTargetInfo destTarg)
-            {
-                PrefixHelper(__instance, castTarg);
-            }
-        }
-        private static void PrefixHelper(Verb __instance, LocalTargetInfo castTarg)
+        static void Prefix(Verb __instance, LocalTargetInfo castTarg)
         {
             if (__instance.CasterPawn is not Pawn pawn) return;
             if (pawn == null || !castTarg.IsValid)
@@ -62,7 +45,6 @@ namespace VFM_VanillaFireModes.Patches
                     }
                 }
             }
-
         }
     }
 }
