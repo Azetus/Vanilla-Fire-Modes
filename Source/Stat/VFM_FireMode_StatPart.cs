@@ -1,72 +1,62 @@
 ﻿using RimWorld;
 using Verse;
 using VFM_VanillaFireModes.Comps;
+using VFM_VanillaFireModes.Settings;
 using VFM_VanillaFireModes.Utilities;
 
 namespace VFM_VanillaFireModes.Stat
 {
-    public class VFM_FireMode_ShootingAccuracyPawnPart : VFM_FireMode_StatPart { }
-    public class VFM_FireMode_RangedCooldownFactorPart : VFM_FireMode_StatPart { }
-    public class VFM_FireMode_AimingDelayFactorPart : VFM_FireMode_StatPart { }
     public abstract class VFM_FireMode_StatPart : StatPart
     {
+        protected abstract float GetFactor(FireMode mode);
         public override void TransformValue(StatRequest req, ref float val)
         {
-            if (!req.HasThing) return;
-
-            if (req.Thing is not Pawn pawn)
-            {
-                return;
-            }
-            if (pawn == null) return;
-
-            var comp = pawn.TryGetComp<VFM_PawnCompFireMode>();
+            VFM_PawnCompFireMode? comp = TryGetComp(req);
             if (comp == null) return;
 
-
-            if (this is VFM_FireMode_AimingDelayFactorPart)
-            {
-                val *= FireModeDB.GetWarmup(comp.curMode);
-            }
-
-            else if (this is VFM_FireMode_RangedCooldownFactorPart)
-            {
-                val *= FireModeDB.GetCooldown(comp.curMode);
-            }
-
-            else if (this is VFM_FireMode_ShootingAccuracyPawnPart)
-            {
-                val *= FireModeDB.GetAccuracy(comp.curMode);
-            }
-
-
+            val *= GetFactor(comp.curMode);
         }
 
         public override string? ExplanationPart(StatRequest req)
         {
-            if (!req.HasThing) return null;
-
-            if (req.Thing is not Pawn pawn)
-            {
-                return null;
-            }
-            if (pawn == null) return null;
-
-            var comp = pawn.TryGetComp<VFM_PawnCompFireMode>();
+            VFM_PawnCompFireMode? comp = TryGetComp(req);
             if (comp == null) return null;
 
-            if (this is VFM_FireMode_AimingDelayFactorPart)
-                return "VFM_StatPart_Label".Translate(Utils.GetFireModeLabelFor(comp.curMode), Utils.ToPercentString(FireModeDB.GetWarmup(comp.curMode)));
+            var factor = GetFactor(comp.curMode);
 
-            else if (this is VFM_FireMode_RangedCooldownFactorPart)
-                return "VFM_StatPart_Label".Translate(Utils.GetFireModeLabelFor(comp.curMode), Utils.ToPercentString(FireModeDB.GetCooldown(comp.curMode)));
-
-            else if (this is VFM_FireMode_ShootingAccuracyPawnPart)
-                return "VFM_StatPart_Label".Translate(Utils.GetFireModeLabelFor(comp.curMode), Utils.ToPercentString(FireModeDB.GetAccuracy(comp.curMode)));
-
-            return null;
+            return "VFM_StatPart_Label"
+                .Translate(
+                    Utils.GetFireModeLabelFor(comp.curMode),
+                    Utils.ToPercentString(factor)
+                );
         }
 
+        private static VFM_PawnCompFireMode? TryGetComp(StatRequest req)
+        {
+
+            if (!req.HasThing) return null;
+            if (req.Thing is not Pawn pawn) return null;
+
+            return pawn.TryGetComp<VFM_PawnCompFireMode>();
+        }
+
+    }
+    public class VFM_FireMode_AimingDelayFactorPart : VFM_FireMode_StatPart
+    {
+        protected override float GetFactor(FireMode mode)
+            => FireModeDB.GetWarmup(mode);
+    }
+
+    public class VFM_FireMode_RangedCooldownFactorPart : VFM_FireMode_StatPart
+    {
+        protected override float GetFactor(FireMode mode)
+            => FireModeDB.GetCooldown(mode);
+    }
+
+    public class VFM_FireMode_ShootingAccuracyPawnPart : VFM_FireMode_StatPart
+    {
+        protected override float GetFactor(FireMode mode)
+            => FireModeDB.GetAccuracy(mode);
     }
 
 }
