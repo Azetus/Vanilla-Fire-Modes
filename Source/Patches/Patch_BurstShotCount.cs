@@ -19,7 +19,6 @@ namespace VFM_VanillaFireModes.Patches
         public static void LockCount(Verb __instance)
         {
             if (__instance.CasterPawn is not Pawn pawn) return;
-            // if (pawn.CurJobDef == JobDefOf.Hunt) return;
             if (__instance.verbProps == null) return;
             if (__instance is Verb_ShootOneUse) return;
 
@@ -28,7 +27,6 @@ namespace VFM_VanillaFireModes.Patches
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
                 {
                     var mode = pawn.VFM_GetFireMode();
-                    // var m = FireModeDB.GetBurstCount(mode, __instance.verbProps.burstShotCount);
                     var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount);
 
                     // 锁定数值
@@ -42,7 +40,6 @@ namespace VFM_VanillaFireModes.Patches
         public static void BurstShotCountPostFix(Verb __instance, ref int __result)
         {
             if (__instance.CasterPawn is not Pawn pawn) return;
-            if (pawn.CurJobDef == JobDefOf.Hunt) return;
             if (__instance.verbProps == null) return;
             if (__instance is Verb_ShootOneUse) return;
 
