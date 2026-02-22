@@ -56,6 +56,7 @@ namespace VFM_VanillaFireModes.Comps
                 {
                     yield return new Command_Toggle
                     {
+                        icon = VFM_IconTexture.VFM_Auto_Icon,
                         defaultLabel = "VFM_AutoSelection".Translate(),
                         defaultDesc = "VFM_AutoSelection_Desc".Translate(),
                         isActive = () => curEnableAutoSelection,
