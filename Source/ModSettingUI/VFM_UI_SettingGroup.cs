@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Settings;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_BurstSection;
@@ -19,12 +20,14 @@ namespace VFM_VanillaFireModes.ModSettingUI
            ref bool enableFireModeForNPC
             )
         {
+            const float Padding = 10f;
+            const float BottomSpacing = 15f;
+
             float startY = ls.CurHeight;
-            Rect groupRect = ls.GetRect(0f);
 
             Listing_Standard innerLs = new Listing_Standard();
-            Rect innerRect = new Rect(groupRect.x + 10f, startY + 10f, ls.ColumnWidth - 20f, 9999f);
-            innerLs.Begin(innerRect);
+            Rect contentRect = new Rect(0f, startY, ls.ColumnWidth, 10000f);
+            innerLs.Begin(contentRect.ContractedBy(Padding));
 
             Text.Font = GameFont.Medium;
             innerLs.Label(title);
@@ -68,9 +71,9 @@ namespace VFM_VanillaFireModes.ModSettingUI
 
             float contentHeight = innerLs.CurHeight;
             innerLs.End();
-            float finalHeight = contentHeight + 20f;
-            Widgets.DrawBox(new Rect(groupRect.x, startY, ls.ColumnWidth, finalHeight), 1);
-            ls.Gap(finalHeight + 15f);
+            float finalHeight = contentHeight + Padding * 2f;
+            Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
+            ls.Gap(finalHeight + BottomSpacing);
         }
 
         private static void DrawPreview(Listing_Standard listing, float burstMinDistance, float precisionMinDistance)
@@ -105,12 +108,16 @@ namespace VFM_VanillaFireModes.ModSettingUI
            ref int adaptBonus,
            ref int adaptPeak)
         {
+            const float Padding = 10f;
+            const float BottomSpacing = 15f;
+
             float startY = ls.CurHeight;
-            Rect groupRect = ls.GetRect(0f);
+
+            Rect contentRect = new Rect(0f, startY, ls.ColumnWidth, 10000f);
 
             Listing_Standard innerLs = new Listing_Standard();
-            Rect innerRect = new Rect(groupRect.x + 10f, startY + 10f, ls.ColumnWidth - 20f, 9999f);
-            innerLs.Begin(innerRect);
+
+            innerLs.Begin(contentRect.ContractedBy(Padding));
 
             Text.Font = GameFont.Medium;
             innerLs.Label(title);
@@ -132,9 +139,9 @@ namespace VFM_VanillaFireModes.ModSettingUI
             float contentHeight = innerLs.CurHeight;
             innerLs.End();
 
-            float finalHeight = contentHeight + 20f;
-            Widgets.DrawBox(new Rect(groupRect.x, startY, ls.ColumnWidth, finalHeight), 1);
-            ls.Gap(finalHeight + 15f);
+            float finalHeight = contentHeight + Padding * 2f;
+            Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
+            ls.Gap(finalHeight + BottomSpacing);
         }
 
 
