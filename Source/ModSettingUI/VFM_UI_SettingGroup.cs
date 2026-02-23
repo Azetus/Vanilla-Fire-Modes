@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Settings;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_BurstSection;
@@ -10,29 +11,104 @@ namespace VFM_VanillaFireModes.ModSettingUI
     {
         private const float MinDistance = 1f;
         private const float MaxDistance = 100f;
+
         public static void DrawGeneralGroup(
            Listing_Standard ls,
-           string title,
-           ref bool enableAutoSelection,
+           ref VanillaFireModesModSetting settings
+            )
+        {
+            DrawLoSSettingGroup(
+                ls,
+                ref settings.precisionWhileLoS,
+                ref settings.burstWhileLoS,
+                ref settings.suppressionWhileLoS,
+                ref settings.enableKeepBurstingWhileLoSForNpc);
+            DrawAutoSelectionSettingGroup(
+                ls,
+                ref settings.enableAutoSelectionForPlayer,
+                ref settings.burstMinDistance,
+                ref settings.precisionMinDistance,
+                ref settings.enableFireModeForNPC);
+        }
+
+        public static void DrawLoSSettingGroup(
+            Listing_Standard ls,
+            ref bool precisionWhileLoS,
+            ref bool burstWhileLoS,
+            ref bool suppressionWhileLoS,
+            ref bool enableKeepBurstingWhileLoSForNpc
+            )
+        {
+            const float Padding = 10f;
+            const float BottomSpacing = 15f;
+
+            float startY = ls.CurHeight;
+
+            Listing_Standard innerLs = new Listing_Standard();
+            Rect contentRect = new Rect(0f, startY, ls.ColumnWidth, 10000f);
+
+            innerLs.Begin(contentRect.ContractedBy(Padding));
+
+            Text.Font = GameFont.Medium;
+            innerLs.Label("VFM_KeepBurstingLos_Label".Translate());
+            Text.Font = GameFont.Small;
+            innerLs.Gap(6f);
+            innerLs.Label("VFM_KeepBurstingLos_Desc".Translate());
+            innerLs.CheckboxLabeled(
+                "VFM_PrecisionMode".Translate(),
+                ref precisionWhileLoS
+            );
+
+            innerLs.CheckboxLabeled(
+                "VFM_ShortBurstMode".Translate(),
+                ref burstWhileLoS
+            );
+
+            innerLs.CheckboxLabeled(
+                "VFM_SuppressionMode".Translate(),
+                ref suppressionWhileLoS
+            );
+
+            innerLs.GapLine();
+            innerLs.CheckboxLabeled(
+                "VFM_KeepBurstingLosNPC_Label".Translate(),
+                ref enableKeepBurstingWhileLoSForNpc
+            );
+
+
+            float height = innerLs.CurHeight;
+            innerLs.End();
+
+            float finalHeight = height + Padding * 2f;
+            Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
+            ls.Gap(finalHeight + BottomSpacing);
+        }
+
+        public static void DrawAutoSelectionSettingGroup(
+           Listing_Standard ls,
+           ref bool enableAutoSelectionForPlayer,
            ref float burstMinDistance,
            ref float precisionMinDistance,
            ref bool enableFireModeForNPC
             )
         {
+            const float Padding = 10f;
+            const float BottomSpacing = 15f;
+
             float startY = ls.CurHeight;
-            Rect groupRect = ls.GetRect(0f);
+
+            Rect contentRect = new Rect(0f, startY, ls.ColumnWidth, 10000f);
 
             Listing_Standard innerLs = new Listing_Standard();
-            Rect innerRect = new Rect(groupRect.x + 10f, startY + 10f, ls.ColumnWidth - 20f, 9999f);
-            innerLs.Begin(innerRect);
+            innerLs.Begin(contentRect.ContractedBy(Padding));
 
             Text.Font = GameFont.Medium;
-            innerLs.Label(title);
+            innerLs.Label("VFM_AutoSelection_Label".Translate());
             Text.Font = GameFont.Small;
             innerLs.Gap(6f);
             innerLs.CheckboxLabeled(
                 "VFM_EnableAutoSelection_Player_Label".Translate(),
-                ref enableAutoSelection,
+                ref enableAutoSelectionForPlayer,
                 "VFM_EnableAutoSelection_Player_Desc".Translate()
             );
 
@@ -64,13 +140,13 @@ namespace VFM_VanillaFireModes.ModSettingUI
             precisionMinDistance = newPreciseMin;
             innerLs.GapLine();
 
-            DrawPreview(innerLs, burstMinDistance,precisionMinDistance);
+            DrawPreview(innerLs, burstMinDistance, precisionMinDistance);
 
-            float contentHeight = innerLs.CurHeight;
+            float height = innerLs.CurHeight;
             innerLs.End();
-            float finalHeight = contentHeight + 20f;
-            Widgets.DrawBox(new Rect(groupRect.x, startY, ls.ColumnWidth, finalHeight), 1);
-            ls.Gap(finalHeight + 15f);
+            float finalHeight = height + Padding * 2f;
+            Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
+            ls.Gap(finalHeight + BottomSpacing);
         }
 
         private static void DrawPreview(Listing_Standard listing, float burstMinDistance, float precisionMinDistance)
@@ -105,12 +181,15 @@ namespace VFM_VanillaFireModes.ModSettingUI
            ref int adaptBonus,
            ref int adaptPeak)
         {
+            const float Padding = 10f;
+            const float BottomSpacing = 15f;
+
             float startY = ls.CurHeight;
-            Rect groupRect = ls.GetRect(0f);
+            Rect contentRect = new Rect(0f, startY, ls.ColumnWidth, 10000f);
 
             Listing_Standard innerLs = new Listing_Standard();
-            Rect innerRect = new Rect(groupRect.x + 10f, startY + 10f, ls.ColumnWidth - 20f, 9999f);
-            innerLs.Begin(innerRect);
+
+            innerLs.Begin(contentRect.ContractedBy(Padding));
 
             Text.Font = GameFont.Medium;
             innerLs.Label(title);
@@ -132,9 +211,9 @@ namespace VFM_VanillaFireModes.ModSettingUI
             float contentHeight = innerLs.CurHeight;
             innerLs.End();
 
-            float finalHeight = contentHeight + 20f;
-            Widgets.DrawBox(new Rect(groupRect.x, startY, ls.ColumnWidth, finalHeight), 1);
-            ls.Gap(finalHeight + 15f);
+            float finalHeight = contentHeight + Padding * 2f;
+            Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
+            ls.Gap(finalHeight + BottomSpacing);
         }
 
 

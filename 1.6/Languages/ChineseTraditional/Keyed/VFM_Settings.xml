@@ -22,6 +22,10 @@
 	<VFM_Burst_Adaptive_Graph_Label>X: 基礎連射次數 | Y: 加成效果</VFM_Burst_Adaptive_Graph_Label>
 
 	<VFM_GeneralTab_Label>設置</VFM_GeneralTab_Label>
+	<VFM_KeepBurstingLos_Label>丟失視野不中斷連射</VFM_KeepBurstingLos_Label>
+	<VFM_KeepBurstingLos_Desc>啟用該選項後，在壹次連射中，即使丟失視野也不會中斷連射</VFM_KeepBurstingLos_Desc>
+	<VFM_KeepBurstingLosNPC_Label>為NPC啟用丟失視野不中斷連射</VFM_KeepBurstingLosNPC_Label>
+	
 	<VFM_AutoSelection_Label>自動切換模式</VFM_AutoSelection_Label>
 	<VFM_EnableAutoSelection_Player_Label>為玩家Pawn啟用自動切換射擊模式</VFM_EnableAutoSelection_Player_Label>
 	<VFM_EnableAutoSelection_Player_Desc>啟用後將會顯示自動切換射擊模式按鈕</VFM_EnableAutoSelection_Player_Desc>

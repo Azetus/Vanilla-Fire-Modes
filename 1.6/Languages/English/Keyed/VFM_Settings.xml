@@ -23,7 +23,11 @@
 	<VFM_Burst_Adaptive_Graph_Label>X: Base Burst Count | Y: Bonus Efficiency</VFM_Burst_Adaptive_Graph_Label>
 
 
-	<VFM_GeneralTab_Label>Setttings</VFM_GeneralTab_Label>
+	<VFM_GeneralTab_Label>Settings</VFM_GeneralTab_Label>
+	<VFM_KeepBurstingLos_Label>Continue burst fire after losing line of sight</VFM_KeepBurstingLos_Label>
+	<VFM_KeepBurstingLos_Desc>If enabled, pawns will continue a burst even after losing line of sight.</VFM_KeepBurstingLos_Desc>
+	<VFM_KeepBurstingLosNPC_Label>Enable "Continue burst fire after losing line of sight" for NPCs</VFM_KeepBurstingLosNPC_Label>
+	
 	<VFM_AutoSelection_Label>Auto Mode Selection</VFM_AutoSelection_Label>
 	<VFM_EnableAutoSelection_Player_Label>Enable automatic fire mode selection for player-controlled pawns</VFM_EnableAutoSelection_Player_Label>
 	<VFM_EnableAutoSelection_Player_Desc>When enabled, an automatic fire mode selection button will be available.

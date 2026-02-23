@@ -9,22 +9,22 @@ namespace VFM_VanillaFireModes.ModSettingUI
 {
     internal static class VFM_SettingsWindowContents
     {
-        private enum TacticTab { AutoSelectionTab, PrecisionTab, BurstTab, SuppressionTab }
-        private static TacticTab currentTab = TacticTab.AutoSelectionTab;
+        private enum TacticTab { GeneralTab, PrecisionTab, BurstTab, SuppressionTab }
+        private static TacticTab currentTab = TacticTab.GeneralTab;
 
         private static Vector2 scrollPos;
         private static float lastCalculatedHeight = 1000f;
-        public static void SettingsWindowContents(Rect inRect,ref VanillaFireModesModSetting settings)
+        public static void SettingsWindowContents(Rect inRect, ref VanillaFireModesModSetting settings)
         {
 
             float tabHeight = 30f;
             float tabWidth = inRect.width / 4f;
 
             // Auto Selection Tab
-            GUI.color = (currentTab == TacticTab.AutoSelectionTab) ? Color.yellow : Color.white;
-            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "VFM_AutoSelection_Label".Translate()))
+            GUI.color = (currentTab == TacticTab.GeneralTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, tabWidth, tabHeight), "VFM_GeneralTab_Label".Translate()))
             {
-                currentTab = TacticTab.AutoSelectionTab;
+                currentTab = TacticTab.GeneralTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
             }
 
@@ -63,15 +63,9 @@ namespace VFM_VanillaFireModes.ModSettingUI
 
             switch (currentTab)
             {
-                case TacticTab.AutoSelectionTab:
-                    // 自动切换
-                    DrawGeneralGroup(ls,
-                        "VFM_AutoSelection_Label".Translate(),
-                        ref settings.enableAutoSelectionForPlayer,
-                        ref settings.burstMinDistance,
-                        ref settings.precisionMinDistance,
-                        ref settings.enableFireModeForNPC
-                        );
+                case TacticTab.GeneralTab:
+                    // 通用设置
+                    DrawGeneralGroup(ls, ref settings);
                     break;
                 case TacticTab.PrecisionTab:
                     // 精确射击
