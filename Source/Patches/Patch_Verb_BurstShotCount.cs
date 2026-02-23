@@ -8,7 +8,7 @@ namespace VFM_VanillaFireModes.Patches
 {
     [HarmonyPatch]
 
-    public static class Patch_BurstShotCount
+    public static class Patch_Verb_BurstShotCount
     {
         // 用来存储当前正在执行射击的 Verb 及其被锁定的连发数
         [ThreadStatic]

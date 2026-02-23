@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Verse;
+using VFM_VanillaFireModes.Comps;
 using VFM_VanillaFireModes.Settings;
 
 namespace VFM_VanillaFireModes.Utilities
@@ -94,6 +95,50 @@ namespace VFM_VanillaFireModes.Utilities
                 return FireMode.Burst;
 
             return FireMode.Suppression;
+        }
+
+        public static bool CanKeepBurstingWhileLoS(Verb verb)
+        {
+            if (verb.CasterPawn is Pawn pawn && pawn != null)
+            {
+                var VFMcomp = pawn.TryGetComp<VFM_PawnCompFireMode>();
+                if (VFMcomp != null)
+                {
+                    var settings = FireModeDB.Settings;
+                    // Player pawn
+                    if (pawn.IsColonistPlayerControlled || pawn.IsColonyMechPlayerControlled)
+                    {
+                        return KeepBurstingWhileLoSHelper(VFMcomp.curMode, settings);
+
+                    }
+
+                    // NPC pawn
+                    if (!pawn.IsColonistPlayerControlled && !pawn.IsColonyMechPlayerControlled)
+                    {
+                        if (settings.enableKeepBurstingWhileLoSForNpc)
+                        {
+                            return KeepBurstingWhileLoSHelper(VFMcomp.curMode, settings);
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool KeepBurstingWhileLoSHelper(FireMode fireMode, VanillaFireModesModSetting settings)
+        {
+            switch (fireMode)
+            {
+                case FireMode.Precision:
+                    return settings.precisionWhileLoS;
+                case FireMode.Burst:
+                    return settings.burstWhileLoS;
+                case FireMode.Suppression:
+                    return settings.suppressionWhileLoS;
+                default:
+                    return false;
+            }
         }
     }
 }

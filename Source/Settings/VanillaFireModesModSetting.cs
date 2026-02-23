@@ -70,6 +70,13 @@ namespace VFM_VanillaFireModes.Settings
         // ------ NPC单位是否启用开火模式 ------
         public bool enableFireModeForNPC = true;
 
+        // ------ 丢失视野是否不中断连射（loss of sight） ------
+        public bool precisionWhileLoS = false;
+        public bool burstWhileLoS = false;
+        public bool suppressionWhileLoS = true;
+        // ------ NPC丢失视野是否不中断连射 ------
+        public bool enableKeepBurstingWhileLoSForNpc = true;
+
         public override void ExposeData()
         {
             // --- 精确射击 (Precision) ---
@@ -118,6 +125,14 @@ namespace VFM_VanillaFireModes.Settings
 
             // ------ NPC单位是否启用开火模式 ------
             Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
+
+            // ------ 丢失视野是否不中断连射（loss of sight） ------
+            Scribe_Values.Look(ref precisionWhileLoS, "precisionWhileLoS", false);
+            Scribe_Values.Look(ref burstWhileLoS, "burstWhileLoS", false);
+            Scribe_Values.Look(ref suppressionWhileLoS, "suppressionWhileLoS", true);
+            // ------ NPC丢失视野是否不中断连射 ------
+            Scribe_Values.Look(ref enableKeepBurstingWhileLoSForNpc, "enableKeepBurstingWhileLoSForNpc", true);
+
             base.ExposeData();
         }
 
@@ -189,6 +204,13 @@ namespace VFM_VanillaFireModes.Settings
 
             // ------ NPC单位是否启用开火模式 ------
             enableFireModeForNPC = true;
+
+            // ------ 丢失视野是否不中断连射（loss of sight） ------
+            precisionWhileLoS = false;
+            burstWhileLoS = false;
+            suppressionWhileLoS = true;
+            // ------ NPC丢失视野是否不中断连射 ------
+            enableKeepBurstingWhileLoSForNpc = true;
         }
     }
 }

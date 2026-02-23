@@ -5,9 +5,10 @@ using VFM_VanillaFireModes.Utilities;
 
 namespace VFM_VanillaFireModes.Patches
 {
+    // 开始射击前根据距离切换射击模式
     [HarmonyPatch(typeof(Verb))]
     [HarmonyPatch(nameof(Verb.TryStartCastOn), new Type[] { typeof(LocalTargetInfo), typeof(LocalTargetInfo), typeof(bool), typeof(bool), typeof(bool), typeof(bool) })]
-    public static class Patch_TryStartCastOn
+    public static class Patch_Verb_TryStartCastOn
     {
         static void Prefix(Verb __instance, LocalTargetInfo castTarg)
         {
@@ -24,6 +25,7 @@ namespace VFM_VanillaFireModes.Patches
                     bool enableForPlayer = settings.enableAutoSelectionForPlayer;
                     bool enableForNPC = settings.enableFireModeForNPC;
 
+                    // Player pawn
                     if (pawn.IsColonistPlayerControlled || pawn.IsColonyMechPlayerControlled)
                     {
                         if (enableForPlayer && pawn.VFM_enableAutoSelection())
@@ -34,6 +36,7 @@ namespace VFM_VanillaFireModes.Patches
                         }
                     }
 
+                    // NPC pawn
                     if (!pawn.IsColonistPlayerControlled && !pawn.IsColonyMechPlayerControlled)
                     {
                         if (enableForNPC)
