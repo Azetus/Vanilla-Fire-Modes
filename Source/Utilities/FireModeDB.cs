@@ -7,46 +7,46 @@ namespace VFM_VanillaFireModes.Utilities
     {
         public static VanillaFireModesModSetting Settings => VanillaFireModes.settings;
 
-        public static float GetWarmup(FireMode mode)
+        public static float GetWarmup(VFM_FireMode mode)
         {
             return mode switch
             {
-                FireMode.Precision => Settings.precisionWarmup,
-                FireMode.Burst => Settings.burstWarmup,
-                FireMode.Suppression => Settings.suppressionWarmup,
+                VFM_FireMode.Precision => Settings.precisionWarmup,
+                VFM_FireMode.Burst => Settings.burstWarmup,
+                VFM_FireMode.Suppression => Settings.suppressionWarmup,
                 _ => 1f
             };
         }
 
-        public static float GetCooldown(FireMode mode)
+        public static float GetCooldown(VFM_FireMode mode)
         {
             return mode switch
             {
-                FireMode.Precision => Settings.precisionCooldown,
-                FireMode.Burst => Settings.burstCooldown,
-                FireMode.Suppression => Settings.suppressionCooldown,
+                VFM_FireMode.Precision => Settings.precisionCooldown,
+                VFM_FireMode.Burst => Settings.burstCooldown,
+                VFM_FireMode.Suppression => Settings.suppressionCooldown,
                 _ => 1f
             };
         }
 
-        public static float GetAccuracy(FireMode mode)
+        public static float GetAccuracy(VFM_FireMode mode)
         {
             return mode switch
             {
-                FireMode.Precision => Settings.precisionAccuracy,
-                FireMode.Burst => Settings.burstAccuracy,
-                FireMode.Suppression => Settings.suppressionAccuracy,
+                VFM_FireMode.Precision => Settings.precisionAccuracy,
+                VFM_FireMode.Burst => Settings.burstAccuracy,
+                VFM_FireMode.Suppression => Settings.suppressionAccuracy,
                 _ => 1f
             };
         }
 
-        public static int GetBurstCount(FireMode mode, int baseBurstCount)
+        public static int GetBurstCount(VFM_FireMode mode, int baseBurstCount)
         {
             return mode switch
             {
-                FireMode.Precision => GetBurstCount_Precision(baseBurstCount, Settings.precisionBurstOption),
-                FireMode.Burst => GetBurstCount_Burst(baseBurstCount, Settings.burstBurstOption),
-                FireMode.Suppression => GetBurstCount_Suppression(baseBurstCount, Settings.suppressionBurstOption),
+                VFM_FireMode.Precision => GetBurstCount_Precision(baseBurstCount, Settings.precisionBurstOption),
+                VFM_FireMode.Burst => GetBurstCount_Burst(baseBurstCount, Settings.burstBurstOption),
+                VFM_FireMode.Suppression => GetBurstCount_Suppression(baseBurstCount, Settings.suppressionBurstOption),
                 _ => baseBurstCount
             };
         }

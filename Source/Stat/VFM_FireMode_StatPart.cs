@@ -8,7 +8,7 @@ namespace VFM_VanillaFireModes.Stat
 {
     public abstract class VFM_FireMode_StatPart : StatPart
     {
-        protected abstract float GetFactor(FireMode mode);
+        protected abstract float GetFactor(VFM_FireMode mode);
         public override void TransformValue(StatRequest req, ref float val)
         {
             VFM_PawnCompFireMode? comp = TryGetComp(req);
@@ -43,19 +43,19 @@ namespace VFM_VanillaFireModes.Stat
     }
     public class VFM_FireMode_AimingDelayFactorPart : VFM_FireMode_StatPart
     {
-        protected override float GetFactor(FireMode mode)
+        protected override float GetFactor(VFM_FireMode mode)
             => FireModeDB.GetWarmup(mode);
     }
 
     public class VFM_FireMode_RangedCooldownFactorPart : VFM_FireMode_StatPart
     {
-        protected override float GetFactor(FireMode mode)
+        protected override float GetFactor(VFM_FireMode mode)
             => FireModeDB.GetCooldown(mode);
     }
 
     public class VFM_FireMode_ShootingAccuracyPawnPart : VFM_FireMode_StatPart
     {
-        protected override float GetFactor(FireMode mode)
+        protected override float GetFactor(VFM_FireMode mode)
             => FireModeDB.GetAccuracy(mode);
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace VFM_VanillaFireModes.Settings
 {
-    public enum FireMode
+    public enum VFM_FireMode
     {
         Default = 0,
         Precision = 1,

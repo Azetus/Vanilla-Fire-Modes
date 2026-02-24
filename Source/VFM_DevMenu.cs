@@ -27,7 +27,7 @@ namespace VFM_VanillaFireModes
                 var comp = p.GetComp<VFM_PawnCompFireMode>();
                 if(comp != null)
                 {
-                    comp.curMode = FireMode.Default;
+                    comp.curMode = VFM_FireMode.Default;
                     comp.curEnableAutoSelection = false;
                     count++;
                 }

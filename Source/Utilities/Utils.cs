@@ -67,13 +67,13 @@ namespace VFM_VanillaFireModes.Utilities
             return Mathf.Max(1, (int)Math.Round(burstShotCount * multiplier));
         }
 
-        public static string GetFireModeLabelFor(FireMode mode)
+        public static string GetFireModeLabelFor(VFM_FireMode mode)
         {
             switch (mode)
             {
-                case FireMode.Precision: return "VFM_PrecisionMode".Translate();
-                case FireMode.Burst: return "VFM_ShortBurstMode".Translate();
-                case FireMode.Suppression: return "VFM_SuppressionMode".Translate();
+                case VFM_FireMode.Precision: return "VFM_PrecisionMode".Translate();
+                case VFM_FireMode.Burst: return "VFM_ShortBurstMode".Translate();
+                case VFM_FireMode.Suppression: return "VFM_SuppressionMode".Translate();
                 default: return "VFM_DefaultMode".Translate();
             }
         }
@@ -83,17 +83,17 @@ namespace VFM_VanillaFireModes.Utilities
             return $"{value * 100f}%";
         }
 
-        public static FireMode EvaluateByDistance(
+        public static VFM_FireMode EvaluateByDistance(
             float distance,
             VanillaFireModesModSetting settings)
         {
             if (distance >= settings.precisionMinDistance)
-                return FireMode.Precision;
+                return VFM_FireMode.Precision;
 
             if (distance >= settings.burstMinDistance)
-                return FireMode.Burst;
+                return VFM_FireMode.Burst;
 
-            return FireMode.Suppression;
+            return VFM_FireMode.Suppression;
         }
     }
 }

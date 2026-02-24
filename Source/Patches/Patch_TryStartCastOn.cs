@@ -29,7 +29,7 @@ namespace VFM_VanillaFireModes.Patches
                         if (enableForPlayer && pawn.VFM_enableAutoSelection())
                         {
                             float distance = pawn.Position.DistanceTo(castTarg.Cell);
-                            FireMode autoMode = Utils.EvaluateByDistance(distance, settings);
+                            VFM_FireMode autoMode = Utils.EvaluateByDistance(distance, settings);
                             pawn.VFM_SetFireMode(autoMode);
                         }
                     }
@@ -39,7 +39,7 @@ namespace VFM_VanillaFireModes.Patches
                         if (enableForNPC)
                         {
                             float distance = pawn.Position.DistanceTo(castTarg.Cell);
-                            FireMode autoMode = Utils.EvaluateByDistance(distance, settings);
+                            VFM_FireMode autoMode = Utils.EvaluateByDistance(distance, settings);
                             pawn.VFM_SetFireMode(autoMode);
                         }
                     }

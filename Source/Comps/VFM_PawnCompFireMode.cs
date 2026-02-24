@@ -9,9 +9,9 @@ namespace VFM_VanillaFireModes.Comps
 {
     public class VFM_PawnCompFireMode : ThingComp
     {
-        private FireMode mode = FireMode.Default;
+        private VFM_FireMode mode = VFM_FireMode.Default;
         private bool enableAutoSelection = false;
-        public FireMode curMode
+        public VFM_FireMode curMode
         {
             get => mode;
             set => mode = value;
@@ -26,7 +26,7 @@ namespace VFM_VanillaFireModes.Comps
 
         public override void PostExposeData()
         {
-            Scribe_Values.Look(ref mode, "VFM_fireMode", FireMode.Default);
+            Scribe_Values.Look(ref mode, "VFM_fireMode", VFM_FireMode.Default);
             Scribe_Values.Look(ref enableAutoSelection, "VFM_autoSelection", false);
         }
 
@@ -46,7 +46,7 @@ namespace VFM_VanillaFireModes.Comps
                         defaultDesc = "VFM_SwitchGizmoDesc".Translate(),
                         action = () =>
                         {
-                            curMode = (FireMode)(((int)curMode + 1) % 4);
+                            curMode = (VFM_FireMode)(((int)curMode + 1) % 4);
                             SoundDefOf.Tick_High.PlayOneShotOnCamera();
                         }
                     };
@@ -63,7 +63,7 @@ namespace VFM_VanillaFireModes.Comps
                         toggleAction = () =>
                         {
                             curEnableAutoSelection = !curEnableAutoSelection;
-                            curMode = FireMode.Default;
+                            curMode = VFM_FireMode.Default;
                             SoundDefOf.Tick_High.PlayOneShotOnCamera();
                         }
                     };
@@ -76,13 +76,13 @@ namespace VFM_VanillaFireModes.Comps
             return pawn.equipment?.Primary?.def.IsRangedWeapon ?? false;
         }
 
-        private Texture2D GetIconFor(FireMode mode)
+        private Texture2D GetIconFor(VFM_FireMode mode)
         {
             switch (mode)
             {
-                case FireMode.Precision: return VFM_IconTexture.VFM_Precision_Icon;
-                case FireMode.Burst: return VFM_IconTexture.VFM_Burst_Icon;
-                case FireMode.Suppression: return VFM_IconTexture.VFM_Suppression_Icon;
+                case VFM_FireMode.Precision: return VFM_IconTexture.VFM_Precision_Icon;
+                case VFM_FireMode.Burst: return VFM_IconTexture.VFM_Burst_Icon;
+                case VFM_FireMode.Suppression: return VFM_IconTexture.VFM_Suppression_Icon;
                 default: return VFM_IconTexture.VFM_Default_Icon;
             }
         }
