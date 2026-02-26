@@ -9,7 +9,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
 {
     internal static class VFM_SettingsWindowContents
     {
-        private enum TacticTab { AutoSelectionTab, PrecisionTab, BurstTab, SuppressionTab }
+        private enum TacticTab { AutoSelectionTab, PrecisionTab, BurstTab, SuppressionTab, DefaultTab }
         private static TacticTab currentTab = TacticTab.AutoSelectionTab;
 
         private static Vector2 scrollPos;
@@ -18,7 +18,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
         {
 
             float tabHeight = 30f;
-            float tabWidth = inRect.width / 4f;
+            float tabWidth = inRect.width / 5f;
 
             // Auto Selection Tab
             GUI.color = (currentTab == TacticTab.AutoSelectionTab) ? Color.yellow : Color.white;
@@ -49,6 +49,15 @@ namespace VFM_VanillaFireModes.ModSettingUI
             if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 3, inRect.y, tabWidth, tabHeight), "VFM_SuppressionMode".Translate()))
             {
                 currentTab = TacticTab.SuppressionTab;
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
+            GUI.color = Color.white;
+            
+            // Default Tab
+            GUI.color = (currentTab == TacticTab.DefaultTab) ? Color.yellow : Color.white;
+            if (Widgets.ButtonText(new Rect(inRect.x + tabWidth * 4, inRect.y, tabWidth, tabHeight), "VFM_DefaultMode".Translate()))
+            {
+                currentTab = TacticTab.DefaultTab;
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
             }
             GUI.color = Color.white;
@@ -105,6 +114,17 @@ namespace VFM_VanillaFireModes.ModSettingUI
                         ref settings.suppressionBurstAdditiveBonus,
                         ref settings.suppressionBurstTentMaxMultiplier, ref settings.suppressionBurstTentSlopeK, ref settings.suppressionBurstTentPeakOffset,
                         ref settings.suppressionBurstAdaptiveBonus, ref settings.suppressionBurstAdaptivePeakOffset);
+                    break;
+                case TacticTab.DefaultTab:
+                    // 默认模式
+                    DrawGroup(ls,
+                        "VFM_DefaultMode".Translate(),
+                        ref settings.defaultAccuracy, ref settings.defaultWarmup, ref settings.defaultCooldown,
+                        ref settings.defaultBurstOption,
+                        ref settings.defaultBurstLinearMultiplier,
+                        ref settings.defaultBurstAdditiveBonus,
+                        ref settings.defaultBurstTentMaxMultiplier, ref settings.defaultBurstTentSlopeK, ref settings.defaultBurstTentPeakOffset,
+                        ref settings.defaultBurstAdaptiveBonus, ref settings.defaultBurstAdaptivePeakOffset);
                     break;
             }
 

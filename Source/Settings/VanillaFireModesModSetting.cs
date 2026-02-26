@@ -4,6 +4,25 @@ namespace VFM_VanillaFireModes.Settings
 {
     public class VanillaFireModesModSetting : ModSettings
     {
+        // ------ 默认 (Default) ------
+        public float defaultAccuracy = 1f;
+        public float defaultWarmup = 1f;
+        public float defaultCooldown = 1f;
+
+        public BurstShotOption defaultBurstOption = BurstShotOption.Linear;
+
+        public float defaultBurstLinearMultiplier = 1f;
+
+        public int defaultBurstAdditiveBonus = 1;
+
+        public float defaultBurstTentMaxMultiplier = 1f;
+        public float defaultBurstTentSlopeK = 0.10f;
+        public int defaultBurstTentPeakOffset = 3;
+
+        public int defaultBurstAdaptiveBonus = 1;
+        public int defaultBurstAdaptivePeakOffset = 2;
+        
+        
         // ------ 精确射击 (Precision) ------
         public float precisionAccuracy = 1.5f;
         public float precisionWarmup = 1.2f;
@@ -72,6 +91,19 @@ namespace VFM_VanillaFireModes.Settings
 
         public override void ExposeData()
         {
+            // ------ 默认 (Default) ------
+            Scribe_Values.Look(ref defaultAccuracy, "defaultAccuracy", 1f);
+            Scribe_Values.Look(ref defaultWarmup, "defaultWarmup", 1f);
+            Scribe_Values.Look(ref defaultCooldown, "defaultCooldown", 1f);
+            Scribe_Values.Look(ref defaultBurstOption, "defaultBurstOption", BurstShotOption.Linear);
+            Scribe_Values.Look(ref defaultBurstLinearMultiplier, "defaultBurstLinearMultiplier", 1f);
+            Scribe_Values.Look(ref defaultBurstAdditiveBonus, "defaultBurstAdditiveBonus", 1);
+            Scribe_Values.Look(ref defaultBurstTentMaxMultiplier, "defaultBurstTentMaxMultiplier", 1f);
+            Scribe_Values.Look(ref defaultBurstTentSlopeK, "defaultBurstTentSlopeK", 0.10f);
+            Scribe_Values.Look(ref defaultBurstTentPeakOffset, "defaultBurstTentPeakOffset", 3);
+            Scribe_Values.Look(ref defaultBurstAdaptiveBonus, "defaultBurstAdaptiveBonus", 1);
+            Scribe_Values.Look(ref defaultBurstAdaptivePeakOffset, "defaultBurstAdaptivePeakOffset", 2);
+            
             // --- 精确射击 (Precision) ---
             Scribe_Values.Look(ref precisionAccuracy, "precisionAccuracy", 1.5f);
             Scribe_Values.Look(ref precisionWarmup, "precisionWarmup", 1.2f);
@@ -123,6 +155,23 @@ namespace VFM_VanillaFireModes.Settings
 
         public void ResetSetting()
         {
+            // ------ 默认 (Default) ------
+            defaultAccuracy = 1f;
+            defaultWarmup = 1f;
+            defaultCooldown = 1f;
+
+            defaultBurstOption = BurstShotOption.Linear;
+
+            defaultBurstLinearMultiplier = 1f;
+            defaultBurstAdditiveBonus = 1;
+
+            defaultBurstTentMaxMultiplier = 1f;
+            defaultBurstTentSlopeK = 0.10f;
+            defaultBurstTentPeakOffset = 3;
+
+            defaultBurstAdaptiveBonus = 1;
+            defaultBurstAdaptivePeakOffset = 2;
+            
             // ------ 精确射击 (Precision) ------
             precisionAccuracy = 1.5f;
             precisionWarmup = 1.2f;

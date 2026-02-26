@@ -14,6 +14,7 @@ namespace VFM_VanillaFireModes.Utilities
                 VFM_FireMode.Precision => Settings.precisionWarmup,
                 VFM_FireMode.Burst => Settings.burstWarmup,
                 VFM_FireMode.Suppression => Settings.suppressionWarmup,
+                VFM_FireMode.Default => Settings.defaultWarmup,
                 _ => 1f
             };
         }
@@ -25,6 +26,7 @@ namespace VFM_VanillaFireModes.Utilities
                 VFM_FireMode.Precision => Settings.precisionCooldown,
                 VFM_FireMode.Burst => Settings.burstCooldown,
                 VFM_FireMode.Suppression => Settings.suppressionCooldown,
+                VFM_FireMode.Default => Settings.defaultCooldown,
                 _ => 1f
             };
         }
@@ -36,6 +38,7 @@ namespace VFM_VanillaFireModes.Utilities
                 VFM_FireMode.Precision => Settings.precisionAccuracy,
                 VFM_FireMode.Burst => Settings.burstAccuracy,
                 VFM_FireMode.Suppression => Settings.suppressionAccuracy,
+                VFM_FireMode.Default  => Settings.defaultAccuracy,
                 _ => 1f
             };
         }
@@ -47,6 +50,7 @@ namespace VFM_VanillaFireModes.Utilities
                 VFM_FireMode.Precision => GetBurstCount_Precision(baseBurstCount, Settings.precisionBurstOption),
                 VFM_FireMode.Burst => GetBurstCount_Burst(baseBurstCount, Settings.burstBurstOption),
                 VFM_FireMode.Suppression => GetBurstCount_Suppression(baseBurstCount, Settings.suppressionBurstOption),
+                VFM_FireMode.Default => GetBurstCount_Default(baseBurstCount, Settings.defaultBurstOption),
                 _ => baseBurstCount
             };
         }
@@ -94,6 +98,21 @@ namespace VFM_VanillaFireModes.Utilities
                 Settings.suppressionBurstAdaptiveBonus,
                 Settings.suppressionBurstAdaptivePeakOffset
                 );
+        }
+
+        private static int GetBurstCount_Default(int baseBurstCount, BurstShotOption burstShotOption)
+        {
+            return GetBurstCountByOption(
+                baseBurstCount,
+                burstShotOption,
+                Settings.defaultBurstLinearMultiplier,
+                Settings.defaultBurstAdditiveBonus,
+                Settings.defaultBurstTentMaxMultiplier,
+                Settings.defaultBurstTentSlopeK,
+                Settings.defaultBurstTentPeakOffset,
+                Settings.defaultBurstAdaptiveBonus,
+                Settings.defaultBurstAdaptivePeakOffset
+            );
         }
 
         private static int GetBurstCountByOption(
