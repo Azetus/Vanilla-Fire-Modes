@@ -34,5 +34,6 @@ If you do not need this feature and prefer to keep the command bar less cluttere
 	<VFM_Burst_Min_Distance>Minimum Distance for Short Burst Mode</VFM_Burst_Min_Distance>
 	<VFM_Precision_Min_Distance>Minimum Distance for Precision Mode</VFM_Precision_Min_Distance>
 	<VFM_AutoSelection_Range_Preview>Current Fire Mode Distance Range</VFM_AutoSelection_Range_Preview>
-	
+
+	<VFM_Default_Warning_Label>Note: Default mode affects all Pawns, including enemies.</VFM_Default_Warning_Label>
 </LanguageData>

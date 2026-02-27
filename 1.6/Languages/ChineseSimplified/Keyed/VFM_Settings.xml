@@ -29,4 +29,6 @@
 	<VFM_Burst_Min_Distance>短点射最小距离</VFM_Burst_Min_Distance>
 	<VFM_Precision_Min_Distance>精准射击最小距离</VFM_Precision_Min_Distance>
 	<VFM_AutoSelection_Range_Preview>当前射击模式距离</VFM_AutoSelection_Range_Preview>
+	
+	<VFM_Default_Warning_Label>注意，默认模式作用于所有 Pawn（包括敌人）</VFM_Default_Warning_Label>
 </LanguageData>

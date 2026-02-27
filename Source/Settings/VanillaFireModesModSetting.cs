@@ -16,7 +16,7 @@ namespace VFM_VanillaFireModes.Settings
         public int defaultBurstAdditiveBonus = 1;
 
         public float defaultBurstTentMaxMultiplier = 1f;
-        public float defaultBurstTentSlopeK = 0.10f;
+        public float defaultBurstTentSlopeK = 0f;
         public int defaultBurstTentPeakOffset = 3;
 
         public int defaultBurstAdaptiveBonus = 1;
@@ -99,7 +99,7 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref defaultBurstLinearMultiplier, "defaultBurstLinearMultiplier", 1f);
             Scribe_Values.Look(ref defaultBurstAdditiveBonus, "defaultBurstAdditiveBonus", 1);
             Scribe_Values.Look(ref defaultBurstTentMaxMultiplier, "defaultBurstTentMaxMultiplier", 1f);
-            Scribe_Values.Look(ref defaultBurstTentSlopeK, "defaultBurstTentSlopeK", 0.10f);
+            Scribe_Values.Look(ref defaultBurstTentSlopeK, "defaultBurstTentSlopeK", 0f);
             Scribe_Values.Look(ref defaultBurstTentPeakOffset, "defaultBurstTentPeakOffset", 3);
             Scribe_Values.Look(ref defaultBurstAdaptiveBonus, "defaultBurstAdaptiveBonus", 1);
             Scribe_Values.Look(ref defaultBurstAdaptivePeakOffset, "defaultBurstAdaptivePeakOffset", 2);
@@ -166,7 +166,7 @@ namespace VFM_VanillaFireModes.Settings
             defaultBurstAdditiveBonus = 1;
 
             defaultBurstTentMaxMultiplier = 1f;
-            defaultBurstTentSlopeK = 0.10f;
+            defaultBurstTentSlopeK = 0f;
             defaultBurstTentPeakOffset = 3;
 
             defaultBurstAdaptiveBonus = 1;

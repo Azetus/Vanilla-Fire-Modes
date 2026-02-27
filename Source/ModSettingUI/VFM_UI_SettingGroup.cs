@@ -11,14 +11,15 @@ namespace VFM_VanillaFireModes.ModSettingUI
     {
         private const float MinDistance = 1f;
         private const float MaxDistance = 100f;
+
         public static void DrawGeneralGroup(
-           Listing_Standard ls,
-           string title,
-           ref bool enableAutoSelection,
-           ref float burstMinDistance,
-           ref float precisionMinDistance,
-           ref bool enableFireModeForNPC
-            )
+            Listing_Standard ls,
+            string title,
+            ref bool enableAutoSelection,
+            ref float burstMinDistance,
+            ref float precisionMinDistance,
+            ref bool enableFireModeForNPC
+        )
         {
             const float Padding = 10f;
             const float BottomSpacing = 15f;
@@ -67,7 +68,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
             precisionMinDistance = newPreciseMin;
             innerLs.GapLine();
 
-            DrawPreview(innerLs, burstMinDistance,precisionMinDistance);
+            DrawPreview(innerLs, burstMinDistance, precisionMinDistance);
 
             float contentHeight = innerLs.CurHeight;
             innerLs.End();
@@ -94,19 +95,21 @@ namespace VFM_VanillaFireModes.ModSettingUI
         }
 
         public static void DrawGroup(
-           Listing_Standard ls,
-           string title,
-           ref float accuracy,
-           ref float warmup,
-           ref float cooldown,
-           ref BurstShotOption option,
-           ref float linearMult,
-           ref int addBonus,
-           ref float tentMaxMult,
-           ref float tentSlopeK,
-           ref int tentPeak,
-           ref int adaptBonus,
-           ref int adaptPeak)
+            Listing_Standard ls,
+            string title,
+            ref float accuracy,
+            ref float warmup,
+            ref float cooldown,
+            ref BurstShotOption option,
+            ref float linearMult,
+            ref int addBonus,
+            ref float tentMaxMult,
+            ref float tentSlopeK,
+            ref int tentPeak,
+            ref int adaptBonus,
+            ref int adaptPeak,
+            string? description = null,
+            Color? descColor = null)
         {
             const float Padding = 10f;
             const float BottomSpacing = 15f;
@@ -122,6 +125,13 @@ namespace VFM_VanillaFireModes.ModSettingUI
             Text.Font = GameFont.Medium;
             innerLs.Label(title);
             Text.Font = GameFont.Small;
+            if (description != null)
+            {
+                GUI.color = descColor ?? Color.white;
+                innerLs.Label(description);
+                GUI.color = Color.white;
+            }
+
             innerLs.Gap(6f);
 
             // 精度
@@ -134,7 +144,8 @@ namespace VFM_VanillaFireModes.ModSettingUI
             innerLs.Gap(10f);
 
             // 连射次数
-            DrawBurstSection(innerLs, ref option, ref linearMult, ref addBonus, ref tentMaxMult, ref tentSlopeK, ref tentPeak, ref adaptBonus, ref adaptPeak);
+            DrawBurstSection(innerLs, ref option, ref linearMult, ref addBonus, ref tentMaxMult, ref tentSlopeK,
+                ref tentPeak, ref adaptBonus, ref adaptPeak);
 
             float contentHeight = innerLs.CurHeight;
             innerLs.End();
@@ -143,7 +154,5 @@ namespace VFM_VanillaFireModes.ModSettingUI
             Widgets.DrawBox(new Rect(0f, startY, ls.ColumnWidth, finalHeight), 1);
             ls.Gap(finalHeight + BottomSpacing);
         }
-
-
     }
 }

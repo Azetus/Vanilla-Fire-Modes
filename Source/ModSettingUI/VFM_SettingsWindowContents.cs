@@ -124,7 +124,8 @@ namespace VFM_VanillaFireModes.ModSettingUI
                         ref settings.defaultBurstLinearMultiplier,
                         ref settings.defaultBurstAdditiveBonus,
                         ref settings.defaultBurstTentMaxMultiplier, ref settings.defaultBurstTentSlopeK, ref settings.defaultBurstTentPeakOffset,
-                        ref settings.defaultBurstAdaptiveBonus, ref settings.defaultBurstAdaptivePeakOffset);
+                        ref settings.defaultBurstAdaptiveBonus, ref settings.defaultBurstAdaptivePeakOffset,
+                        "VFM_Default_Warning_Label".Translate(),Color.yellow);
                     break;
             }
 
