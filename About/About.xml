@@ -21,4 +21,5 @@
 	<description>
 Vanilla Fire Modes - Selectable fire modes for vanilla ranged combat
 	</description>
+	<modIconPath IgnoreIfNoMatchingField="True">Icon/VFM_Mod_Icon</modIconPath>
 </ModMetaData>
