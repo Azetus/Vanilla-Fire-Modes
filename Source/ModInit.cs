@@ -14,7 +14,7 @@ namespace VFM_VanillaFireModes
         public VanillaFireModes(ModContentPack contentPack) : base(contentPack)
         {
             settings = GetSettings<VanillaFireModesModSetting>();
-            Log.Message("[VanillaFireModes] is loaded!");
+            Log.Message("<color=cyan>[VanillaFireModes]</color> is loaded!");
             new Harmony("Aliza.VanillaFireModes").PatchAll();
         }
 

@@ -32,7 +32,7 @@ namespace VFM_VanillaFireModes
                     count++;
                 }
             }
-            Log.Message($"Reset VFM Comps to default from {count} Pawns");
+            Log.Message($"<color=cyan>[VanillaFireModes]</color>Reset VFM Comps to default from {count} Pawns");
         }
     }
 }
