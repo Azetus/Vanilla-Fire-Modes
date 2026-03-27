@@ -1,6 +1,6 @@
 ﻿using Verse;
-using VFM_VanillaFireModes.Settings;
 using VFM_VanillaFireModes.Comps;
+using VFM_VanillaFireModes.Settings;
 
 namespace VFM_VanillaFireModes.Utilities
 {

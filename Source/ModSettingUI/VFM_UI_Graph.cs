@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Verse;
-using VFM_VanillaFireModes.ModSettingUI;
 
 namespace VFM_VanillaFireModes.ModSettingUI
 {

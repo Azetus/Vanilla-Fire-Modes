@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Settings;
-using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_SliderWithInput;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_Graph;
+using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_SliderWithInput;
 
 namespace VFM_VanillaFireModes.ModSettingUI
 {

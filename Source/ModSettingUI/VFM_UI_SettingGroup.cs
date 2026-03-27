@@ -1,5 +1,4 @@
-﻿using RimWorld;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Settings;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_BurstSection;

@@ -1,9 +1,9 @@
 ﻿using RimWorld;
-using Verse.Sound;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 using VFM_VanillaFireModes.Settings;
 using VFM_VanillaFireModes.Utilities;
-using UnityEngine;
 
 namespace VFM_VanillaFireModes.Comps
 {

@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using RimWorld;
 using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.ModSettingUI;
