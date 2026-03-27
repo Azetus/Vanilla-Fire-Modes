@@ -28,8 +28,8 @@ namespace VFM_VanillaFireModes.ModSettingUI
             GUI.BeginGroup(inRect);
             Rect tabtop = new Rect(0, TabDrawer.TabHeight, inRect.width, 0);
             List<TabRecord> tablist = new List<TabRecord>();
-            // Auto Selection Tab
-            tablist.Add(new TabRecord("VFM_AutoSelection_Label".Translate(), () => { currentTab = TacticTab.AutoSelectionTab; },
+            // General Settings Tab
+            tablist.Add(new TabRecord("VFM_GeneralSettings_Label".Translate(), () => { currentTab = TacticTab.AutoSelectionTab; },
                 currentTab == TacticTab.AutoSelectionTab));
             // Precision Tab
             tablist.Add(new TabRecord("VFM_PrecisionMode".Translate(), () => { currentTab = TacticTab.PrecisionTab; },
@@ -57,9 +57,10 @@ namespace VFM_VanillaFireModes.ModSettingUI
             switch (currentTab)
             {
                 case TacticTab.AutoSelectionTab:
-                    // 自动切换
+                    // 通用设置, 自动切换
                     DrawGeneralGroup(ls,
-                        "VFM_AutoSelection_Label".Translate(),
+                        "VFM_GeneralSettings_Label".Translate(),
+                        ref settings.alwaysDisplayGizmo,
                         ref settings.enableAutoSelectionForPlayer,
                         ref settings.burstMinDistance,
                         ref settings.precisionMinDistance,

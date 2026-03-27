@@ -15,6 +15,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
         public static void DrawGeneralGroup(
             Listing_Standard ls,
             string title,
+            ref bool displayGizmoWhileUndrafted,
             ref bool enableAutoSelection,
             ref float burstMinDistance,
             ref float precisionMinDistance,
@@ -35,6 +36,10 @@ namespace VFM_VanillaFireModes.ModSettingUI
             Text.Font = GameFont.Small;
             innerLs.Gap(6f);
             innerLs.CheckboxLabeled(
+                "VFM_AlwaysDisplayGizmo_Label".Translate(),
+                ref displayGizmoWhileUndrafted
+            );
+            innerLs.CheckboxLabeled(
                 "VFM_EnableAutoSelection_Player_Label".Translate(),
                 ref enableAutoSelection,
                 "VFM_EnableAutoSelection_Player_Desc".Translate()
@@ -45,8 +50,13 @@ namespace VFM_VanillaFireModes.ModSettingUI
                 ref enableFireModeForNPC,
                 "VFM_EnableAutoSelection_NPC_Desc".Translate()
             );
-            innerLs.GapLine();
-
+            innerLs.GapLine(6f);
+            innerLs.Gap(6f);
+            Text.Font = GameFont.Medium;
+            innerLs.Label("VFM_AutoSelection_Label".Translate());
+            Text.Font = GameFont.Small;
+            innerLs.Gap(6f);
+            
             innerLs.Label("VFM_AutoSelectionThresholds_Label".Translate());
 
             // ===== Burst Min =====

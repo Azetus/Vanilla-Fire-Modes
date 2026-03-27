@@ -34,7 +34,7 @@ namespace VFM_VanillaFireModes.Comps
         {
             if (parent is Pawn pawn &&
                 (pawn.IsColonistPlayerControlled || pawn.IsColonyMechPlayerControlled) &&
-                pawn.Drafted &&
+                (pawn.Drafted || FireModeDB.Settings.alwaysDisplayGizmo) &&
                 HasRemoteWeapon(pawn))
             {
                 if (!curEnableAutoSelection || !FireModeDB.Settings.enableAutoSelectionForPlayer)

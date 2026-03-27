@@ -80,6 +80,10 @@ namespace VFM_VanillaFireModes.Settings
         public int suppressionBurstAdaptiveBonus = 10;
         public int suppressionBurstAdaptivePeakOffset = 5;
 
+        // ------ 非征召状态显示按钮 ------
+        public bool alwaysDisplayGizmo = false;
+        
+        
         // ------ 自动选择模式 (Auto Selection) ------
         public bool enableAutoSelectionForPlayer = true;
         public float burstMinDistance = 12f;
@@ -143,6 +147,9 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, "suppressionBurstAdaptiveBonus", 10);
             Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, "suppressionBurstAdaptivePeakOffset", 5);
 
+            // ------ 非征召状态显示按钮 ------
+            Scribe_Values.Look(ref alwaysDisplayGizmo, "alwaysDisplayGizmo", false);
+            
             // ------ 自动选择模式 (Auto Selection) ------
             Scribe_Values.Look(ref enableAutoSelectionForPlayer, "enableAutoSelectionForPlayer", true);
             Scribe_Values.Look(ref burstMinDistance, "burstMinDistance", 12f);
@@ -229,7 +236,9 @@ namespace VFM_VanillaFireModes.Settings
             suppressionBurstAdaptiveBonus = 10;
             suppressionBurstAdaptivePeakOffset = 5;
 
-
+            // ------ 非征召状态显示按钮 ------
+            alwaysDisplayGizmo =  false;
+            
             // ------ 自动选择模式 (Auto Selection) ------
             enableAutoSelectionForPlayer = true;
             burstMinDistance = 12f;

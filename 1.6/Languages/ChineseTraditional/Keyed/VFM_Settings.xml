@@ -21,6 +21,8 @@
 	<VFM_Burst_Adaptive_PeakOffset_input_Label>峰值位置</VFM_Burst_Adaptive_PeakOffset_input_Label>
 	<VFM_Burst_Adaptive_Graph_Label>X: 基礎連射次數 | Y: 加成效果</VFM_Burst_Adaptive_Graph_Label>
 
+	<VFM_GeneralSettings_Label>通用設置</VFM_GeneralSettings_Label>
+	<VFM_AlwaysDisplayGizmo_Label>非征召狀態下顯示按鈕</VFM_AlwaysDisplayGizmo_Label>
 	<VFM_AutoSelection_Label>自動切換模式</VFM_AutoSelection_Label>
 	<VFM_EnableAutoSelection_Player_Label>為玩家Pawn啟用自動切換射擊模式</VFM_EnableAutoSelection_Player_Label>
 	<VFM_EnableAutoSelection_Player_Desc>啟用後將會顯示自動切換射擊模式按鈕</VFM_EnableAutoSelection_Player_Desc>
