@@ -1,9 +1,12 @@
 ﻿using Verse;
+using VFM_VanillaFireModes.Settings.CustomWeaponProfile;
 
 namespace VFM_VanillaFireModes.Settings
 {
     public class VanillaFireModesModSetting : ModSettings
     {
+        # region FireModes
+
         // ------ 默认 (Default) ------
         public float defaultAccuracy = 1f;
         public float defaultWarmup = 1f;
@@ -21,8 +24,8 @@ namespace VFM_VanillaFireModes.Settings
 
         public int defaultBurstAdaptiveBonus = 1;
         public int defaultBurstAdaptivePeakOffset = 2;
-        
-        
+
+
         // ------ 精确射击 (Precision) ------
         public float precisionAccuracy = 1.5f;
         public float precisionWarmup = 1.2f;
@@ -80,10 +83,12 @@ namespace VFM_VanillaFireModes.Settings
         public int suppressionBurstAdaptiveBonus = 10;
         public int suppressionBurstAdaptivePeakOffset = 5;
 
+        #endregion
+
         // ------ 非征召状态显示按钮 ------
         public bool alwaysDisplayGizmo = false;
-        
-        
+
+
         // ------ 自动选择模式 (Auto Selection) ------
         public bool enableAutoSelectionForPlayer = true;
         public float burstMinDistance = 12f;
@@ -93,8 +98,13 @@ namespace VFM_VanillaFireModes.Settings
         // ------ NPC单位是否启用开火模式 ------
         public bool enableFireModeForNPC = true;
 
+        // ------ CustomWeaponProfile ------
+        public Dictionary<string, WeaponFireModeProfile> CustomWeaponProfiles = new Dictionary<string, WeaponFireModeProfile>();
+
         public override void ExposeData()
         {
+            # region FireModes
+
             // ------ 默认 (Default) ------
             Scribe_Values.Look(ref defaultAccuracy, "defaultAccuracy", 1f);
             Scribe_Values.Look(ref defaultWarmup, "defaultWarmup", 1f);
@@ -107,7 +117,7 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref defaultBurstTentPeakOffset, "defaultBurstTentPeakOffset", 3);
             Scribe_Values.Look(ref defaultBurstAdaptiveBonus, "defaultBurstAdaptiveBonus", 1);
             Scribe_Values.Look(ref defaultBurstAdaptivePeakOffset, "defaultBurstAdaptivePeakOffset", 2);
-            
+
             // --- 精确射击 (Precision) ---
             Scribe_Values.Look(ref precisionAccuracy, "precisionAccuracy", 1.5f);
             Scribe_Values.Look(ref precisionWarmup, "precisionWarmup", 1.2f);
@@ -147,9 +157,11 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, "suppressionBurstAdaptiveBonus", 10);
             Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, "suppressionBurstAdaptivePeakOffset", 5);
 
+            #endregion
+
             // ------ 非征召状态显示按钮 ------
             Scribe_Values.Look(ref alwaysDisplayGizmo, "alwaysDisplayGizmo", false);
-            
+
             // ------ 自动选择模式 (Auto Selection) ------
             Scribe_Values.Look(ref enableAutoSelectionForPlayer, "enableAutoSelectionForPlayer", true);
             Scribe_Values.Look(ref burstMinDistance, "burstMinDistance", 12f);
@@ -157,11 +169,18 @@ namespace VFM_VanillaFireModes.Settings
 
             // ------ NPC单位是否启用开火模式 ------
             Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
+
+            // ------ CustomWeaponProfile ------
+            Scribe_Deep.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles");
+
+            if (CustomWeaponProfiles == null) CustomWeaponProfiles = new Dictionary<string, WeaponFireModeProfile>();
             base.ExposeData();
         }
 
         public void ResetSetting()
         {
+            #region FireModes
+
             // ------ 默认 (Default) ------
             defaultAccuracy = 1f;
             defaultWarmup = 1f;
@@ -178,7 +197,7 @@ namespace VFM_VanillaFireModes.Settings
 
             defaultBurstAdaptiveBonus = 1;
             defaultBurstAdaptivePeakOffset = 2;
-            
+
             // ------ 精确射击 (Precision) ------
             precisionAccuracy = 1.5f;
             precisionWarmup = 1.2f;
@@ -236,9 +255,11 @@ namespace VFM_VanillaFireModes.Settings
             suppressionBurstAdaptiveBonus = 10;
             suppressionBurstAdaptivePeakOffset = 5;
 
+            #endregion
+
             // ------ 非征召状态显示按钮 ------
-            alwaysDisplayGizmo =  false;
-            
+            alwaysDisplayGizmo = false;
+
             // ------ 自动选择模式 (Auto Selection) ------
             enableAutoSelectionForPlayer = true;
             burstMinDistance = 12f;
@@ -247,6 +268,11 @@ namespace VFM_VanillaFireModes.Settings
 
             // ------ NPC单位是否启用开火模式 ------
             enableFireModeForNPC = true;
+        }
+
+        public void ResetWeaponProfileSetting()
+        {
+            CustomWeaponProfiles.Clear();
         }
     }
 }

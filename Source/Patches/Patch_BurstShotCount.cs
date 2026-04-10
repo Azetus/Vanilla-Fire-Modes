@@ -7,12 +7,10 @@ using VFM_VanillaFireModes.Utilities;
 namespace VFM_VanillaFireModes.Patches
 {
     [HarmonyPatch]
-
     public static class Patch_BurstShotCount
     {
         // 用来存储当前正在执行射击的 Verb 及其被锁定的连发数
-        [ThreadStatic]
-        private static int? lockedBurstCount;
+        [ThreadStatic] private static int? lockedBurstCount;
 
         [HarmonyPatch(typeof(Verb), nameof(Verb.WarmupComplete))]
         [HarmonyPrefix]
@@ -27,8 +25,8 @@ namespace VFM_VanillaFireModes.Patches
                 if (__instance.EquipmentSource.def.IsRangedWeapon)
                 {
                     var mode = pawn.VFM_GetFireMode();
-                    var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount);
-
+                    var weaponDefName = __instance.EquipmentSource.def.defName;
+                    var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount, weaponDefName);
                     // 锁定数值
                     lockedBurstCount = Mathf.Max(1, m);
                 }
@@ -51,11 +49,8 @@ namespace VFM_VanillaFireModes.Patches
                     {
                         __result = lockedBurstCount.Value;
                     }
-
                 }
             }
-
-
         }
 
         [HarmonyPatch(typeof(Verb), nameof(Verb.VerbTick))]

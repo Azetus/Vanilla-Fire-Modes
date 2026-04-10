@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using VFM_VanillaFireModes.Settings;
+using VFM_VanillaFireModes.Settings.CustomWeaponProfile;
 
 namespace VFM_VanillaFireModes.Utilities
 {
@@ -7,8 +8,20 @@ namespace VFM_VanillaFireModes.Utilities
     {
         public static VanillaFireModesModSetting Settings => VanillaFireModes.settings;
 
-        public static float GetWarmup(VFM_FireMode mode)
+        public static float GetWarmup(VFM_FireMode mode, string? weaponDefName)
         {
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            {
+                return mode switch
+                {
+                    VFM_FireMode.Precision => weaponProfile.Precision.warmupMultiplier,
+                    VFM_FireMode.Burst => weaponProfile.Burst.warmupMultiplier,
+                    VFM_FireMode.Suppression => weaponProfile.Suppression.warmupMultiplier,
+                    VFM_FireMode.Default => weaponProfile.Default.warmupMultiplier,
+                    _ => 1f
+                };
+            }
+
             return mode switch
             {
                 VFM_FireMode.Precision => Settings.precisionWarmup,
@@ -19,8 +32,20 @@ namespace VFM_VanillaFireModes.Utilities
             };
         }
 
-        public static float GetCooldown(VFM_FireMode mode)
+        public static float GetCooldown(VFM_FireMode mode, string? weaponDefName)
         {
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            {
+                return mode switch
+                {
+                    VFM_FireMode.Precision => weaponProfile.Precision.cooldownMultiplier,
+                    VFM_FireMode.Burst => weaponProfile.Burst.cooldownMultiplier,
+                    VFM_FireMode.Suppression => weaponProfile.Suppression.cooldownMultiplier,
+                    VFM_FireMode.Default => weaponProfile.Default.cooldownMultiplier,
+                    _ => 1f
+                };
+            }
+
             return mode switch
             {
                 VFM_FireMode.Precision => Settings.precisionCooldown,
@@ -31,20 +56,44 @@ namespace VFM_VanillaFireModes.Utilities
             };
         }
 
-        public static float GetAccuracy(VFM_FireMode mode)
+        public static float GetAccuracy(VFM_FireMode mode, string? weaponDefName)
         {
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            {
+                return mode switch
+                {
+                    VFM_FireMode.Precision => weaponProfile.Precision.accuracyMultiplier,
+                    VFM_FireMode.Burst => weaponProfile.Burst.accuracyMultiplier,
+                    VFM_FireMode.Suppression => weaponProfile.Suppression.accuracyMultiplier,
+                    VFM_FireMode.Default => weaponProfile.Default.accuracyMultiplier,
+                    _ => 1f
+                };
+            }
+
             return mode switch
             {
                 VFM_FireMode.Precision => Settings.precisionAccuracy,
                 VFM_FireMode.Burst => Settings.burstAccuracy,
                 VFM_FireMode.Suppression => Settings.suppressionAccuracy,
-                VFM_FireMode.Default  => Settings.defaultAccuracy,
+                VFM_FireMode.Default => Settings.defaultAccuracy,
                 _ => 1f
             };
         }
 
-        public static int GetBurstCount(VFM_FireMode mode, int baseBurstCount)
+        public static int GetBurstCount(VFM_FireMode mode, int baseBurstCount, string? weaponDefName)
         {
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            {
+                return mode switch
+                {
+                    VFM_FireMode.Precision => weaponProfile.Precision.burstShotCount,
+                    VFM_FireMode.Burst => weaponProfile.Burst.burstShotCount,
+                    VFM_FireMode.Suppression => weaponProfile.Suppression.burstShotCount,
+                    VFM_FireMode.Default => weaponProfile.Default.burstShotCount,
+                    _ => baseBurstCount
+                };
+            }
+
             return mode switch
             {
                 VFM_FireMode.Precision => GetBurstCount_Precision(baseBurstCount, Settings.precisionBurstOption),
@@ -67,7 +116,7 @@ namespace VFM_VanillaFireModes.Utilities
                 Settings.precisionBurstTentPeakOffset,
                 Settings.precisionBurstAdaptiveBonus,
                 Settings.precisionBurstAdaptivePeakOffset
-                );
+            );
         }
 
         private static int GetBurstCount_Burst(int baseBurstCount, BurstShotOption burstShotOption)
@@ -82,7 +131,7 @@ namespace VFM_VanillaFireModes.Utilities
                 Settings.burstBurstTentPeakOffset,
                 Settings.burstBurstAdaptiveBonus,
                 Settings.burstBurstAdaptivePeakOffset
-                );
+            );
         }
 
         private static int GetBurstCount_Suppression(int baseBurstCount, BurstShotOption burstshotOption)
@@ -97,7 +146,7 @@ namespace VFM_VanillaFireModes.Utilities
                 Settings.suppressionBurstTentPeakOffset,
                 Settings.suppressionBurstAdaptiveBonus,
                 Settings.suppressionBurstAdaptivePeakOffset
-                );
+            );
         }
 
         private static int GetBurstCount_Default(int baseBurstCount, BurstShotOption burstShotOption)
@@ -125,7 +174,7 @@ namespace VFM_VanillaFireModes.Utilities
             int tentPeak,
             int adaptBonus,
             int adaptPeak
-            )
+        )
         {
             return burstOption switch
             {
@@ -135,7 +184,6 @@ namespace VFM_VanillaFireModes.Utilities
                 BurstShotOption.Adaptive => Mathf.Max(1, handleAdaptFunc(baseBurstCount, adaptBonus, adaptPeak)),
                 _ => baseBurstCount
             };
-
         }
 
         private static int handleLinear(int baseBurstCount, float linearMult)
