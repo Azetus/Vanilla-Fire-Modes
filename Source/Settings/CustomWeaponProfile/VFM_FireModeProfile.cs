@@ -2,14 +2,14 @@
 
 namespace VFM_VanillaFireModes.Settings.CustomWeaponProfile;
 
-public class FireModeProfile : IExposable
+public class VFM_FireModeProfile : IExposable
 {
     public float accuracyMultiplier = 1.0f;
     public float warmupMultiplier = 1.0f;
     public float cooldownMultiplier = 1.0f;
     public int burstShotCount = 1;
 
-    public FireModeProfile(
+    public VFM_FireModeProfile(
         float accuracyMultiplier = 1.0f,
         float warmupMultiplier = 1.0f,
         float cooldownMultiplier = 1.0f,

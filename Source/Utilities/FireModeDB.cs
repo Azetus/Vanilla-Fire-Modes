@@ -10,7 +10,7 @@ namespace VFM_VanillaFireModes.Utilities
 
         public static float GetWarmup(VFM_FireMode mode, string? weaponDefName)
         {
-            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out VFM_WeaponProfile weaponProfile))
             {
                 return mode switch
                 {
@@ -34,7 +34,7 @@ namespace VFM_VanillaFireModes.Utilities
 
         public static float GetCooldown(VFM_FireMode mode, string? weaponDefName)
         {
-            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out VFM_WeaponProfile weaponProfile))
             {
                 return mode switch
                 {
@@ -58,7 +58,7 @@ namespace VFM_VanillaFireModes.Utilities
 
         public static float GetAccuracy(VFM_FireMode mode, string? weaponDefName)
         {
-            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out VFM_WeaponProfile weaponProfile))
             {
                 return mode switch
                 {
@@ -82,7 +82,7 @@ namespace VFM_VanillaFireModes.Utilities
 
         public static int GetBurstCount(VFM_FireMode mode, int baseBurstCount, string? weaponDefName)
         {
-            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out WeaponFireModeProfile weaponProfile))
+            if (weaponDefName != null && Settings.CustomWeaponProfiles.TryGetValue(weaponDefName, out VFM_WeaponProfile weaponProfile))
             {
                 return mode switch
                 {

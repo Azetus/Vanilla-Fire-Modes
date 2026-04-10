@@ -99,7 +99,7 @@ namespace VFM_VanillaFireModes.Settings
         public bool enableFireModeForNPC = true;
 
         // ------ CustomWeaponProfile ------
-        public Dictionary<string, WeaponFireModeProfile> CustomWeaponProfiles = new Dictionary<string, WeaponFireModeProfile>();
+        public Dictionary<string, VFM_WeaponProfile> CustomWeaponProfiles = new Dictionary<string, VFM_WeaponProfile>();
 
         public override void ExposeData()
         {
@@ -172,8 +172,10 @@ namespace VFM_VanillaFireModes.Settings
 
             // ------ CustomWeaponProfile ------
             Scribe_Deep.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles");
-
-            if (CustomWeaponProfiles == null) CustomWeaponProfiles = new Dictionary<string, WeaponFireModeProfile>();
+            // TODO: or it should be Scribe_Collections ???
+            // Scribe_Collections.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles", LookMode.Deep);
+            
+            if (CustomWeaponProfiles == null) CustomWeaponProfiles = new Dictionary<string, VFM_WeaponProfile>();
             base.ExposeData();
         }
 
