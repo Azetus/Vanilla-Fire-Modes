@@ -103,6 +103,8 @@ namespace VFM_VanillaFireModes.Settings
 
         public override void ExposeData()
         {
+            base.ExposeData();
+
             # region FireModes
 
             // ------ 默认 (Default) ------
@@ -171,12 +173,12 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
 
             // ------ CustomWeaponProfile ------
-            Scribe_Deep.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles");
-            // TODO: or it should be Scribe_Collections ???
-            // Scribe_Collections.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles", LookMode.Deep);
-            
-            if (CustomWeaponProfiles == null) CustomWeaponProfiles = new Dictionary<string, VFM_WeaponProfile>();
-            base.ExposeData();
+            Scribe_Collections.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles", LookMode.Value);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (CustomWeaponProfiles == null) CustomWeaponProfiles = new Dictionary<string, VFM_WeaponProfile>();
+            }
         }
 
         public void ResetSetting()

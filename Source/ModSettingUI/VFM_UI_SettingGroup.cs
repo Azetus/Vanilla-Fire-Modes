@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Verse;
+using VFM_VanillaFireModes.ModSettingUI.WeaponProfileSetting;
 using VFM_VanillaFireModes.Settings;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_BurstSection;
 using static VFM_VanillaFireModes.ModSettingUI.VFM_UI_SliderWithInput;
@@ -49,6 +50,19 @@ namespace VFM_VanillaFireModes.ModSettingUI
                 ref enableFireModeForNPC,
                 "VFM_EnableAutoSelection_NPC_Desc".Translate()
             );
+            
+            // TODO：记得把文本抽出到 keyed.xml 里
+            innerLs.GapLine(6f);
+            innerLs.Gap(6f);
+            Text.Font = GameFont.Medium;
+            innerLs.Label("定制武器".Translate());
+            Text.Font = GameFont.Small;
+            innerLs.Gap(6f);
+            if (innerLs.ButtonText("定制武器列表"))
+            {
+                Find.WindowStack.Add(new VFM_UI_CustomWeaponWindow());
+            }
+            
             innerLs.GapLine(6f);
             innerLs.Gap(6f);
             Text.Font = GameFont.Medium;

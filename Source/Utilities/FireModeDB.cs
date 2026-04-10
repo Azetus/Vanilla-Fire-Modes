@@ -96,19 +96,19 @@ namespace VFM_VanillaFireModes.Utilities
 
             return mode switch
             {
-                VFM_FireMode.Precision => GetBurstCount_Precision(baseBurstCount, Settings.precisionBurstOption),
-                VFM_FireMode.Burst => GetBurstCount_Burst(baseBurstCount, Settings.burstBurstOption),
-                VFM_FireMode.Suppression => GetBurstCount_Suppression(baseBurstCount, Settings.suppressionBurstOption),
-                VFM_FireMode.Default => GetBurstCount_Default(baseBurstCount, Settings.defaultBurstOption),
+                VFM_FireMode.Precision => GetBurstCount_Precision(baseBurstCount),
+                VFM_FireMode.Burst => GetBurstCount_Burst(baseBurstCount),
+                VFM_FireMode.Suppression => GetBurstCount_Suppression(baseBurstCount),
+                VFM_FireMode.Default => GetBurstCount_Default(baseBurstCount),
                 _ => baseBurstCount
             };
         }
 
-        private static int GetBurstCount_Precision(int baseBurstCount, BurstShotOption burstShotOption)
+        public static int GetBurstCount_Precision(int baseBurstCount)
         {
             return GetBurstCountByOption(
                 baseBurstCount,
-                burstShotOption,
+                Settings.precisionBurstOption,
                 Settings.precisionBurstLinearMultiplier,
                 Settings.precisionBurstAdditiveBonus,
                 Settings.precisionBurstTentMaxMultiplier,
@@ -119,11 +119,11 @@ namespace VFM_VanillaFireModes.Utilities
             );
         }
 
-        private static int GetBurstCount_Burst(int baseBurstCount, BurstShotOption burstShotOption)
+        public static int GetBurstCount_Burst(int baseBurstCount)
         {
             return GetBurstCountByOption(
                 baseBurstCount,
-                burstShotOption,
+                Settings.burstBurstOption,
                 Settings.burstBurstLinearMultiplier,
                 Settings.burstBurstAdditiveBonus,
                 Settings.burstBurstTentMaxMultiplier,
@@ -134,11 +134,11 @@ namespace VFM_VanillaFireModes.Utilities
             );
         }
 
-        private static int GetBurstCount_Suppression(int baseBurstCount, BurstShotOption burstshotOption)
+        public static int GetBurstCount_Suppression(int baseBurstCount)
         {
             return GetBurstCountByOption(
                 baseBurstCount,
-                burstshotOption,
+                Settings.suppressionBurstOption,
                 Settings.suppressionBurstLinearMultiplier,
                 Settings.suppressionBurstAdditiveBonus,
                 Settings.suppressionBurstTentMaxMultiplier,
@@ -149,11 +149,11 @@ namespace VFM_VanillaFireModes.Utilities
             );
         }
 
-        private static int GetBurstCount_Default(int baseBurstCount, BurstShotOption burstShotOption)
+        public static int GetBurstCount_Default(int baseBurstCount)
         {
             return GetBurstCountByOption(
                 baseBurstCount,
-                burstShotOption,
+                Settings.defaultBurstOption,
                 Settings.defaultBurstLinearMultiplier,
                 Settings.defaultBurstAdditiveBonus,
                 Settings.defaultBurstTentMaxMultiplier,

@@ -11,9 +11,25 @@ public class VFM_WeaponProfile : IExposable
     public VFM_FireModeProfile Burst;
     public VFM_FireModeProfile Suppression;
 
-    public VFM_WeaponProfile(string defName)
+    public VFM_WeaponProfile()
+    {
+        // this.Default = new VFM_FireModeProfile();
+        // this.Precision = new VFM_FireModeProfile();
+        // this.Burst = new VFM_FireModeProfile();
+        // this.Suppression = new VFM_FireModeProfile();
+    }
+
+    public VFM_WeaponProfile(string defName,
+        VFM_FireModeProfile Default,
+        VFM_FireModeProfile Precision,
+        VFM_FireModeProfile Burst,
+        VFM_FireModeProfile Suppression)
     {
         this.defName = defName;
+        this.Default = Default;
+        this.Precision = Precision;
+        this.Burst = Burst;
+        this.Suppression = Suppression;
     }
 
     public bool defIsValid()
@@ -24,11 +40,11 @@ public class VFM_WeaponProfile : IExposable
 
     public void ExposeData()
     {
-        Scribe_Values.Look(ref defName, "defName");
-        Scribe_Deep.Look(ref Default, "Default", new VFM_FireModeProfile());
-        Scribe_Deep.Look(ref Precision, "Precision", new VFM_FireModeProfile());
-        Scribe_Deep.Look(ref Burst, "Burst", new VFM_FireModeProfile());
-        Scribe_Deep.Look(ref Suppression, "Suppression", new VFM_FireModeProfile());
+        Scribe_Values.Look(ref defName, nameof(defName));
+        Scribe_Deep.Look(ref Default, nameof(Default));
+        Scribe_Deep.Look(ref Precision, nameof(Precision));
+        Scribe_Deep.Look(ref Burst, nameof(Burst));
+        Scribe_Deep.Look(ref Suppression, nameof(Suppression));
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             Default ??= new VFM_FireModeProfile();
@@ -37,4 +53,5 @@ public class VFM_WeaponProfile : IExposable
             Suppression ??= new VFM_FireModeProfile();
         }
     }
+    
 }
