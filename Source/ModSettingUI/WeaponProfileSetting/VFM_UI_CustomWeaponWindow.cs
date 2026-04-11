@@ -199,9 +199,9 @@ public class VFM_UI_CustomWeaponWindow : Window
         if (_turretWeaponCache.Contains(def))
             return false;
 
-        // TODO: 补充排除是否有必要？
-        if (def.destroyOnDrop && def.tradeability == Tradeability.None)
-            return false;
+        // NOTE: 会排除掉原版机械体的部分默认武器，暂时注释掉
+        // if (def.destroyOnDrop && def.tradeability == Tradeability.None)
+        //     return false;
 
         return true;
     }
@@ -224,6 +224,7 @@ public class VFM_UI_CustomWeaponWindow : Window
     }
 
     private const float rightRowPadding = 5f;
+
     private void DrawRightBlock(Rect rect)
     {
         Widgets.DrawMenuSection(rect);
