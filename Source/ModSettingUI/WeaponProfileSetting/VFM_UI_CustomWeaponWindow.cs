@@ -70,7 +70,10 @@ public class VFM_UI_CustomWeaponWindow : Window
         Rect addAllRect = new Rect(inner.x + inner.width - 120f, y, 120f, 30f);
         if (Widgets.ButtonText(addAllRect, "添加全部"))
         {
-            // TODO: 需要打开一个弹窗二次确认，提示一下不推荐这样操作
+            // 二次确认弹窗
+            Find.WindowStack.Add(
+                new VFM_UI_AddAllWeaponsConfirmDialog(GetAllRangedWeapons())
+            );
         }
 
         y += 35f;
@@ -121,9 +124,12 @@ public class VFM_UI_CustomWeaponWindow : Window
         Rect arrowRect = new Rect(rect.xMax - 30f, rect.y + 10f, 24f, 24f);
         if (Widgets.ButtonImage(arrowRect, TexButton.Reveal))
         {
-            VerbProperties? weaponVerb = GetPrimaryVerb(def);
-            if (weaponVerb != null)
-                AddSingleWeapon(def.defName, weaponVerb.burstShotCount);
+            if (!Settings.CustomWeaponProfiles.ContainsKey(def.defName))
+            {
+                VerbProperties? weaponVerb = GetPrimaryVerb(def);
+                if (weaponVerb != null)
+                    AddSingleWeapon(def.defName, weaponVerb.burstShotCount);
+            }
         }
     }
 
@@ -152,7 +158,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Settings.CustomWeaponProfiles.Add(defName, newProfile);
     }
 
-    // TODO: 这里可能还需要改一下
+    // TODO: 这里可能还需要改一下, 添加校验一下Verbs不为空
     private IEnumerable<ThingDef> GetAllRangedWeapons()
     {
         return DefDatabase<ThingDef>.AllDefs
@@ -166,13 +172,17 @@ public class VFM_UI_CustomWeaponWindow : Window
     // TODO：这个cache和方法最好换个位置放
     private static HashSet<ThingDef> _turretWeaponCache;
 
+    /**
+     * 仅依靠 def.IsRangedWeapon 找出远程武器是不够的。炮塔的武器也会包含在内。
+     * 炮塔用的武器没有单独的标签，需要先找出所有的 Turret 建筑，然后从建筑上找出对应的 turretGunDef
+     */
     public static bool IsActualPawnWeapon(ThingDef def)
     {
         // 基础过滤：必须是远程
         if (def == null || !def.IsRangedWeapon)
             return false;
 
-        // 懒加载初始化缓存，找出全游戏所有炮塔正在使用的turretGunDef
+        // 懒加载初始化缓存，找出全游戏所有炮塔正在使用的 turretGunDef
         if (_turretWeaponCache == null)
         {
             _turretWeaponCache = new HashSet<ThingDef>();
@@ -213,6 +223,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         return GetAllRangedWeapons().Count() * LeftRowHeight;
     }
 
+    private const float rightRowPadding = 5f;
     private void DrawRightBlock(Rect rect)
     {
         Widgets.DrawMenuSection(rect);
@@ -230,7 +241,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Rect clearRect = new Rect(inner.x + inner.width - 120f, y, 120f, 30f);
         if (Widgets.ButtonText(clearRect, "清除全部"))
         {
-            // TODO：清空列表
+            Settings.CustomWeaponProfiles.Clear();
         }
 
         y += 35f;
@@ -247,22 +258,28 @@ public class VFM_UI_CustomWeaponWindow : Window
         Widgets.BeginScrollView(listRect, ref rightScrollPos, viewRect);
 
         float curY = 0f;
-        const float rowPadding = 5f;
+        var keysToDelete = new List<string>();
         foreach (var kv in GetProfiles())
         {
             ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(kv.Value.defName);
             if (def == null) continue;
-            curY += rowPadding;
+            curY += rightRowPadding;
             Rect row = new Rect(0, curY, viewRect.width, RightRowHeight);
-            DrawRightItem(row, kv.Value, def);
+            DrawRightItem(row, kv.Key, kv.Value, def, keysToDelete);
             curY += RightRowHeight;
+        }
+
+        foreach (var key in keysToDelete)
+        {
+            if (key != null)
+                Settings.CustomWeaponProfiles.Remove(key);
         }
 
         Widgets.EndScrollView();
     }
 
-    private const float ModeLabelWidth = 80f;
-    private const float ModeValueWidth = 60f;
+    private const float ModeLabelWidth = 60f;
+    private const float ModeValueWidth = 90f;
     private const float InfoBlockWidth = 210f;
 
     private void DrawRightHeader(Rect rect)
@@ -294,7 +311,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         TooltipHandler.TipRegion(rect, tooltip);
     }
 
-    private void DrawRightItem(Rect rect, VFM_WeaponProfile profile, ThingDef def)
+    private void DrawRightItem(Rect rect, string key, VFM_WeaponProfile profile, ThingDef def, List<string> keysToDelete)
     {
         Widgets.DrawHighlightIfMouseover(rect);
 
@@ -306,14 +323,15 @@ public class VFM_UI_CustomWeaponWindow : Window
         x += iconTotalWidth;
 
         // 名字 + defName
-        float textBlockHeight = 35f; // 两行总高度
-        float startY = rect.y + (rect.height - textBlockHeight) / 2f;
-
+        const float labelWidth = 200f;
+        float startY = rect.y + rect.height / 2f;
         Text.Anchor = TextAnchor.MiddleLeft;
-        Rect labelRect = new Rect(x, startY, 200f, 20f);
+        float labelHeight = Text.CalcHeight(def.LabelCap, labelWidth);
+        Rect labelRect = new Rect(x, startY - labelHeight, 200f, labelHeight);
         Widgets.Label(labelRect, def.LabelCap);
-        Rect defNameRect = new Rect(x, startY + 25f, 200f, 18f);
         Text.Font = GameFont.Tiny;
+        float defNameHeight = Text.CalcHeight(profile.defName, labelWidth);
+        Rect defNameRect = new Rect(x, startY + 1f, 200f, defNameHeight);
         Widgets.Label(defNameRect, profile.defName);
 
         Text.Font = GameFont.Small;
@@ -336,13 +354,17 @@ public class VFM_UI_CustomWeaponWindow : Window
         Rect deleteRect = new Rect(btnX, rect.y + 5f, 24f, 24f);
         if (Widgets.ButtonImage(deleteRect, TexButton.Delete))
         {
-            // TODO：从列表中删除此项
+            // 删除
+            keysToDelete.Add(key);
         }
 
         Rect editRect = new Rect(btnX - 10f, rect.y + rect.height - 30f, 40f, 20f);
         if (Widgets.ButtonText(editRect, "编辑"))
         {
-            // TODO：打开一个弹窗，编辑具体参数
+            // 打开编辑弹窗
+            VerbProperties? weaponVerb = GetPrimaryVerb(def);
+            if (weaponVerb != null)
+                Find.WindowStack.Add(new VFM_UI_EditWeaponProfileDialog(profile, weaponVerb.burstShotCount));
         }
 
         Widgets.DrawBox(rect, 1); // 外框线
@@ -357,6 +379,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Text.Anchor = TextAnchor.MiddleLeft;
         Widgets.Label(labelRect, label);
         Text.Anchor = TextAnchor.UpperLeft;
+        TooltipHandler.TipRegion(labelRect, label);
 
         x += ModeLabelWidth;
 
@@ -401,6 +424,6 @@ public class VFM_UI_CustomWeaponWindow : Window
 
     private float GetRightListHeight()
     {
-        return GetProfiles().Count() * RightRowHeight;
+        return GetProfiles().Count() * (RightRowHeight + rightRowPadding);
     }
 }
