@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using Verse;
-using VFM_VanillaFireModes.Settings.CustomWeaponProfile;
+using static VFM_VanillaFireModes.Utilities.WeaponProfileUtils;
 
 namespace VFM_VanillaFireModes.ModSettingUI.WeaponProfileSetting;
 
 public class VFM_UI_AddAllWeaponsConfirmDialog : Window
 {
-    private readonly IEnumerable<ThingDef> weapons;
+    private const float ButtonWidth = 120f;
+    private const float ButtonHeight = 35f;
+    private const float Spacing = 20f;
+    private const float BottomPadding = 10f;
 
     public override Vector2 InitialSize => new Vector2(400f, 300f);
 
-    public VFM_UI_AddAllWeaponsConfirmDialog(IEnumerable<ThingDef> weapons)
+    public VFM_UI_AddAllWeaponsConfirmDialog()
     {
-        this.weapons = weapons;
-
         doCloseX = true;
         // doCloseButton = true;
         // draggable = true;
@@ -22,16 +23,12 @@ public class VFM_UI_AddAllWeaponsConfirmDialog : Window
 
     public override void DoWindowContents(Rect inRect)
     {
-        float buttonHeight = 35f;
-        float spacing = 20f;
-        float bottomPadding = 10f;
-
-        // 1. 先给按钮预留底部空间
+        // 按钮预留空间
         Rect contentRect = new Rect(
             inRect.x,
             inRect.y,
             inRect.width,
-            inRect.height - buttonHeight - bottomPadding
+            inRect.height - ButtonHeight - BottomPadding
         );
         var listing = new Listing_Standard();
         listing.Begin(contentRect);
@@ -46,14 +43,13 @@ public class VFM_UI_AddAllWeaponsConfirmDialog : Window
         listing.End();
 
         // 按钮区域
-        float buttonWidth = 120f;
-        float totalWidth = buttonWidth * 2 + spacing;
+        float totalWidth = ButtonWidth * 2 + Spacing;
 
         float startX = inRect.x + (inRect.width - totalWidth) / 2f;
-        float y = inRect.yMax - buttonHeight - bottomPadding;
+        float y = inRect.yMax - ButtonHeight - BottomPadding;
 
-        Rect confirmRect = new Rect(startX, y, buttonWidth, buttonHeight);
-        Rect cancelRect = new Rect(startX + buttonWidth + spacing, y, buttonWidth, buttonHeight);
+        Rect confirmRect = new Rect(startX, y, ButtonWidth, ButtonHeight);
+        Rect cancelRect = new Rect(startX + ButtonWidth + Spacing, y, ButtonWidth, ButtonHeight);
 
         if (Widgets.ButtonText(confirmRect, "VFM_Confirm_Button_Label".Translate()))
         {
@@ -69,7 +65,7 @@ public class VFM_UI_AddAllWeaponsConfirmDialog : Window
 
     private void DoAddAllWeapons()
     {
-        foreach (var def in weapons)
+        foreach (var def in GetAllRangedWeapons())
         {
             if (VanillaFireModes.settings.CustomWeaponProfiles.ContainsKey(def.defName))
                 continue;
@@ -82,24 +78,5 @@ public class VFM_UI_AddAllWeaponsConfirmDialog : Window
         }
 
         VanillaFireModes.settings.Write();
-    }
-
-    // TODO: 这几个方法记得抽取到工具类里
-    private VerbProperties? GetPrimaryVerb(ThingDef def)
-    {
-        return def.Verbs?.FirstOrDefault(v => v.defaultProjectile != null);
-    }
-
-    private void AddSingleWeapon(string defName, int baseBurstShotCount)
-    {
-        VFM_WeaponProfile newProfile = new VFM_WeaponProfile(
-            defName,
-            VFM_FireModeProfile.CreateDefault(baseBurstShotCount),
-            VFM_FireModeProfile.CreatePrecision(baseBurstShotCount),
-            VFM_FireModeProfile.CreateBurst(baseBurstShotCount),
-            VFM_FireModeProfile.CreateSuppression(baseBurstShotCount)
-        );
-
-        VanillaFireModes.settings.CustomWeaponProfiles.Add(defName, newProfile);
     }
 }

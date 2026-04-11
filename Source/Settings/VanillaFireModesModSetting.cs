@@ -276,7 +276,10 @@ namespace VFM_VanillaFireModes.Settings
 
         public void ResetWeaponProfileSetting()
         {
-            CustomWeaponProfiles.Clear();
+            if (CustomWeaponProfiles != null) 
+                CustomWeaponProfiles.Clear();
+            if (CustomWeaponProfiles == null) 
+                CustomWeaponProfiles = new Dictionary<string, VFM_WeaponProfile>();
         }
     }
 }

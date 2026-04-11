@@ -1,8 +1,8 @@
-﻿using RimWorld;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Settings;
 using VFM_VanillaFireModes.Settings.CustomWeaponProfile;
+using static VFM_VanillaFireModes.Utilities.WeaponProfileUtils;
 
 namespace VFM_VanillaFireModes.ModSettingUI.WeaponProfileSetting;
 
@@ -12,6 +12,9 @@ public class VFM_UI_CustomWeaponWindow : Window
     private const float Padding = 10f;
     private const float LeftRowHeight = 50f;
     private const float RightRowHeight = 100f;
+
+    private const float iconSize = 40f;
+    private const float iconTotalWidth = 45f;
 
     private Vector2 leftScrollPos;
     private Vector2 rightScrollPos;
@@ -53,6 +56,22 @@ public class VFM_UI_CustomWeaponWindow : Window
         GUI.EndGroup();
     }
 
+
+    private IEnumerable<KeyValuePair<string, VFM_WeaponProfile>> GetProfiles()
+    {
+        return Settings.CustomWeaponProfiles
+            .Where(kv =>
+                {
+                    ThingDef? def = DefDatabase<ThingDef>.GetNamedSilentFail(kv.Value.defName);
+                    return def != null && (rightSearch.NullOrEmpty() ||
+                                           def.label.ToLower().Contains(rightSearch.ToLower()));
+                }
+            );
+    }
+
+
+    #region LeftBlock
+
     private void DrawLeftBlock(Rect rect)
     {
         Widgets.DrawMenuSection(rect);
@@ -72,7 +91,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         {
             // 二次确认弹窗
             Find.WindowStack.Add(
-                new VFM_UI_AddAllWeaponsConfirmDialog(GetAllRangedWeapons())
+                new VFM_UI_AddAllWeaponsConfirmDialog()
             );
         }
 
@@ -87,7 +106,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Listing_Standard listing = new Listing_Standard();
         listing.Begin(viewRect);
 
-        foreach (var def in GetAllRangedWeapons())
+        foreach (var def in GetAllRangedWeaponsWithSearch(leftSearch))
         {
             DrawLeftItem(listing.GetRect(LeftRowHeight), def);
         }
@@ -96,8 +115,6 @@ public class VFM_UI_CustomWeaponWindow : Window
         Widgets.EndScrollView();
     }
 
-    private const float iconSize = 40f;
-    private const float iconTotalWidth = 45f;
 
     private void DrawLeftItem(Rect rect, ThingDef def)
     {
@@ -133,95 +150,14 @@ public class VFM_UI_CustomWeaponWindow : Window
         }
     }
 
-    /**
-     * BurstShotCount 定义在 Verb 上，但是 Verb 并没有全局唯一的标签来用于区分。
-     * 而一个ThingDef可能包含多个 Verb，所以选择从 ThingDef 的 Verbs 列表选择第一个 isPrimary == true 的作为主 Verb。
-     * 自定义 WeaponProfile 的连发次数直接和武器本身绑定。
-     */
-    private static VerbProperties? GetPrimaryVerb(ThingDef def)
-    {
-        return def.Verbs.FirstOrDefault(v => v.isPrimary);
-    }
-
-    /**
-     * 添加武器至 CustomWeaponProfiles 列表，使用当前全局设置为默认参数
-     */
-    private static void AddSingleWeapon(string defName, int baseBurstShotCount)
-    {
-        VFM_WeaponProfile newProfile = new VFM_WeaponProfile(
-            defName,
-            VFM_FireModeProfile.CreateDefault(baseBurstShotCount),
-            VFM_FireModeProfile.CreatePrecision(baseBurstShotCount),
-            VFM_FireModeProfile.CreateBurst(baseBurstShotCount),
-            VFM_FireModeProfile.CreateSuppression(baseBurstShotCount)
-        );
-        Settings.CustomWeaponProfiles.Add(defName, newProfile);
-    }
-
-    // TODO: 这里可能还需要改一下, 添加校验一下Verbs不为空
-    private IEnumerable<ThingDef> GetAllRangedWeapons()
-    {
-        return DefDatabase<ThingDef>.AllDefs
-            .Where(d =>
-                d.IsRangedWeapon &&
-                IsActualPawnWeapon(d) &&
-                (leftSearch.NullOrEmpty() || d.label.ToLower().Contains(leftSearch.ToLower()))
-            );
-    }
-
-    // TODO：这个cache和方法最好换个位置放
-    private static HashSet<ThingDef> _turretWeaponCache;
-
-    /**
-     * 仅依靠 def.IsRangedWeapon 找出远程武器是不够的。炮塔的武器也会包含在内。
-     * 炮塔用的武器没有单独的标签，需要先找出所有的 Turret 建筑，然后从建筑上找出对应的 turretGunDef
-     */
-    public static bool IsActualPawnWeapon(ThingDef def)
-    {
-        // 基础过滤：必须是远程
-        if (def == null || !def.IsRangedWeapon)
-            return false;
-
-        // 懒加载初始化缓存，找出全游戏所有炮塔正在使用的 turretGunDef
-        if (_turretWeaponCache == null)
-        {
-            _turretWeaponCache = new HashSet<ThingDef>();
-            foreach (var d in DefDatabase<ThingDef>.AllDefs)
-            {
-                if (IsTurret(d))
-                {
-                    _turretWeaponCache.Add(d.building.turretGunDef);
-                }
-            }
-        }
-
-        // 如果这个 Def 在武器名单里，排除掉
-        if (_turretWeaponCache.Contains(def))
-            return false;
-
-        // NOTE: 会排除掉原版机械体的部分默认武器，暂时注释掉
-        // if (def.destroyOnDrop && def.tradeability == Tradeability.None)
-        //     return false;
-
-        return true;
-    }
-
-    private static bool IsTurret(ThingDef? t)
-    {
-        if (t == null)
-        {
-            return false;
-        }
-
-        return t.thingClass == typeof(Building_TurretGun) ||
-               (t.thingClass != null && t.thingClass.ToString().Contains("Building_TurretGun")) ||
-               (t.building != null && t.building.turretGunDef != null);
-    }
-
     private float GetLeftListHeight()
     {
-        return GetAllRangedWeapons().Count() * LeftRowHeight;
+        return GetAllRangedWeaponsWithSearch(leftSearch).Count() * LeftRowHeight;
     }
+
+    #endregion
+
+    #region RightBlock
 
     private const float rightRowPadding = 5f;
 
@@ -323,19 +259,12 @@ public class VFM_UI_CustomWeaponWindow : Window
         Widgets.ThingIcon(iconRect, def);
         x += iconTotalWidth;
 
-        // 名字 + defName
+        // 名字 + defName(tooltip)
         const float labelWidth = 200f;
-        float startY = rect.y + rect.height / 2f;
         Text.Anchor = TextAnchor.MiddleLeft;
-        float labelHeight = Text.CalcHeight(def.LabelCap, labelWidth);
-        Rect labelRect = new Rect(x, startY - labelHeight, 200f, labelHeight);
+        Rect labelRect = new Rect(x, rect.y, labelWidth, rect.height);
         Widgets.Label(labelRect, def.LabelCap);
-        Text.Font = GameFont.Tiny;
-        float defNameHeight = Text.CalcHeight(profile.defName, labelWidth);
-        Rect defNameRect = new Rect(x, startY + 1f, 200f, defNameHeight);
-        Widgets.Label(defNameRect, profile.defName);
-
-        Text.Font = GameFont.Small;
+        TooltipHandler.TipRegion(labelRect, profile.defName);
         Text.Anchor = TextAnchor.UpperLeft;
 
         x += InfoBlockWidth;
@@ -384,14 +313,12 @@ public class VFM_UI_CustomWeaponWindow : Window
 
         TooltipHandler.TipRegion(editRect, "VFM_Edit_Button_Label".Translate());
 
-        Widgets.DrawBox(rect,
-            1); // 外框线
+        Widgets.DrawBox(rect, 1); // 外框线
     }
 
     private void DrawModeRow(Rect rect, string label, string tooltipStr, VFM_FireModeProfile data)
     {
         float x = rect.x;
-        // TODO：最好改成和header一样： label 用缩写，完整名称用 tooltip显示
         // 模式名
         Rect labelRect = new Rect(x, rect.y, ModeLabelWidth, rect.height);
         Text.Anchor = TextAnchor.MiddleLeft;
@@ -428,20 +355,10 @@ public class VFM_UI_CustomWeaponWindow : Window
     }
 
 
-    private IEnumerable<KeyValuePair<string, VFM_WeaponProfile>> GetProfiles()
-    {
-        return Settings.CustomWeaponProfiles
-            .Where(kv =>
-                {
-                    ThingDef? def = DefDatabase<ThingDef>.GetNamedSilentFail(kv.Value.defName);
-                    return def != null && (rightSearch.NullOrEmpty() ||
-                                           def.label.ToLower().Contains(rightSearch.ToLower()));
-                }
-            );
-    }
-
     private float GetRightListHeight()
     {
         return GetProfiles().Count() * (RightRowHeight + rightRowPadding);
     }
+
+    #endregion
 }

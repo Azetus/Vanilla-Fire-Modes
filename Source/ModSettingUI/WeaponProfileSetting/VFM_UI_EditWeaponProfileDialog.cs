@@ -9,6 +9,15 @@ public class VFM_UI_EditWeaponProfileDialog : Window
     private readonly VFM_WeaponProfile profile;
     private readonly int baseBurstShotCount;
 
+    private const float labelHeight = 25f;
+    private const float fieldHeight = 50f;
+    private const float blockHeight = 120f;
+
+    private const float floatInputMin = 0.1f;
+    private const float floatInputMax = 100.0f;
+    private const int intInputMin = 1;
+    private const int intInputMax = 100;
+
     public override Vector2 InitialSize => new Vector2(700f, 600f);
 
     public VFM_UI_EditWeaponProfileDialog(VFM_WeaponProfile profile, int baseBurstShotCount)
@@ -26,7 +35,6 @@ public class VFM_UI_EditWeaponProfileDialog : Window
     {
         float y = inRect.y;
         const float blockPadding = 10f;
-        float blockHeight = 120f;
 
         DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "VFM_DefaultMode".Translate(), profile.Default);
         y += blockHeight + blockPadding;
@@ -72,26 +80,23 @@ public class VFM_UI_EditWeaponProfileDialog : Window
         y += 35f;
 
         float colWidth = inner.width / 4f;
-        float fieldHeight = 50f;
 
         // 四个输入框
         DrawFloatField(new Rect(inner.x + colWidth * 0, y, colWidth, fieldHeight),
-            "VFM_Accuracy_Label".Translate(), ref data.accuracyMultiplier, 0.1f, 100f);
+            "VFM_Accuracy_Label".Translate(), ref data.accuracyMultiplier, floatInputMin, floatInputMax);
 
         DrawFloatField(new Rect(inner.x + colWidth * 1, y, colWidth, fieldHeight),
-            "VFM_Warmup_Label".Translate(), ref data.warmupMultiplier, 0.1f, 100f);
+            "VFM_Warmup_Label".Translate(), ref data.warmupMultiplier, floatInputMin, floatInputMax);
 
         DrawFloatField(new Rect(inner.x + colWidth * 2, y, colWidth, fieldHeight),
-            "VFM_Cooldown_Label".Translate(), ref data.cooldownMultiplier, 0.1f, 100f);
+            "VFM_Cooldown_Label".Translate(), ref data.cooldownMultiplier, floatInputMin, floatInputMax);
 
         DrawIntField(new Rect(inner.x + colWidth * 3, y, colWidth, fieldHeight),
-            "VFM_BurstCount_Label".Translate(), ref data.burstShotCount, 1, 100);
+            "VFM_BurstCount_Label".Translate(), ref data.burstShotCount, intInputMin, intInputMax);
     }
 
     private void DrawFloatField(Rect rect, string label, ref float value, float min, float max)
     {
-        float labelHeight = 25f;
-
         Widgets.Label(new Rect(rect.x, rect.y, rect.width, labelHeight), label);
 
         Rect fieldRect = new Rect(rect.x, rect.y + labelHeight, rect.width, rect.height - labelHeight);
@@ -107,8 +112,6 @@ public class VFM_UI_EditWeaponProfileDialog : Window
 
     private void DrawIntField(Rect rect, string label, ref int value, int min, int max)
     {
-        float labelHeight = 25f;
-
         Widgets.Label(new Rect(rect.x, rect.y, rect.width, labelHeight), label);
 
         Rect fieldRect = new Rect(rect.x, rect.y + labelHeight, rect.width, rect.height - labelHeight);
