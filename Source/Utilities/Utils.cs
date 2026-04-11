@@ -21,7 +21,7 @@ namespace VFM_VanillaFireModes.Utilities
         {
             if (burstShotCount <= 1) return burstShotCount;
             float extraShot = Mathf.Min(bonus, MAX_EXTRASHOT);
-            return Mathf.Max(1, burstShotCount + (int)Math.Round(bonus));
+            return Mathf.Max(1, burstShotCount + (int)Math.Round(extraShot));
         }
 
 
