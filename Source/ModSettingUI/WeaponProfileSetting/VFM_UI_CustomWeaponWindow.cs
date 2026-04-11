@@ -28,7 +28,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         this.doCloseX = true;
         // this.doCloseButton = true;
         this.absorbInputAroundWindow = true;
-        // this.closeOnClickedOutside = true;
+        this.closeOnClickedOutside = true;
     }
 
     public override void DoWindowContents(Rect inRect)
@@ -68,7 +68,7 @@ public class VFM_UI_CustomWeaponWindow : Window
 
         // “添加全部”按钮（右对齐）
         Rect addAllRect = new Rect(inner.x + inner.width - 120f, y, 120f, 30f);
-        if (Widgets.ButtonText(addAllRect, "添加全部"))
+        if (Widgets.ButtonText(addAllRect, "VFM_Profile_AddAllWeapons_Label".Translate()))
         {
             // 二次确认弹窗
             Find.WindowStack.Add(
@@ -240,7 +240,7 @@ public class VFM_UI_CustomWeaponWindow : Window
 
         // 清除全部按钮
         Rect clearRect = new Rect(inner.x + inner.width - 120f, y, 120f, 30f);
-        if (Widgets.ButtonText(clearRect, "清除全部"))
+        if (Widgets.ButtonText(clearRect, "VFM_Profile_RemoveAllProfile_Label".Translate()))
         {
             Settings.CustomWeaponProfiles.Clear();
         }
@@ -288,16 +288,16 @@ public class VFM_UI_CustomWeaponWindow : Window
         // 平移一下 header
         float x = rect.x + 5f + iconTotalWidth + InfoBlockWidth + ModeLabelWidth;
 
-        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "精度", "精度倍率");
+        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "VFM_Accuracy_Abbr".Translate(), "VFM_Accuracy_Label".Translate());
         x += ModeValueWidth;
 
-        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "瞄准", "瞄准时间倍率");
+        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "VFM_Warmup_Abbr".Translate(), "VFM_Warmup_Label".Translate());
         x += ModeValueWidth;
 
-        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "冷却", "冷却时间倍率");
+        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "VFM_Cooldown_Abbr".Translate(), "VFM_Cooldown_Label".Translate());
         x += ModeValueWidth;
 
-        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "连发", "连发次数");
+        DrawHeaderCell(new Rect(x, rect.y, ModeValueWidth, rect.height), "VFM_BurstCount_Abbr".Translate(), "VFM_BurstCount_Label".Translate());
     }
 
     /**
@@ -344,10 +344,22 @@ public class VFM_UI_CustomWeaponWindow : Window
         float lineHeight = rect.height / 4f;
         float tableWidth = ModeLabelWidth + ModeValueWidth * 4;
 
-        DrawModeRow(new Rect(x, rect.y + lineHeight * 0, tableWidth, lineHeight), "默认", profile.Default);
-        DrawModeRow(new Rect(x, rect.y + lineHeight * 1, tableWidth, lineHeight), "精准", profile.Precision);
-        DrawModeRow(new Rect(x, rect.y + lineHeight * 2, tableWidth, lineHeight), "点射", profile.Burst);
-        DrawModeRow(new Rect(x, rect.y + lineHeight * 3, tableWidth, lineHeight), "压制", profile.Suppression);
+        DrawModeRow(new Rect(x, rect.y + lineHeight * 0, tableWidth, lineHeight),
+            "VFM_DefaultMode_Abbr".Translate(),
+            "VFM_DefaultMode".Translate(),
+            profile.Default);
+        DrawModeRow(new Rect(x, rect.y + lineHeight * 1, tableWidth, lineHeight),
+            "VFM_PrecisionMode_Abbr".Translate(),
+            "VFM_PrecisionMode".Translate(),
+            profile.Precision);
+        DrawModeRow(new Rect(x, rect.y + lineHeight * 2, tableWidth, lineHeight),
+            "VFM_ShortBurstMode_Abbr".Translate(),
+            "VFM_ShortBurstMode".Translate(),
+            profile.Burst);
+        DrawModeRow(new Rect(x, rect.y + lineHeight * 3, tableWidth, lineHeight),
+            "VFM_SuppressionMode_Abbr".Translate(),
+            "VFM_SuppressionMode".Translate(),
+            profile.Suppression);
 
         // 右侧按钮
         float btnX = rect.xMax - 40f;
@@ -359,8 +371,10 @@ public class VFM_UI_CustomWeaponWindow : Window
             keysToDelete.Add(key);
         }
 
-        Rect editRect = new Rect(btnX - 10f, rect.y + rect.height - 30f, 40f, 20f);
-        if (Widgets.ButtonText(editRect, "编辑"))
+        TooltipHandler.TipRegion(deleteRect, "VFM_Delete_Button_Label".Translate());
+
+        Rect editRect = new Rect(btnX, rect.y + rect.height - 30f, 24f, 24f);
+        if (Widgets.ButtonImage(editRect, TexButton.Rename))
         {
             // 打开编辑弹窗
             VerbProperties? weaponVerb = GetPrimaryVerb(def);
@@ -368,10 +382,13 @@ public class VFM_UI_CustomWeaponWindow : Window
                 Find.WindowStack.Add(new VFM_UI_EditWeaponProfileDialog(profile, weaponVerb.burstShotCount));
         }
 
-        Widgets.DrawBox(rect, 1); // 外框线
+        TooltipHandler.TipRegion(editRect, "VFM_Edit_Button_Label".Translate());
+
+        Widgets.DrawBox(rect,
+            1); // 外框线
     }
 
-    private void DrawModeRow(Rect rect, string label, VFM_FireModeProfile data)
+    private void DrawModeRow(Rect rect, string label, string tooltipStr, VFM_FireModeProfile data)
     {
         float x = rect.x;
         // TODO：最好改成和header一样： label 用缩写，完整名称用 tooltip显示
@@ -380,7 +397,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Text.Anchor = TextAnchor.MiddleLeft;
         Widgets.Label(labelRect, label);
         Text.Anchor = TextAnchor.UpperLeft;
-        TooltipHandler.TipRegion(labelRect, label);
+        TooltipHandler.TipRegion(labelRect, tooltipStr);
 
         x += ModeLabelWidth;
 

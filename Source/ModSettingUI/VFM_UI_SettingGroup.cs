@@ -55,10 +55,12 @@ namespace VFM_VanillaFireModes.ModSettingUI
             innerLs.GapLine(6f);
             innerLs.Gap(6f);
             Text.Font = GameFont.Medium;
-            innerLs.Label("定制武器".Translate());
+            innerLs.Label("VFM_CustomWeaponProfile_Label".Translate());
             Text.Font = GameFont.Small;
             innerLs.Gap(6f);
-            if (innerLs.ButtonText("定制武器列表"))
+            innerLs.Label("VFM_CustomWeaponProfile_Desc".Translate());
+            innerLs.Gap(6f);
+            if (innerLs.ButtonText("VFM_CustomWeaponProfile_Button_Label".Translate()))
             {
                 Find.WindowStack.Add(new VFM_UI_CustomWeaponWindow());
             }

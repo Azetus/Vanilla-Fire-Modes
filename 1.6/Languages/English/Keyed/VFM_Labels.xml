@@ -8,4 +8,10 @@
 	<VFM_SwitchGizmoDesc>Switch Fire Mode</VFM_SwitchGizmoDesc>
 	<VFM_AutoSelection>Auto Selection</VFM_AutoSelection>
 	<VFM_AutoSelection_Desc>Automatically switch firing modes based on target distance.</VFM_AutoSelection_Desc>
+
+	<!-- Abbreviations for the fire modes in setting page -->
+	<VFM_DefaultMode_Abbr>Default</VFM_DefaultMode_Abbr>
+	<VFM_PrecisionMode_Abbr>Precision</VFM_PrecisionMode_Abbr>
+	<VFM_ShortBurstMode_Abbr>Burst</VFM_ShortBurstMode_Abbr>
+	<VFM_SuppressionMode_Abbr>Suppress</VFM_SuppressionMode_Abbr>
 </LanguageData>

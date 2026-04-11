@@ -4,6 +4,13 @@
 	<VFM_Accuracy_Label>精度倍率</VFM_Accuracy_Label>
 	<VFM_Warmup_Label>瞄准时间倍率</VFM_Warmup_Label>
 	<VFM_Cooldown_Label>冷却时间倍率</VFM_Cooldown_Label>
+	<VFM_BurstCount_Label>连射次数</VFM_BurstCount_Label>
+	<!-- 设置参数的缩写 -->
+	<VFM_Accuracy_Abbr>精度</VFM_Accuracy_Abbr>
+	<VFM_Warmup_Abbr>瞄准</VFM_Warmup_Abbr>
+	<VFM_Cooldown_Abbr>冷却</VFM_Cooldown_Abbr>
+	<VFM_BurstCount_Abbr>连射</VFM_BurstCount_Abbr>
+	
 
 	<VFM_Burst_Calculation_Mode_Label>射击次数计算方式:</VFM_Burst_Calculation_Mode_Label>
 	<VFM_Burst_Linear_Label>线性增长</VFM_Burst_Linear_Label>
@@ -33,4 +40,18 @@
 	<VFM_AutoSelection_Range_Preview>当前射击模式距离</VFM_AutoSelection_Range_Preview>
 	
 	<VFM_Default_Warning_Label>注意，默认模式作用于所有 Pawn（包括敌人）</VFM_Default_Warning_Label>
+	
+	
+	<!-- WeaponProfiles -->
+	<VFM_CustomWeaponProfile_Label>自定义武器列表</VFM_CustomWeaponProfile_Label>
+	<VFM_CustomWeaponProfile_Desc>在此处添加特定武器以启用独立配置。加入列表的武器将忽略全局设置，允许手动微调其在各开火模式下的各项参数。</VFM_CustomWeaponProfile_Desc>
+	<VFM_CustomWeaponProfile_Button_Label>编辑自定义武器列表</VFM_CustomWeaponProfile_Button_Label>
+	<VFM_Profile_AddAllWeapons_Label>添加全部</VFM_Profile_AddAllWeapons_Label>
+	<VFM_Profile_RemoveAllProfile_Label>清除全部</VFM_Profile_RemoveAllProfile_Label>
+	<VFM_Delete_Button_Label>删除</VFM_Delete_Button_Label>
+	<VFM_Edit_Button_Label>编辑</VFM_Edit_Button_Label>
+    <VFM_Confirm_Button_Label>确认</VFM_Confirm_Button_Label>
+	<VFM_Cancel_Button_Label>取消</VFM_Cancel_Button_Label>
+	<VFM_AddAllWeapons_Dialog_1>确定要将所有武器加入自定义配置吗？</VFM_AddAllWeapons_Dialog_1>
+	<VFM_AddAllWeapons_Dialog_2>除非你打算为每一把武器手动调整参数，否则该操作不会带来任何性能或数值上的改变，只会让你的设置页面变得非常拥挤。</VFM_AddAllWeapons_Dialog_2>
 </LanguageData>

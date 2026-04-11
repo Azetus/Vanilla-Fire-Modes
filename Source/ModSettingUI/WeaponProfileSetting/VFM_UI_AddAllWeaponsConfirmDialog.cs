@@ -7,13 +7,13 @@ namespace VFM_VanillaFireModes.ModSettingUI.WeaponProfileSetting;
 public class VFM_UI_AddAllWeaponsConfirmDialog : Window
 {
     private readonly IEnumerable<ThingDef> weapons;
-    
-    public override Vector2 InitialSize => new Vector2(500f, 250f);
+
+    public override Vector2 InitialSize => new Vector2(400f, 300f);
 
     public VFM_UI_AddAllWeaponsConfirmDialog(IEnumerable<ThingDef> weapons)
     {
         this.weapons = weapons;
-        
+
         doCloseX = true;
         // doCloseButton = true;
         // draggable = true;
@@ -22,37 +22,46 @@ public class VFM_UI_AddAllWeaponsConfirmDialog : Window
 
     public override void DoWindowContents(Rect inRect)
     {
-        float y = inRect.y;
+        float buttonHeight = 35f;
+        float spacing = 20f;
+        float bottomPadding = 10f;
 
-        // 提示文字
-        Rect labelRect = new Rect(inRect.x, y, inRect.width, 100f);
-        Text.Anchor = TextAnchor.UpperLeft;
+        // 1. 先给按钮预留底部空间
+        Rect contentRect = new Rect(
+            inRect.x,
+            inRect.y,
+            inRect.width,
+            inRect.height - buttonHeight - bottomPadding
+        );
+        var listing = new Listing_Standard();
+        listing.Begin(contentRect);
 
-        Widgets.Label(labelRect,
-            "你即将将所有远程武器加入自定义列表。\n\n" +
-            "该操作可能导致列表过长，并影响性能或可读性。\n\n" +
-            "是否继续？");
+        listing.Label("VFM_AddAllWeapons_Dialog_1".Translate());
+        listing.Gap(10f);
+        Color oldColor = GUI.color;
+        GUI.color = Color.yellow;
+        listing.Label("VFM_AddAllWeapons_Dialog_2".Translate());
+        GUI.color = oldColor;
 
-        y += 110f;
+        listing.End();
 
         // 按钮区域
         float buttonWidth = 120f;
-        float spacing = 20f;
         float totalWidth = buttonWidth * 2 + spacing;
 
         float startX = inRect.x + (inRect.width - totalWidth) / 2f;
+        float y = inRect.yMax - buttonHeight - bottomPadding;
 
-        // 确认按钮
-        Rect confirmRect = new Rect(startX, y, buttonWidth, 35f);
-        if (Widgets.ButtonText(confirmRect, "确认"))
+        Rect confirmRect = new Rect(startX, y, buttonWidth, buttonHeight);
+        Rect cancelRect = new Rect(startX + buttonWidth + spacing, y, buttonWidth, buttonHeight);
+
+        if (Widgets.ButtonText(confirmRect, "VFM_Confirm_Button_Label".Translate()))
         {
             DoAddAllWeapons();
             Close();
         }
 
-        // 取消按钮
-        Rect cancelRect = new Rect(startX + buttonWidth + spacing, y, buttonWidth, 35f);
-        if (Widgets.ButtonText(cancelRect, "取消"))
+        if (Widgets.ButtonText(cancelRect, "VFM_Cancel_Button_Label".Translate()))
         {
             Close();
         }

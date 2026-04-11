@@ -4,6 +4,13 @@
 	<VFM_Accuracy_Label>Accuracy Multiplier</VFM_Accuracy_Label>
 	<VFM_Warmup_Label>Warmup Multiplier</VFM_Warmup_Label>
 	<VFM_Cooldown_Label>Cooldown Multiplier</VFM_Cooldown_Label>
+	<VFM_BurstCount_Label>Burst Shot Count</VFM_BurstCount_Label>
+	<!-- Abbreviations for the parameters in setting page -->
+	<VFM_Accuracy_Abbr>Accuracy</VFM_Accuracy_Abbr>
+	<VFM_Warmup_Abbr>Warmup</VFM_Warmup_Abbr>
+	<VFM_Cooldown_Abbr>Cooldown</VFM_Cooldown_Abbr>
+	<VFM_BurstCount_Abbr>BurstCount</VFM_BurstCount_Abbr>
+	
 	
 	<VFM_Burst_Calculation_Mode_Label>Burst Count Scaling:</VFM_Burst_Calculation_Mode_Label>
 	<VFM_Burst_Linear_Label>Multiplier</VFM_Burst_Linear_Label>
@@ -36,4 +43,18 @@ If you do not need this feature and prefer to keep the command bar less cluttere
 	<VFM_AutoSelection_Range_Preview>Current Fire Mode Distance Range</VFM_AutoSelection_Range_Preview>
 
 	<VFM_Default_Warning_Label>Note: Default mode affects all Pawns, including enemies.</VFM_Default_Warning_Label>
+
+
+	<!-- Weapon Profiles -->
+	<VFM_CustomWeaponProfile_Label>Custom Weapon Profiles</VFM_CustomWeaponProfile_Label>
+	<VFM_CustomWeaponProfile_Desc>Add specific weapons here to enable independent configuration. Weapons added to this list will ignore global settings, allowing manual tuning of their parameters across different firing modes.</VFM_CustomWeaponProfile_Desc>
+	<VFM_CustomWeaponProfile_Button_Label>Edit Custom Weapon Profiles</VFM_CustomWeaponProfile_Button_Label>
+	<VFM_Profile_AddAllWeapons_Label>Add All</VFM_Profile_AddAllWeapons_Label>
+	<VFM_Profile_RemoveAllProfile_Label>Clear All</VFM_Profile_RemoveAllProfile_Label>
+	<VFM_Delete_Button_Label>Delete</VFM_Delete_Button_Label>
+	<VFM_Edit_Button_Label>Edit</VFM_Edit_Button_Label>
+	<VFM_Confirm_Button_Label>Confirm</VFM_Confirm_Button_Label>
+	<VFM_Cancel_Button_Label>Cancel</VFM_Cancel_Button_Label>
+	<VFM_AddAllWeapons_Dialog_1>Are you sure you want to add all weapons to the custom configuration?</VFM_AddAllWeapons_Dialog_1>
+	<VFM_AddAllWeapons_Dialog_2>Unless you plan to manually adjust parameters for every weapon, this operation will not bring any performance or balance benefits, and will only make your settings page much more cluttered.</VFM_AddAllWeapons_Dialog_2>
 </LanguageData>

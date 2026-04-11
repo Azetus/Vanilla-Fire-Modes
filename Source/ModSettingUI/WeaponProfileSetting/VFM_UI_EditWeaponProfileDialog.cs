@@ -28,20 +28,20 @@ public class VFM_UI_EditWeaponProfileDialog : Window
         const float blockPadding = 10f;
         float blockHeight = 120f;
 
-        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "默认", profile.Default);
+        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "VFM_DefaultMode".Translate(), profile.Default);
         y += blockHeight + blockPadding;
 
-        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "精准", profile.Precision);
+        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "VFM_PrecisionMode".Translate(), profile.Precision);
         y += blockHeight + blockPadding;
 
-        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "点射", profile.Burst);
+        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "VFM_ShortBurstMode".Translate(), profile.Burst);
         y += blockHeight + blockPadding;
 
-        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "压制", profile.Suppression);
+        DrawModeEditor(new Rect(inRect.x, y, inRect.width, blockHeight), "VFM_SuppressionMode".Translate(), profile.Suppression);
         y += blockHeight + blockPadding;
 
         Rect cancelRect = new Rect(inRect.x + inRect.width - 130f, y, 120f, 35f);
-        if (Widgets.ButtonText(cancelRect, "重置为默认值"))
+        if (Widgets.ButtonText(cancelRect, "VFM_ResetButton_Label".Translate()))
         {
             profile.Default = VFM_FireModeProfile.CreateDefault(baseBurstShotCount);
             profile.Precision = VFM_FireModeProfile.CreatePrecision(baseBurstShotCount);
@@ -76,16 +76,16 @@ public class VFM_UI_EditWeaponProfileDialog : Window
 
         // 四个输入框
         DrawFloatField(new Rect(inner.x + colWidth * 0, y, colWidth, fieldHeight),
-            "精度倍率", ref data.accuracyMultiplier, 0.1f, 100f);
+            "VFM_Accuracy_Label".Translate(), ref data.accuracyMultiplier, 0.1f, 100f);
 
         DrawFloatField(new Rect(inner.x + colWidth * 1, y, colWidth, fieldHeight),
-            "瞄准时间倍率", ref data.warmupMultiplier, 0.1f, 100f);
+            "VFM_Warmup_Label".Translate(), ref data.warmupMultiplier, 0.1f, 100f);
 
         DrawFloatField(new Rect(inner.x + colWidth * 2, y, colWidth, fieldHeight),
-            "冷却时间倍率", ref data.cooldownMultiplier, 0.1f, 100f);
+            "VFM_Cooldown_Label".Translate(), ref data.cooldownMultiplier, 0.1f, 100f);
 
         DrawIntField(new Rect(inner.x + colWidth * 3, y, colWidth, fieldHeight),
-            "连射次数", ref data.burstShotCount, 1, 100);
+            "VFM_BurstCount_Label".Translate(), ref data.burstShotCount, 1, 100);
     }
 
     private void DrawFloatField(Rect rect, string label, ref float value, float min, float max)
