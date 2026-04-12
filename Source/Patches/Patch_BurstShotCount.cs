@@ -10,7 +10,7 @@ namespace VFM_VanillaFireModes.Patches
     /// 仅对未重写 WarmupComplete 的 Verb 子类（如 Verb_Shoot）生效。
     /// Verb_Spray 及其子类 Verb_ArcSpray 依赖 verbProps.sprayNumExtraCells（BurstShotCount 必须小于此值）创建子弹路径列表 path。
     /// 子弹路径列表 List[IntVec3] path在 WarmupComplete 中初始化。
-    /// 任何重写了 WarmupComplete 方法的 Verb 都不会计入缓存，而被自动忽略，以防止索引越界。
+    /// 任何重写了 WarmupComplete 却没有调用 base.WarmupComplete 的 Verb 都不会计入缓存，而被自动忽略，以防止索引越界。
     /// </summary>
     [HarmonyPatch]
     public static class Patch_BurstShotCount
