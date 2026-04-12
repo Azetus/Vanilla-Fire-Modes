@@ -24,7 +24,7 @@ namespace VFM_VanillaFireModes.Patches
         public static void LockCount(Verb __instance)
         {
             if (__instance.loadID == null) return;
-            if (ShouldModify(__instance, out Pawn pawn, out ThingWithComps weapon))
+            if (ShouldModify(__instance, out var pawn, out var weapon))
             {
                 var mode = pawn.VFM_GetFireMode();
                 var weaponDefName = weapon.def.defName;
@@ -39,11 +39,11 @@ namespace VFM_VanillaFireModes.Patches
         public static void BurstShotCountPostFix(Verb __instance, ref int __result)
         {
             if (__instance.loadID == null) return;
-            if(ShouldModify(__instance, out Pawn pawn, out ThingWithComps weapon))
+            if (ShouldModify(__instance, out _, out _))
             {
                 if (_burstCache.TryGetValue(__instance.loadID, out var cached))
                 {
-                    __result =  Mathf.Max(1, cached);
+                    __result = Mathf.Max(1, cached);
                 }
             }
         }
@@ -61,13 +61,13 @@ namespace VFM_VanillaFireModes.Patches
 
         private static bool ShouldModify(Verb verb, out Pawn pawn, out ThingWithComps weapon)
         {
-            pawn = null;
-            weapon = null;
+            pawn = null!;
+            weapon = null!;
             if (verb.CasterPawn is not Pawn p) return false;
             if (verb.verbProps == null) return false;
             if (verb is Verb_ShootOneUse) return false;
             if (verb.verbProps.IsMeleeAttack) return false;
-            
+
             var eq = verb.EquipmentSource;
             if (eq == null || eq.def == null || !eq.def.IsRangedWeapon || eq.def.defName.NullOrEmpty()) return false;
 
