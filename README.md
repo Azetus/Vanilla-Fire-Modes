@@ -4,11 +4,11 @@
 
 ## 主要功能
 
-- 提供4种射击模式：默认 / 精确射击 / 短点射 / 压制射击 
-- 影响精准度、瞄准时间、冷却时间、连射次数 
-- 突破原版武器连射次数限制，让远程武器像真正的“全自动”武器一样射击 
-- 根据距离自动切换射击模式（玩家与NPC均适用，可关闭） 
-- 支持机械族（含Mod添加） 
+- 提供4种射击模式：默认 / 精确射击 / 短点射 / 压制射击
+- 影响精准度、瞄准时间、冷却时间、连射次数
+- 突破原版武器连射次数限制，让远程武器像真正的“全自动”武器一样射击
+- 根据距离自动切换射击模式（玩家与NPC均适用，可关闭）
+- 支持机械族（含Mod添加）
 - 所有参数可在 Mod 设置中调整，支持每种武器单独设置
 
 ## 注意事项
@@ -19,8 +19,10 @@
 
 ## 兼容性
 
-该模组采用了尽可能低侵入性的实现方式，理论上可以兼容绝大部分 Mod，包括但不限于各类武器、种族、机械体模组，以及类似"Vanilla Combat Reloaded"、
-"Yayo'sCombat3" 或 "RunAndGun" 这样的战斗机制模组。
+该模组采用了尽可能低侵入性的实现方式，采用 Harmony Patch 仅在如下几个节点注入逻辑：`Verb.WarmupComplete`（缓存连射次数）、
+`Verb.BurstShotCount`(修改连射次数)、`Verb.VerbTick`（清除连射次数缓存）、`Verb.TryStartCastOn`（自动切换射击模式的判断入口）。
+精准度、瞄准时间、冷却时间等属性的影响通过运行时 `StatPart` 注入的方式叠加，不覆盖原版 StatWorker，与其他修改同类属性的 Mod 自然共存。
+理论上可以兼容绝大部分 Mod，包括但不限于各类武器、种族、机械体模组，以及类似"Vanilla Combat Reloaded"、"Yayo'sCombat3" 或 "RunAndGun" 这样的战斗机制模组。
 
 ## FAQ
 
@@ -55,9 +57,11 @@ overhauling the core combat system.
 
 ## Compatibility
 
-This mod is implemented with minimal invasiveness and is theoretically compatible with most mods, including but not limited to weapon mods, race mods,
-mechanoid mods, and combat overhaul mods such as "Vanilla Combat Reloaded",
-"Yayo's Combat 3", and "RunAndGun".
+This mod is implemented with minimal invasiveness. It uses Harmony patches to inject logic only at the following methods: Verb.WarmupComplete (caches
+burst count), Verb.BurstShotCount (modifies burst count), Verb.VerbTick (clears burst cache), and Verb.TryStartCastOn (entry point for automatic mode
+switching). Effects on accuracy, aim time, cooldown, etc., are applied via runtime StatPart injection, without overriding vanilla StatWorker, allowing
+natural coexistence with other mods that modify similar stats. Theoretically, it is compatible with most mods, including but not limited to weapon
+mods, race mods, mechanoid mods, and combat overhaul mods such as 'Vanilla Combat Reloaded', 'Yayo's Combat 3', or 'RunAndGun'.
 
 ## FAQ
 
