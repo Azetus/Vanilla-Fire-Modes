@@ -178,7 +178,7 @@ public class VFM_UI_CustomWeaponWindow : Window
         Rect clearRect = new Rect(inner.x + inner.width - 120f, y, 120f, 30f);
         if (Widgets.ButtonText(clearRect, "VFM_Profile_RemoveAllProfile_Label".Translate()))
         {
-            Settings.CustomWeaponProfiles.Clear();
+            Settings.ResetWeaponProfileSetting();
         }
 
         y += 35f;

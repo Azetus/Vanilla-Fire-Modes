@@ -31,7 +31,9 @@
 	<VFM_AlwaysDisplayGizmo_Label>非征召狀態下顯示按鈕</VFM_AlwaysDisplayGizmo_Label>
 	<VFM_AutoSelection_Label>自動切換模式</VFM_AutoSelection_Label>
 	<VFM_EnableAutoSelection_Player_Label>為玩家Pawn啟用自動切換射擊模式</VFM_EnableAutoSelection_Player_Label>
-	<VFM_EnableAutoSelection_Player_Desc>啟用後將會顯示自動切換射擊模式按鈕</VFM_EnableAutoSelection_Player_Desc>
+	<VFM_EnableAutoSelection_Player_Desc>啟用後將會顯示自動切換射擊模式按鈕，如果不需要這個功能，並且不希望按鈕欄太過擁擠，可以關閉這個功能</VFM_EnableAutoSelection_Player_Desc>
+	<VFM_AutoModeDefaultOn_Label>為新殖民者預設開啟自動切換模式</VFM_AutoModeDefaultOn_Label>
+	<VFM_AutoModeDefaultOn_Desc>啟用後，新殖民者將預設開啟自動射擊模式切換。</VFM_AutoModeDefaultOn_Desc>
 	<VFM_EnableAutoSelection_NPC_Label>為NPC啟用自動切換射擊模式</VFM_EnableAutoSelection_NPC_Label>
 	<VFM_EnableAutoSelection_NPC_Desc>啟用後NPC將會根據目標距離自動切換射擊模式</VFM_EnableAutoSelection_NPC_Desc>
 	<VFM_AutoSelectionThresholds_Label>自動射擊模式切換距離</VFM_AutoSelectionThresholds_Label>

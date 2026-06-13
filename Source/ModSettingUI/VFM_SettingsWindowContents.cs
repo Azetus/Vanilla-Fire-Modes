@@ -64,7 +64,8 @@ namespace VFM_VanillaFireModes.ModSettingUI
                         ref settings.enableAutoSelectionForPlayer,
                         ref settings.burstMinDistance,
                         ref settings.precisionMinDistance,
-                        ref settings.enableFireModeForNPC
+                        ref settings.enableFireModeForNPC,
+                        ref settings.autoModeDefaultOn
                     );
                     break;
                 case TacticTab.PrecisionTab:

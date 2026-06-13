@@ -16,10 +16,11 @@ namespace VFM_VanillaFireModes.ModSettingUI
             Listing_Standard ls,
             string title,
             ref bool displayGizmoWhileUndrafted,
-            ref bool enableAutoSelection,
+            ref bool enableAutoSelectionForPlayer,
             ref float burstMinDistance,
             ref float precisionMinDistance,
-            ref bool enableFireModeForNPC
+            ref bool enableFireModeForNPC,
+            ref bool autoModeDefaultOn
         )
         {
             const float Padding = 10f;
@@ -41,16 +42,23 @@ namespace VFM_VanillaFireModes.ModSettingUI
             );
             innerLs.CheckboxLabeled(
                 "VFM_EnableAutoSelection_Player_Label".Translate(),
-                ref enableAutoSelection,
+                ref enableAutoSelectionForPlayer,
                 "VFM_EnableAutoSelection_Player_Desc".Translate()
             );
-
+            if (enableAutoSelectionForPlayer)
+            {
+                innerLs.CheckboxLabeled(
+                    "VFM_AutoModeDefaultOn_Label".Translate(),
+                    ref autoModeDefaultOn,
+                    "VFM_AutoModeDefaultOn_Desc".Translate()
+                );
+            }
             innerLs.CheckboxLabeled(
                 "VFM_EnableAutoSelection_NPC_Label".Translate(),
                 ref enableFireModeForNPC,
                 "VFM_EnableAutoSelection_NPC_Desc".Translate()
             );
-            
+
             // TODO：记得把文本抽出到 keyed.xml 里
             innerLs.GapLine(6f);
             innerLs.Gap(6f);
@@ -64,14 +72,14 @@ namespace VFM_VanillaFireModes.ModSettingUI
             {
                 Find.WindowStack.Add(new VFM_UI_CustomWeaponWindow());
             }
-            
+
             innerLs.GapLine(6f);
             innerLs.Gap(6f);
             Text.Font = GameFont.Medium;
             innerLs.Label("VFM_AutoSelection_Label".Translate());
             Text.Font = GameFont.Small;
             innerLs.Gap(6f);
-            
+
             innerLs.Label("VFM_AutoSelectionThresholds_Label".Translate());
 
             // ===== Burst Min =====

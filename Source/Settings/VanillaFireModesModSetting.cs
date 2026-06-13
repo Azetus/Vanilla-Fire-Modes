@@ -93,7 +93,7 @@ namespace VFM_VanillaFireModes.Settings
         public bool enableAutoSelectionForPlayer = true;
         public float burstMinDistance = 12f;
         public float precisionMinDistance = 25f;
-
+        public bool autoModeDefaultOn = false;
 
         // ------ NPC单位是否启用开火模式 ------
         public bool enableFireModeForNPC = true;
@@ -168,7 +168,8 @@ namespace VFM_VanillaFireModes.Settings
             Scribe_Values.Look(ref enableAutoSelectionForPlayer, "enableAutoSelectionForPlayer", true);
             Scribe_Values.Look(ref burstMinDistance, "burstMinDistance", 12f);
             Scribe_Values.Look(ref precisionMinDistance, "precisionMinDistance", 25f);
-
+            Scribe_Values.Look(ref autoModeDefaultOn, nameof(autoModeDefaultOn), false);
+            
             // ------ NPC单位是否启用开火模式 ------
             Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
 
@@ -268,7 +269,7 @@ namespace VFM_VanillaFireModes.Settings
             enableAutoSelectionForPlayer = true;
             burstMinDistance = 12f;
             precisionMinDistance = 25f;
-
+            autoModeDefaultOn = false;
 
             // ------ NPC单位是否启用开火模式 ------
             enableFireModeForNPC = true;

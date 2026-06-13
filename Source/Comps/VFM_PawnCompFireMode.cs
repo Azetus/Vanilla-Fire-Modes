@@ -10,7 +10,7 @@ namespace VFM_VanillaFireModes.Comps
     public class VFM_PawnCompFireMode : ThingComp
     {
         private VFM_FireMode mode = VFM_FireMode.Default;
-        private bool enableAutoSelection = false;
+        private bool enableAutoSelection = FireModeDB.Settings?.autoModeDefaultOn ?? false;
         public VFM_FireMode curMode
         {
             get => mode;

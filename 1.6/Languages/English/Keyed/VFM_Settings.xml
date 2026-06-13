@@ -35,6 +35,8 @@
 	<VFM_EnableAutoSelection_Player_Label>Enable automatic fire mode selection for player-controlled pawns</VFM_EnableAutoSelection_Player_Label>
 	<VFM_EnableAutoSelection_Player_Desc>When enabled, an automatic fire mode selection button will be available.
 If you do not need this feature and prefer to keep the command bar less cluttered, you can disable it.</VFM_EnableAutoSelection_Player_Desc>
+	<VFM_AutoModeDefaultOn_Label>Enable auto-selection by default for new colonists</VFM_AutoModeDefaultOn_Label>
+	<VFM_AutoModeDefaultOn_Desc>When enabled, new colonists will have auto fire mode selection turned on by default.</VFM_AutoModeDefaultOn_Desc>
 	<VFM_EnableAutoSelection_NPC_Label>Enable automatic fire mode selection for NPCs</VFM_EnableAutoSelection_NPC_Label>
 	<VFM_EnableAutoSelection_NPC_Desc>When enabled, NPCs will automatically select fire modes based on target distance.</VFM_EnableAutoSelection_NPC_Desc>
 	<VFM_AutoSelectionThresholds_Label>Automatic Fire Mode Selection Distance Thresholds</VFM_AutoSelectionThresholds_Label>

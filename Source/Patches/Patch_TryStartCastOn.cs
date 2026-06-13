@@ -3,6 +3,7 @@ using Verse;
 using VFM_VanillaFireModes.Settings;
 using VFM_VanillaFireModes.Utilities;
 
+// TODO: 下次大更新的时候，判定点可以优化成 JobDefOf.AttackStatic (待测试验证)
 namespace VFM_VanillaFireModes.Patches
 {
     [HarmonyPatch(typeof(Verb))]
