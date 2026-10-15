@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "VFM_VanillaFireModes/1.0.0": {
+      "VFM_VanillaFireModes/1.8.0": {
         "runtime": {
           "VFM_VanillaFireModes.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "VFM_VanillaFireModes/1.0.0": {
+    "VFM_VanillaFireModes/1.8.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
