@@ -23,5 +23,5 @@
 Vanilla Fire Modes - Selectable fire modes for vanilla ranged combat
 	</description>
 	<modIconPath IgnoreIfNoMatchingField="True">Icon/VFM_Mod_Icon</modIconPath>
-	<modVersion IgnoreIfNoMatchingField="True">1.7.2</modVersion>
+	<modVersion IgnoreIfNoMatchingField="True">1.8.0</modVersion>
 </ModMetaData>
