@@ -58,8 +58,7 @@ namespace VFM_VanillaFireModes.ModSettingUI
                 ref enableFireModeForNPC,
                 "VFM_EnableAutoSelection_NPC_Desc".Translate()
             );
-
-            // TODO：记得把文本抽出到 keyed.xml 里
+            
             innerLs.GapLine(6f);
             innerLs.Gap(6f);
             Text.Font = GameFont.Medium;

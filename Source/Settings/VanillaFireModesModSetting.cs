@@ -108,73 +108,73 @@ namespace VFM_VanillaFireModes.Settings
             # region FireModes
 
             // ------ 默认 (Default) ------
-            Scribe_Values.Look(ref defaultAccuracy, "defaultAccuracy", 1f);
-            Scribe_Values.Look(ref defaultWarmup, "defaultWarmup", 1f);
-            Scribe_Values.Look(ref defaultCooldown, "defaultCooldown", 1f);
-            Scribe_Values.Look(ref defaultBurstOption, "defaultBurstOption", BurstShotOption.Linear);
-            Scribe_Values.Look(ref defaultBurstLinearMultiplier, "defaultBurstLinearMultiplier", 1f);
-            Scribe_Values.Look(ref defaultBurstAdditiveBonus, "defaultBurstAdditiveBonus", 1);
-            Scribe_Values.Look(ref defaultBurstTentMaxMultiplier, "defaultBurstTentMaxMultiplier", 1f);
-            Scribe_Values.Look(ref defaultBurstTentSlopeK, "defaultBurstTentSlopeK", 0f);
-            Scribe_Values.Look(ref defaultBurstTentPeakOffset, "defaultBurstTentPeakOffset", 3);
-            Scribe_Values.Look(ref defaultBurstAdaptiveBonus, "defaultBurstAdaptiveBonus", 1);
-            Scribe_Values.Look(ref defaultBurstAdaptivePeakOffset, "defaultBurstAdaptivePeakOffset", 2);
+            Scribe_Values.Look(ref defaultAccuracy, nameof(defaultAccuracy), 1f);
+            Scribe_Values.Look(ref defaultWarmup, nameof(defaultWarmup), 1f);
+            Scribe_Values.Look(ref defaultCooldown, nameof(defaultCooldown), 1f);
+            Scribe_Values.Look(ref defaultBurstOption, nameof(defaultBurstOption), BurstShotOption.Linear);
+            Scribe_Values.Look(ref defaultBurstLinearMultiplier, nameof(defaultBurstLinearMultiplier), 1f);
+            Scribe_Values.Look(ref defaultBurstAdditiveBonus, nameof(defaultBurstAdditiveBonus), 1);
+            Scribe_Values.Look(ref defaultBurstTentMaxMultiplier, nameof(defaultBurstTentMaxMultiplier), 1f);
+            Scribe_Values.Look(ref defaultBurstTentSlopeK, nameof(defaultBurstTentSlopeK), 0f);
+            Scribe_Values.Look(ref defaultBurstTentPeakOffset, nameof(defaultBurstTentPeakOffset), 3);
+            Scribe_Values.Look(ref defaultBurstAdaptiveBonus, nameof(defaultBurstAdaptiveBonus), 1);
+            Scribe_Values.Look(ref defaultBurstAdaptivePeakOffset, nameof(defaultBurstAdaptivePeakOffset), 2);
 
             // --- 精确射击 (Precision) ---
-            Scribe_Values.Look(ref precisionAccuracy, "precisionAccuracy", 1.5f);
-            Scribe_Values.Look(ref precisionWarmup, "precisionWarmup", 1.2f);
-            Scribe_Values.Look(ref precisionCooldown, "precisionCooldown", 0.5f);
-            Scribe_Values.Look(ref precisionBurstOption, "precisionBurstOption", BurstShotOption.Linear);
-            Scribe_Values.Look(ref precisionBurstLinearMultiplier, "precisionBurstLinearMultiplier", 0.8f);
-            Scribe_Values.Look(ref precisionBurstAdditiveBonus, "precisionBurstAdditiveBonus", 1);
-            Scribe_Values.Look(ref precisionBurstTentMaxMultiplier, "precisionBurstTentMaxMultiplier", 1f);
-            Scribe_Values.Look(ref precisionBurstTentSlopeK, "precisionBurstTentSlopeK", 0.05f);
-            Scribe_Values.Look(ref precisionBurstTentPeakOffset, "precisionBurstTentPeakOffset", 3);
-            Scribe_Values.Look(ref precisionBurstAdaptiveBonus, "precisionBurstAdaptiveBonus", 1);
-            Scribe_Values.Look(ref precisionBurstAdaptivePeakOffset, "precisionBurstAdaptivePeakOffset", 2);
+            Scribe_Values.Look(ref precisionAccuracy, nameof(precisionAccuracy), 1.5f);
+            Scribe_Values.Look(ref precisionWarmup, nameof(precisionWarmup), 1.2f);
+            Scribe_Values.Look(ref precisionCooldown, nameof(precisionCooldown), 0.5f);
+            Scribe_Values.Look(ref precisionBurstOption, nameof(precisionBurstOption), BurstShotOption.Linear);
+            Scribe_Values.Look(ref precisionBurstLinearMultiplier, nameof(precisionBurstLinearMultiplier), 0.8f);
+            Scribe_Values.Look(ref precisionBurstAdditiveBonus, nameof(precisionBurstAdditiveBonus), 1);
+            Scribe_Values.Look(ref precisionBurstTentMaxMultiplier, nameof(precisionBurstTentMaxMultiplier), 1f);
+            Scribe_Values.Look(ref precisionBurstTentSlopeK, nameof(precisionBurstTentSlopeK), 0.05f);
+            Scribe_Values.Look(ref precisionBurstTentPeakOffset, nameof(precisionBurstTentPeakOffset), 3);
+            Scribe_Values.Look(ref precisionBurstAdaptiveBonus, nameof(precisionBurstAdaptiveBonus), 1);
+            Scribe_Values.Look(ref precisionBurstAdaptivePeakOffset, nameof(precisionBurstAdaptivePeakOffset), 2);
 
             // --- 短点射 (Burst) ---
-            Scribe_Values.Look(ref burstAccuracy, "burstAccuracy", 0.8f);
-            Scribe_Values.Look(ref burstWarmup, "burstWarmup", 0.8f);
-            Scribe_Values.Look(ref burstCooldown, "burstCooldown", 0.8f);
-            Scribe_Values.Look(ref burstBurstOption, "burstBurstOption", BurstShotOption.Tent);
-            Scribe_Values.Look(ref burstBurstLinearMultiplier, "burstBurstLinearMultiplier", 1f);
-            Scribe_Values.Look(ref burstBurstAdditiveBonus, "burstBurstAdditiveBonus", 3);
-            Scribe_Values.Look(ref burstBurstTentMaxMultiplier, "burstBurstTentMaxMultiplier", 1.75f);
-            Scribe_Values.Look(ref burstBurstTentSlopeK, "burstBurstTentSlopeK", 0.10f);
-            Scribe_Values.Look(ref burstBurstTentPeakOffset, "burstBurstTentPeakOffset", 4);
-            Scribe_Values.Look(ref burstBurstAdaptiveBonus, "burstBurstAdaptiveBonus", 5);
-            Scribe_Values.Look(ref burstBurstAdaptivePeakOffset, "burstBurstAdaptivePeakOffset", 4);
+            Scribe_Values.Look(ref burstAccuracy, nameof(burstAccuracy), 0.8f);
+            Scribe_Values.Look(ref burstWarmup, nameof(burstWarmup), 0.8f);
+            Scribe_Values.Look(ref burstCooldown, nameof(burstCooldown), 0.8f);
+            Scribe_Values.Look(ref burstBurstOption, nameof(burstBurstOption), BurstShotOption.Tent);
+            Scribe_Values.Look(ref burstBurstLinearMultiplier, nameof(burstBurstLinearMultiplier), 1f);
+            Scribe_Values.Look(ref burstBurstAdditiveBonus, nameof(burstBurstAdditiveBonus), 3);
+            Scribe_Values.Look(ref burstBurstTentMaxMultiplier, nameof(burstBurstTentMaxMultiplier), 1.75f);
+            Scribe_Values.Look(ref burstBurstTentSlopeK, nameof(burstBurstTentSlopeK), 0.10f);
+            Scribe_Values.Look(ref burstBurstTentPeakOffset, nameof(burstBurstTentPeakOffset), 4);
+            Scribe_Values.Look(ref burstBurstAdaptiveBonus, nameof(burstBurstAdaptiveBonus), 5);
+            Scribe_Values.Look(ref burstBurstAdaptivePeakOffset, nameof(burstBurstAdaptivePeakOffset), 4);
 
             // --- 压制射击 (Suppression) ---
-            Scribe_Values.Look(ref suppressionAccuracy, "suppressionAccuracy", 0.5f);
-            Scribe_Values.Look(ref suppressionWarmup, "suppressionWarmup", 0.5f);
-            Scribe_Values.Look(ref suppressionCooldown, "suppressionCooldown", 1.2f);
-            Scribe_Values.Look(ref suppressionBurstOption, "suppressionBurstOption", BurstShotOption.Adaptive);
-            Scribe_Values.Look(ref suppressionBurstLinearMultiplier, "suppressionBurstLinearMultiplier", 1f);
-            Scribe_Values.Look(ref suppressionBurstAdditiveBonus, "suppressionBurstAdditiveBonus", 10);
-            Scribe_Values.Look(ref suppressionBurstTentMaxMultiplier, "suppressionBurstTentMaxMultiplier", 2f);
-            Scribe_Values.Look(ref suppressionBurstTentSlopeK, "suppressionBurstTentSlopeK", 0.05f);
-            Scribe_Values.Look(ref suppressionBurstTentPeakOffset, "suppressionBurstTentPeakOffset", 5);
-            Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, "suppressionBurstAdaptiveBonus", 10);
-            Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, "suppressionBurstAdaptivePeakOffset", 5);
+            Scribe_Values.Look(ref suppressionAccuracy, nameof(suppressionAccuracy), 0.5f);
+            Scribe_Values.Look(ref suppressionWarmup, nameof(suppressionWarmup), 0.5f);
+            Scribe_Values.Look(ref suppressionCooldown, nameof(suppressionCooldown), 1.2f);
+            Scribe_Values.Look(ref suppressionBurstOption, nameof(suppressionBurstOption), BurstShotOption.Adaptive);
+            Scribe_Values.Look(ref suppressionBurstLinearMultiplier, nameof(suppressionBurstLinearMultiplier), 1f);
+            Scribe_Values.Look(ref suppressionBurstAdditiveBonus, nameof(suppressionBurstAdditiveBonus), 10);
+            Scribe_Values.Look(ref suppressionBurstTentMaxMultiplier, nameof(suppressionBurstTentMaxMultiplier), 2f);
+            Scribe_Values.Look(ref suppressionBurstTentSlopeK, nameof(suppressionBurstTentSlopeK), 0.05f);
+            Scribe_Values.Look(ref suppressionBurstTentPeakOffset, nameof(suppressionBurstTentPeakOffset), 5);
+            Scribe_Values.Look(ref suppressionBurstAdaptiveBonus, nameof(suppressionBurstAdaptiveBonus), 10);
+            Scribe_Values.Look(ref suppressionBurstAdaptivePeakOffset, nameof(suppressionBurstAdaptivePeakOffset), 5);
 
             #endregion
 
             // ------ 非征召状态显示按钮 ------
-            Scribe_Values.Look(ref alwaysDisplayGizmo, "alwaysDisplayGizmo", false);
+            Scribe_Values.Look(ref alwaysDisplayGizmo, nameof(alwaysDisplayGizmo), false);
 
             // ------ 自动选择模式 (Auto Selection) ------
-            Scribe_Values.Look(ref enableAutoSelectionForPlayer, "enableAutoSelectionForPlayer", true);
-            Scribe_Values.Look(ref burstMinDistance, "burstMinDistance", 12f);
-            Scribe_Values.Look(ref precisionMinDistance, "precisionMinDistance", 25f);
+            Scribe_Values.Look(ref enableAutoSelectionForPlayer, nameof(enableAutoSelectionForPlayer), true);
+            Scribe_Values.Look(ref burstMinDistance, nameof(burstMinDistance), 12f);
+            Scribe_Values.Look(ref precisionMinDistance, nameof(precisionMinDistance), 25f);
             Scribe_Values.Look(ref autoModeDefaultOn, nameof(autoModeDefaultOn), false);
             
             // ------ NPC单位是否启用开火模式 ------
-            Scribe_Values.Look(ref enableFireModeForNPC, "enableFireModeForNPC", true);
+            Scribe_Values.Look(ref enableFireModeForNPC, nameof(enableFireModeForNPC), true);
 
             // ------ CustomWeaponProfile ------
-            Scribe_Collections.Look(ref CustomWeaponProfiles, "CustomWeaponProfiles", LookMode.Value);
+            Scribe_Collections.Look(ref CustomWeaponProfiles, nameof(CustomWeaponProfiles), LookMode.Value);
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
