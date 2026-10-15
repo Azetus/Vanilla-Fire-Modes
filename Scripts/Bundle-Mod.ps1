@@ -6,7 +6,7 @@ $bundleRoot = Join-Path $projectRoot 'bundle'
 $destination = [System.IO.Path]::GetFullPath((Join-Path $bundleRoot 'VanillaFireModes'))
 
 # Only these paths belong in the Workshop upload directory.
-$requiredPaths = @('About', 'Textures', 'LoadFolders.xml')
+$requiredPaths = @('About', 'Textures', 'LoadFolders.xml', 'LICENSE', 'README.md')
 $versionDirectories = @('1.6', '1.7')
 $pathsToCopy = @($requiredPaths)
 
