@@ -71,6 +71,7 @@ namespace VFM_VanillaFireModes.Patches
             pawn = null!;
             weapon = null!;
             if (verb.CasterPawn is not Pawn p) return false;
+            if (!p.VFM_ShouldApplyFireMode()) return false;
             if (verb.verbProps == null) return false;
             if (verb is Verb_ShootOneUse) return false;
             if (verb.verbProps.IsMeleeAttack) return false;

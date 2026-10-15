@@ -44,6 +44,7 @@ namespace VFM_VanillaFireModes.Stat
         {
             if (!req.HasThing) return null;
             if (req.Thing is not Pawn pawn) return null;
+            if (!pawn.VFM_ShouldApplyFireMode()) return null;
 
             return pawn.TryGetComp<VFM_PawnCompFireMode>();
         }

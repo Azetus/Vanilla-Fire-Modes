@@ -6,6 +6,14 @@ namespace VFM_VanillaFireModes.Utilities
 {
     public static class PawnFireModeExtension
     {
+        // 只控制模式效果是否应用，不改变 Pawn 保存的模式或自动选择状态。
+        public static bool VFM_ShouldApplyFireMode(this Pawn pawn)
+        {
+            return pawn.IsColonistPlayerControlled
+                || pawn.IsColonyMechPlayerControlled
+                || FireModeDB.Settings.enableFireModeForNPC;
+        }
+
         public static VFM_FireMode VFM_GetFireMode(this Pawn pawn)
         {
             if (pawn == null)
