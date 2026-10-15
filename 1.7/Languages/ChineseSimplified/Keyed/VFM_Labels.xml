@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<VFM_ModTitle>原版射击模式</VFM_ModTitle>
+	<VFM_DefaultMode>默认</VFM_DefaultMode>
+	<VFM_PrecisionMode>精准射击</VFM_PrecisionMode>
+	<VFM_ShortBurstMode>短点射</VFM_ShortBurstMode>
+	<VFM_SuppressionMode>压制射击</VFM_SuppressionMode>
+	<VFM_SwitchGizmoDesc>切换射击模式</VFM_SwitchGizmoDesc>
+	<VFM_AutoSelection>自动切换</VFM_AutoSelection>
+	<VFM_AutoSelection_Desc>根据目标距离自动切换射击模式</VFM_AutoSelection_Desc>
+
+	<!-- 射击模式的缩写 -->
+	<VFM_DefaultMode_Abbr>默认</VFM_DefaultMode_Abbr>
+	<VFM_PrecisionMode_Abbr>精准射击</VFM_PrecisionMode_Abbr>
+	<VFM_ShortBurstMode_Abbr>短点射</VFM_ShortBurstMode_Abbr>
+	<VFM_SuppressionMode_Abbr>压制射击</VFM_SuppressionMode_Abbr>
+</LanguageData>
