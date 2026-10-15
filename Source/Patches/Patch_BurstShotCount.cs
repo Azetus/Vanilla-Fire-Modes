@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Verse;
 using VFM_VanillaFireModes.Utilities;
@@ -7,30 +8,39 @@ using VFM_VanillaFireModes.Utilities;
 namespace VFM_VanillaFireModes.Patches
 {
     /// <summary>
-    /// 仅对未重写 WarmupComplete 的 Verb 子类（如 Verb_Shoot）生效。
-    /// Verb_Spray 及其子类 Verb_ArcSpray 依赖 verbProps.sprayNumExtraCells（BurstShotCount 必须小于此值）创建子弹路径列表 path。
-    /// 子弹路径列表 List[IntVec3] path在 WarmupComplete 中初始化。
-    /// 任何重写了 WarmupComplete 却没有调用 base.WarmupComplete 的 Verb 都不会计入缓存，而被自动忽略，以防止索引越界。
+    /// 仅对调用链经过 Verb.WarmupComplete 的 Verb 生效。
+    /// Verb_Spray、Verb_ShootBeam 自行初始化射击，不经过该入口，因此不建立缓存，避免干扰其路径生成和索引。
+    /// 每轮锁定值按 Verb 实例关联，不写入存档；失效的状态对象可供下一轮复用。
     /// </summary>
     [HarmonyPatch]
     public static class Patch_BurstShotCount
     {
-        // 用来存储当前正在执行射击的 Verb 及其被锁定的连发数
-        private static readonly Dictionary<string, int> _burstCache = new Dictionary<string, int>();
+        private sealed class BurstCacheState
+        {
+            public int Count;
+            public bool IsValid;
+        }
 
-        // 对于重写了 WarmupComplete 的 Verb 子类不会执行
+        // 弱键不会阻止废弃 Verb 被回收，也不会让读档后的同 loadID 新实例命中旧状态。
+        private static readonly ConditionalWeakTable<Verb, BurstCacheState> _burstCache = new ConditionalWeakTable<Verb, BurstCacheState>();
+
+        // 在原版初始化本轮剩余发数前锁定数量。
         [HarmonyPatch(typeof(Verb), nameof(Verb.WarmupComplete))]
         [HarmonyPrefix]
         public static void LockCount(Verb __instance)
         {
-            if (__instance.loadID == null) return;
+            if (_burstCache.TryGetValue(__instance, out var cached))
+                cached.IsValid = false;
+
             if (ShouldModify(__instance, out var pawn, out var weapon))
             {
                 var mode = pawn.VFM_GetFireMode();
                 var weaponDefName = weapon.def.defName;
+                // 先使旧值失效，再通过公共 getter 保留原版武器词条及其他 Mod 的修正。
                 var m = FireModeDB.GetBurstCount(mode, __instance.BurstShotCount, weaponDefName);
-                // 锁定数值
-                _burstCache[__instance.loadID] = Mathf.Max(1, m);
+                cached ??= _burstCache.GetValue(__instance, static _ => new BurstCacheState());
+                cached.Count = Mathf.Max(1, m);
+                cached.IsValid = true;
             }
         }
 
@@ -38,13 +48,10 @@ namespace VFM_VanillaFireModes.Patches
         [HarmonyPostfix]
         public static void BurstShotCountPostFix(Verb __instance, ref int __result)
         {
-            if (__instance.loadID == null) return;
-            if (ShouldModify(__instance, out _, out _))
+            if (_burstCache.TryGetValue(__instance, out var cached) && cached.IsValid &&
+                ShouldModify(__instance, out _, out _))
             {
-                if (_burstCache.TryGetValue(__instance.loadID, out var cached))
-                {
-                    __result = Mathf.Max(1, cached);
-                }
+                __result = cached.Count;
             }
         }
 
@@ -52,10 +59,10 @@ namespace VFM_VanillaFireModes.Patches
         [HarmonyPostfix]
         public static void Postfix_Cleanup(Verb __instance)
         {
-            if (__instance.loadID == null) return;
-            if (_burstCache.ContainsKey(__instance.loadID) && __instance.state != VerbState.Bursting)
+            if (__instance.state != VerbState.Bursting &&
+                _burstCache.TryGetValue(__instance, out var cached) && cached.IsValid)
             {
-                _burstCache.Remove(__instance.loadID);
+                cached.IsValid = false;
             }
         }
 
