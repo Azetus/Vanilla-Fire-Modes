@@ -19,5 +19,8 @@ public static class VFM_StatPatcher
 
         if (!stat.parts.Any(p => p is T))
             stat.parts.Add(part);
+
+        stat.immutable = stat.IsImmutable();
+        stat.Worker.SetCacheability(stat.immutable);
     }
 }
